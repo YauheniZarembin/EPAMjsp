@@ -1,10 +1,11 @@
 package com.zarembin.epampjsp.run;
 
-import com.zarembin.epampjsp.dao.AuthenticationDAO;
+
+import com.zarembin.epampjsp.logic.UserReceiver;
 
 public class Main {
     public static void main(String[] args) {
-        AuthenticationDAO authenticationDAO = new AuthenticationDAO();
-        System.out.println("отвeт " + authenticationDAO.authenticateUser("rak","qwe7"));
+        UserReceiver userReceiver = new UserReceiver();
+        System.out.println("отвeт " + userReceiver.checkUser("rak","qwe7"));
     }
 }
