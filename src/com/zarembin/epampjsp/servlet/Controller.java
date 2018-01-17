@@ -35,7 +35,7 @@ public class Controller extends HttpServlet {
          * вызов реализованного метода execute() и передача параметров
          * классу-обработчику конкретной команды
          */
-        page = command. execute(request);
+        page = command.execute(request);
         // метод возвращает страницу ответа
         //page = null; // поэксперементировать!
         if (page != null) {
