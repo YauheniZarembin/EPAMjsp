@@ -26,7 +26,7 @@ public class LoginCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.main");
         }
         else {
-            request.setAttribute("errorLoginPassMessage",
+            request.setAttribute("Message",
                     MessageManager.getProperty("message.loginerror"));
             page = ConfigurationManager.getProperty("path.page.login");
         }

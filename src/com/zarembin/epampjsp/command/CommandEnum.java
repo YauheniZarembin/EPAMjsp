@@ -15,7 +15,14 @@ public enum CommandEnum {
         {
             this.command = new LogoutCommand();
         }
+    },
+    SIGNUP{
+        {
+
+            this.command = new SignupCommand(new UserReceiver());
+        }
     };
+
     ActionCommand command;
     public ActionCommand getCurrentCommand() {
         return command;

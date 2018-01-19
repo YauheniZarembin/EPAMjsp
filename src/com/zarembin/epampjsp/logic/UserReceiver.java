@@ -1,42 +1,21 @@
 package com.zarembin.epampjsp.logic;
 
-import com.zarembin.epampjsp.proxy.ConnectionPool;
-import com.zarembin.epampjsp.proxy.ProxyConnection;
+import com.zarembin.epampjsp.dao.AuthenticationDAO;
+import com.zarembin.epampjsp.dao.RegistrationDAO;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class UserReceiver
 {
-    public static final String SQL_SELECT_USER =
-            "SELECT * FROM cafedb.autуntification_info WHERE user_name =? AND password =?";
+
 
     public boolean checkUser(String login, String password) {
-        ProxyConnection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet;
-        try {
-            connection = ConnectionPool.getInstance().getConnection();
-            preparedStatement  = connection.prepareStatement(SQL_SELECT_USER);
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
-                }
-            }
-        }
-        return false;
+        AuthenticationDAO authenticationDAO = new AuthenticationDAO();
+        return authenticationDAO.checkUser(login,password);
     }
 
+
+    public boolean registrationUser(String userName, String password,String name,String lastname,String email,String cardNumber){
+        RegistrationDAO registrationDAO = new RegistrationDAO();
+        return registrationDAO.insertNewUser(userName,password,name,lastname,email,cardNumber);
+    }
 }

@@ -11,6 +11,7 @@ public class LogoutCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         String page = ConfigurationManager.getProperty("path.page.index");
         // уничтожение сессии
+        System.out.println("LOGOUT");
         request.getSession().invalidate();
         return page;
     }
