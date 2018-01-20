@@ -1,8 +1,10 @@
 package com.zarembin.epampjsp.command;
 
-import com.zarembin.epampjsp.logic.UserReceiver;
+import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
+import com.zarembin.epampjsp.service.SignUpService;
+import com.zarembin.epampjsp.validator.InputTextValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,9 +17,9 @@ public class SignupCommand implements ActionCommand{
     private static final String PARAM_EMAIL = "email";
     private static final String PARAM_CARD_NUMBER = "card number";
 
-    private UserReceiver receiver;
+    private SignUpService receiver;
 
-    public SignupCommand(UserReceiver userReceiver){
+    public SignupCommand(SignUpService userReceiver){
         receiver = userReceiver;
     }
     @Override
@@ -29,19 +31,31 @@ public class SignupCommand implements ActionCommand{
         String lastname = request.getParameter(PARAM_LASTNAME);
         String email = request.getParameter(PARAM_EMAIL);
         String cardNumber = request.getParameter(PARAM_CARD_NUMBER);
-        // проверка логина и пароля
 
-        ////            validator!!!!!!!!!!!!!!!!!!
-        if (receiver.registrationUser(username,password,name,lastname,email,cardNumber)){
-            request.setAttribute("Message",
-                    MessageManager.getProperty("message.signupsucces"));
-            page = ConfigurationManager.getProperty("path.page.login");
-        }
+
+       if (receiver.checkUserData(username, password, name, lastname, email, cardNumber)) {
+           try {
+               if (receiver.singUpUserByEncryption(username, password, name, lastname, email, cardNumber)) {
+                   request.setAttribute("Message",
+                           MessageManager.getProperty("message.signupsucces"));
+                   page = ConfigurationManager.getProperty("path.page.login");
+               } else {
+                   request.setAttribute("errorMessage",
+                           MessageManager.getProperty("message.signuperror"));
+                   page = ConfigurationManager.getProperty("path.page.signup");
+               }
+           } catch (ServiceException e) {
+               request.setAttribute("errorMessage",
+                       MessageManager.getProperty("message.signuperror"));
+               page = ConfigurationManager.getProperty("path.page.signup");
+           }
+       }
         else {
             request.setAttribute("errorMessage",
                     MessageManager.getProperty("message.signuperror"));
             page = ConfigurationManager.getProperty("path.page.signup");
         }
+
         return page;
 
     }

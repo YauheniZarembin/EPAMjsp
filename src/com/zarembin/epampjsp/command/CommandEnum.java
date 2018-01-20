@@ -1,14 +1,13 @@
 package com.zarembin.epampjsp.command;
 
-import com.zarembin.epampjsp.command.ActionCommand;
-import com.zarembin.epampjsp.command.LoginCommand;
-import com.zarembin.epampjsp.command.LogoutCommand;
-import com.zarembin.epampjsp.logic.UserReceiver;
+
+import com.zarembin.epampjsp.service.LogInService;
+import com.zarembin.epampjsp.service.SignUpService;
 
 public enum CommandEnum {
     LOGIN {
         {
-            this.command = new LoginCommand(new UserReceiver());
+            this.command = new LoginCommand(new LogInService());
         }
     },
     LOGOUT {
@@ -19,7 +18,7 @@ public enum CommandEnum {
     SIGNUP{
         {
 
-            this.command = new SignupCommand(new UserReceiver());
+            this.command = new SignupCommand(new SignUpService());
         }
     };
 

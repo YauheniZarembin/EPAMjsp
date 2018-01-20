@@ -1,5 +1,6 @@
 package com.zarembin.epampjsp.dao;
 
+import com.zarembin.epampjsp.exception.DAOException;
 import com.zarembin.epampjsp.proxy.ConnectionPool;
 import com.zarembin.epampjsp.proxy.ProxyConnection;
 
@@ -18,7 +19,7 @@ public class RegistrationDAO {
     private final String SQL_INSERT_USER =
             "INSERT INTO `cafedb`.`personal_info` (user_name, password, is_admin, is_ban, `name`, last_name, loyalty_points, money, `e-mail`,number_of_orders, card_number) VALUES (?, ?, 0, 0, ?, ?, 0, 0, ?, 0, ?)";
 
-    public boolean insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) {
+    public boolean insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) throws DAOException {
         System.out.println("DA0DA0DAO");
         ProxyConnection connection = null;
         PreparedStatement preparedStatementInsertUser;
@@ -42,6 +43,7 @@ public class RegistrationDAO {
             preparedStatementCheckUserName = connection.prepareStatement(SQL_CHECK_USER_NAME);
             preparedStatementCheckUserName.setString(1, userName);
 
+            ////////   check e-mail
 
             resultSet = preparedStatementCheckUserName.executeQuery();
             if (!resultSet.next()) {
@@ -52,7 +54,7 @@ public class RegistrationDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e.getMessage(),e.getCause());
         } finally {
             if (connection != null) {
                 try {

@@ -1,5 +1,6 @@
 package com.zarembin.epampjsp.dao;
 
+import com.zarembin.epampjsp.exception.DAOException;
 import com.zarembin.epampjsp.proxy.ConnectionPool;
 import com.zarembin.epampjsp.proxy.ProxyConnection;
 
@@ -11,7 +12,7 @@ public class AuthenticationDAO {
     private final String SQL_SELECT_USER =
             "SELECT * FROM cafedb.personal_info WHERE user_name=? AND password =?";
 
-    public boolean checkUser(String login, String password) {
+    public boolean findUser(String login, String password) throws DAOException {
         ProxyConnection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet;
@@ -25,7 +26,7 @@ public class AuthenticationDAO {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e.getMessage(),e.getCause());
         } finally {
             if (connection != null) {
                 try {
