@@ -27,19 +27,26 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request,
                                 HttpServletResponse response)
             throws ServletException, IOException {
-        String page = null;
+        Router router;
 
         ActionFactory client = new ActionFactory();
         ActionCommand command = client.defineCommand(request);
 
-        page = command.execute(request);
+        router = command.execute(request);
         // метод возвращает страницу ответа
         //page = null; // поэксперементировать!
-        if (page != null) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-            dispatcher.forward(request, response);
+        if (router.getPagePath() != null) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(router.getPagePath());
+            switch (router.getRoute()){
+                case FORWARD:
+                    dispatcher.forward(request, response);
+                    break;
+                case REDIRECT:
+                    response.sendRedirect(request.getContextPath()+router.getPagePath());
+                    break;
+            }
         } else {
-            page = ConfigurationManager. getProperty("path.page.index");
+            String page = ConfigurationManager. getProperty("path.page.index");
             request.getSession().setAttribute("nullPage",
                     MessageManager. getProperty("message.nullpage"));
             response.sendRedirect(request.getContextPath() + page);

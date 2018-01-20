@@ -18,12 +18,4 @@ public class LogInService {
             throw new ServiceException(e.getMessage(),e.getCause());
         }
     }
-
-    public boolean checkUserData (String login, String password){
-        InputTextValidator inputTextValidator = new InputTextValidator();
-        return (inputTextValidator.isLogInValid(login) && inputTextValidator.isPasswordValid(password));
-    }
-
-
-
 }

@@ -4,6 +4,7 @@ import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
 import com.zarembin.epampjsp.service.SignUpService;
+import com.zarembin.epampjsp.servlet.Router;
 import com.zarembin.epampjsp.validator.InputTextValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,19 +24,21 @@ public class SignupCommand implements ActionCommand{
         receiver = userReceiver;
     }
     @Override
-    public String execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) {
+        Router router = new Router();
         String page;
-        String username = request.getParameter(PARAM_USER_NAME);
+        String userName = request.getParameter(PARAM_USER_NAME);
         String password = request.getParameter(PARAM_PASSWORD);
         String name = request.getParameter(PARAM_NAME);
         String lastname = request.getParameter(PARAM_LASTNAME);
         String email = request.getParameter(PARAM_EMAIL);
         String cardNumber = request.getParameter(PARAM_CARD_NUMBER);
 
-
-       if (receiver.checkUserData(username, password, name, lastname, email, cardNumber)) {
+        InputTextValidator inputTextValidator = new InputTextValidator();
+        if (inputTextValidator.isPasswordValid(password)&& inputTextValidator.isLogInValid(userName)
+               && inputTextValidator.isEmailValid(email) && inputTextValidator.isCardNumberValid(cardNumber)) {
            try {
-               if (receiver.singUpUserByEncryption(username, password, name, lastname, email, cardNumber)) {
+               if (receiver.singUpUserByEncryption(userName, password, name, lastname, email, cardNumber)) {
                    request.setAttribute("Message",
                            MessageManager.getProperty("message.signupsucces"));
                    page = ConfigurationManager.getProperty("path.page.login");
@@ -56,7 +59,8 @@ public class SignupCommand implements ActionCommand{
             page = ConfigurationManager.getProperty("path.page.signup");
         }
 
-        return page;
+        router.setPagePath(page);
+        return router;
 
     }
 }

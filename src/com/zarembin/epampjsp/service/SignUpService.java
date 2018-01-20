@@ -19,10 +19,4 @@ public class SignUpService {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
     }
-
-    public boolean checkUserData(String userName, String password, String name, String lastname, String email, String cardNumber){
-        InputTextValidator inputTextValidator = new InputTextValidator();
-        return inputTextValidator.isPasswordValid(password)&& inputTextValidator.isLogInValid(userName)
-                && inputTextValidator.isEmailValid(email) && inputTextValidator.isCardNumberValid(cardNumber);
-    }
 }
