@@ -1,53 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="${changeLanguage}"/>
+<fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html><head>
     <title>Welcome</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+    <style>
+        @import "/css/style1.css";
+    </style>
 <body>
 
-<form name="loginForm" method="POST" action="/controller">
+<header>
+    <form name="localeForm" method="POST" action="/controller">
+        <input type="hidden" name="command" value="locale" />
+        <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
+        <input type="submit" value=<fmt:message key="label.buttonlanguage" bundle="${var}"/> />
+    </form>
+</header>
+
+<form  name="loginForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="signup" />
-    <table cellspacing="5" cellpadding="5">
+    <table align="center" class="whiteback">
         <tr>
-            <td colspan="2">
-                <h1> Enter your personal information </h1>
-            </td>
+            <td colspan="3" align="center"><b><h1><fmt:message key="label.signuphead" bundle="${var}"/></h1></b></td>
         </tr>
 
         <tr>
-            <td align="right" valign="top">Enter user_name</td>
+            <td><fmt:message key="label.login" bundle="${var}"/></td>
             <td><input type="text" name="username" value=""></td>
         </tr>
         <tr>
-            <td align="right" valign="top">Enter password</td>
+            <td ><fmt:message key="label.password" bundle="${var}"/></td>
             <td><input type="password" name="password" value=""></td>
+            <td ><fmt:message key="label.passwordcondition" bundle="${var}"/></td>
         </tr>
         <tr>
-            <td align="right" valign="top"> </td>
-            <td align="right" valign="top">Password should contain numbers and letters.</td>
-        </tr>
-        <tr>
-            <td align="right" valign="top">Enter name</td>
+            <td><fmt:message key="label.singupname" bundle="${var}"/></td>
             <td><input type="text" name="name" value=""></td>
         </tr>
         <tr>
-            <td align="right" valign="top">Enter lastname</td>
+            <td><fmt:message key="label.signuplastname" bundle="${var}"/></td>
             <td><input type="text" name="lastname" value=""></td>
         </tr>
         <tr>
-            <td align="right" valign="top">Enter EMail</td>
+            <td ><fmt:message key="label.signupemail" bundle="${var}"/></td>
             <td><input type="text" name="email" value=""></td>
         </tr>
         <tr>
-            <td align="right" valign="top">Enter Card number</td>
+            <td ><fmt:message key="label.signupcardnumber" bundle="${var}"/></td>
             <td><input type="text" name="card number" value=""></td>
-        </tr>
-        <tr>
-            <td align="right" valign="top"> </td>
-            <td align="right" valign="top">Card should be in bank</td>
+            <td ><fmt:message key="label.cardnumbercondition" bundle="${var}"/></td>
         </tr>
         <br/>
         ${errorMessage}
     </table>
-    <input type="submit" value="SIGN UP">
+    <input type="submit" value="<fmt:message key="label.buttonsignup" bundle="${var}"/>">
+    <input type="button" value="<fmt:message key="label.back" bundle="${var}"/>" onClick='location.href="/jsp/login.jsp"'>
 </form><hr/>
+<c:import url="../jsp/common/footer.jsp" />
 </body></html>

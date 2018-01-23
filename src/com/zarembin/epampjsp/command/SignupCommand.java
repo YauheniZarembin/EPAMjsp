@@ -17,6 +17,8 @@ public class SignupCommand implements ActionCommand{
     private static final String PARAM_LASTNAME = "lastname";
     private static final String PARAM_EMAIL = "email";
     private static final String PARAM_CARD_NUMBER = "card number";
+    private static final String PARAM_ERROR_MESSAGE = "errorMessage";
+    private static final String PARAM_MESSAGE = "Message";
 
     private SignUpService receiver;
 
@@ -33,29 +35,30 @@ public class SignupCommand implements ActionCommand{
         String lastname = request.getParameter(PARAM_LASTNAME);
         String email = request.getParameter(PARAM_EMAIL);
         String cardNumber = request.getParameter(PARAM_CARD_NUMBER);
+        MessageManager messageManager = MessageManager.defineLocale(request);
 
         InputTextValidator inputTextValidator = new InputTextValidator();
         if (inputTextValidator.isPasswordValid(password)&& inputTextValidator.isLogInValid(userName)
                && inputTextValidator.isEmailValid(email) && inputTextValidator.isCardNumberValid(cardNumber)) {
            try {
                if (receiver.singUpUserByEncryption(userName, password, name, lastname, email, cardNumber)) {
-                   request.setAttribute("Message",
-                           MessageManager.getProperty("message.signupsucces"));
+                   request.setAttribute(PARAM_MESSAGE,
+                           messageManager.getMessage("message.signupsucces"));
                    page = ConfigurationManager.getProperty("path.page.login");
                } else {
-                   request.setAttribute("errorMessage",
-                           MessageManager.getProperty("message.signuperror"));
+                   request.setAttribute(PARAM_ERROR_MESSAGE,
+                           messageManager.getMessage("message.signuperror"));
                    page = ConfigurationManager.getProperty("path.page.signup");
                }
            } catch (ServiceException e) {
-               request.setAttribute("errorMessage",
-                       MessageManager.getProperty("message.signuperror"));
+               request.setAttribute(PARAM_ERROR_MESSAGE,
+                       messageManager.getMessage("message.signuperror"));
                page = ConfigurationManager.getProperty("path.page.signup");
            }
        }
         else {
-            request.setAttribute("errorMessage",
-                    MessageManager.getProperty("message.signuperror"));
+            request.setAttribute(PARAM_ERROR_MESSAGE,
+                    messageManager.getMessage("message.signuperror"));
             page = ConfigurationManager.getProperty("path.page.signup");
         }
 

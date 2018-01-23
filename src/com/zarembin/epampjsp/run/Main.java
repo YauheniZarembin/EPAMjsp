@@ -1,8 +1,14 @@
 package com.zarembin.epampjsp.run;
 
 import com.zarembin.epampjsp.dao.MenuDAO;
+import com.zarembin.epampjsp.encryptor.Encryption;
+import com.zarembin.epampjsp.entity.TypeOfDish;
 import com.zarembin.epampjsp.exception.DAOException;
+import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.validator.InputTextValidator;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +16,7 @@ public class Main {
         String password = "fdkml_gtrt";
         String card = "4326";
         String email = "ovf@mai6l.ru";
+        String e = "http://localhost:8081/jsp/login.jsp";
 
         InputTextValidator inputTextValidator = new InputTextValidator();
         System.out.println(inputTextValidator.isLogInValid(user_name));
@@ -18,10 +25,13 @@ public class Main {
         System.out.println(inputTextValidator.isEmailValid(email));
 
 
-        MenuDAO menuDAO = new MenuDAO();
+        Encryption encryption = new Encryption();
         try {
-            System.out.println(menuDAO.findAllDishes());
-        } catch (DAOException e) {
+            System.out.println(encryption.encrypt("qwe"));
+        } catch (ServiceException e1) {
+            e1.printStackTrace();
         }
+
+
     }
 }

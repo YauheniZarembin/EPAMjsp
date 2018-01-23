@@ -1,0 +1,19 @@
+body{
+    text-align: left;
+    background: url(/resource/image/fon1.jpg) no-repeat;
+    background-size: 100%;
+}
+
+.whiteback{
+    background-color: rgba(255,255,255,0.6);
+}
+
+header{
+    background-color: black;
+    color: white;
+}
+
+footer{
+    background-color: black;
+    color: white;
+}

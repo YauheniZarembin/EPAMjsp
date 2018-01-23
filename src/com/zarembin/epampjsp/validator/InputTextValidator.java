@@ -17,9 +17,7 @@ public class InputTextValidator {
         Pattern p = Pattern.compile(REG_EX_USER_NAME);
         Matcher m = p.matcher(login);
         return m.matches();
-
     }
-
     public boolean isPasswordValid(String password){
         if ((password==null) || (password.isEmpty())){
             return false;
@@ -27,9 +25,7 @@ public class InputTextValidator {
         Pattern p = Pattern.compile(REG_EX_PASSWORD);
         Matcher m = p.matcher(password);
         return m.matches();
-
     }
-
     public boolean isEmailValid(String eMail){
         if ((eMail==null) || (eMail.isEmpty())){
             return false;
@@ -47,6 +43,4 @@ public class InputTextValidator {
         Matcher m = p.matcher(cardNumber);
         return m.matches();
     }
-
-
 }

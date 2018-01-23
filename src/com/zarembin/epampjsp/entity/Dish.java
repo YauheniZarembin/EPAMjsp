@@ -5,13 +5,13 @@ import java.time.LocalTime;
 
 public class Dish extends Entity{
     private String dishName;
-    private String  typeOfDish; /// изменить на ENUM
+    private TypeOfDish typeOfDish;
     private BigDecimal price;
     private LocalTime cookingTime;
     private int maxNumberOfServings;
     private String imagePath;
 
-    public Dish(String dishName, String typeOfDish, BigDecimal price, LocalTime cookingTime, int maxNumberOfServings, String imagePath) {
+    public Dish(String dishName, TypeOfDish typeOfDish, BigDecimal price, LocalTime cookingTime, int maxNumberOfServings, String imagePath) {
         this.dishName = dishName;
         this.typeOfDish = typeOfDish;
         this.price = price;
@@ -28,11 +28,11 @@ public class Dish extends Entity{
         this.dishName = dishName;
     }
 
-    public String getTypeOfDish() {
+    public TypeOfDish getTypeOfDish() {
         return typeOfDish;
     }
 
-    public void setTypeOfDish(String typeOfDish) {
+    public void setTypeOfDish(TypeOfDish typeOfDish) {
         this.typeOfDish = typeOfDish;
     }
 
@@ -77,7 +77,7 @@ public class Dish extends Entity{
 
         if (maxNumberOfServings != dish.maxNumberOfServings) return false;
         if (dishName != null ? !dishName.equals(dish.dishName) : dish.dishName != null) return false;
-        if (typeOfDish != null ? !typeOfDish.equals(dish.typeOfDish) : dish.typeOfDish != null) return false;
+        if (typeOfDish != dish.typeOfDish) return false;
         if (price != null ? !price.equals(dish.price) : dish.price != null) return false;
         if (cookingTime != null ? !cookingTime.equals(dish.cookingTime) : dish.cookingTime != null) return false;
         return imagePath != null ? imagePath.equals(dish.imagePath) : dish.imagePath == null;
@@ -98,7 +98,7 @@ public class Dish extends Entity{
     public String toString() {
         return "Dish{" +
                 "dishName='" + dishName + '\'' +
-                ", typeOfDish='" + typeOfDish + '\'' +
+                ", typeOfDish=" + typeOfDish +
                 ", price=" + price +
                 ", cookingTime=" + cookingTime +
                 ", maxNumberOfServings=" + maxNumberOfServings +

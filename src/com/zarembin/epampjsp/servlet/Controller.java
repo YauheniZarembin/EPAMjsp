@@ -31,8 +31,8 @@ public class Controller extends HttpServlet {
 
         ActionFactory client = new ActionFactory();
         ActionCommand command = client.defineCommand(request);
-
         router = command.execute(request);
+        MessageManager messageManager = MessageManager.defineLocale(request);
         // метод возвращает страницу ответа
         //page = null; // поэксперементировать!
         if (router.getPagePath() != null) {
@@ -48,7 +48,7 @@ public class Controller extends HttpServlet {
         } else {
             String page = ConfigurationManager. getProperty("path.page.index");
             request.getSession().setAttribute("nullPage",
-                    MessageManager. getProperty("message.nullpage"));
+                    messageManager.getMessage("message.nullpage"));
             response.sendRedirect(request.getContextPath() + page);
         }
     }

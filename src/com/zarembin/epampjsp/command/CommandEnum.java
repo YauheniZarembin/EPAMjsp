@@ -20,7 +20,13 @@ public enum CommandEnum {
 
             this.command = new SignupCommand(new SignUpService());
         }
+    },
+    LOCALE{
+        {
+            this.command = new I18nCommand();
+        }
     };
+
 
     ActionCommand command;
     public ActionCommand getCurrentCommand() {
