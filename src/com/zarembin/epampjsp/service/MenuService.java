@@ -28,4 +28,13 @@ public class MenuService {
         }
     }
 
+    public Dish findDishByName(String dishName) throws ServiceException {
+        MenuDAO menuDAO = new MenuDAO();
+        try {
+            return menuDAO.findDishByName(dishName);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+    }
+
 }

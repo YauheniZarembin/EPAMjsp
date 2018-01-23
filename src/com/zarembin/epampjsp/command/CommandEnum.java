@@ -2,6 +2,7 @@ package com.zarembin.epampjsp.command;
 
 
 import com.zarembin.epampjsp.service.LogInService;
+import com.zarembin.epampjsp.service.MenuService;
 import com.zarembin.epampjsp.service.SignUpService;
 
 public enum CommandEnum {
@@ -17,13 +18,22 @@ public enum CommandEnum {
     },
     SIGNUP{
         {
-
             this.command = new SignupCommand(new SignUpService());
         }
     },
     LOCALE{
         {
             this.command = new I18nCommand();
+        }
+    },
+    TYPEOFDISH {
+        {
+            this.command = new MenuCommand(new MenuService());
+        }
+    },
+    ADD_DISH{
+        {
+            this.command = new AddDishCommand(new MenuService());
         }
     };
 

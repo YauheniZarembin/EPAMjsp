@@ -25,13 +25,6 @@ public class Main {
         System.out.println(inputTextValidator.isEmailValid(email));
 
 
-        Encryption encryption = new Encryption();
-        try {
-            System.out.println(encryption.encrypt("qwe"));
-        } catch (ServiceException e1) {
-            e1.printStackTrace();
-        }
-
 
     }
 }

@@ -6,16 +6,12 @@
 <html><head>
     <title>Welcome</title>
     <style>
-        @import "/css/style1.css";
+        @import "/css/style.css";
     </style>
 <body>
 
 <header>
-    <form name="localeForm" method="POST" action="/controller">
-        <input type="hidden" name="command" value="locale" />
-        <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
-        <input type="submit" value=<fmt:message key="label.buttonlanguage" bundle="${var}"/> />
-    </form>
+    <c:import url="../jsp/common/header.jsp" />
 </header>
 
 <form  name="loginForm" method="POST" action="/controller">
@@ -51,8 +47,10 @@
             <td><input type="text" name="card number" value=""></td>
             <td ><fmt:message key="label.cardnumbercondition" bundle="${var}"/></td>
         </tr>
+        <tr>
+            <td colspan="2" align="center" >${errorMessage}</td>
+        </tr>
         <br/>
-        ${errorMessage}
     </table>
     <input type="submit" value="<fmt:message key="label.buttonsignup" bundle="${var}"/>">
     <input type="button" value="<fmt:message key="label.back" bundle="${var}"/>" onClick='location.href="/jsp/login.jsp"'>

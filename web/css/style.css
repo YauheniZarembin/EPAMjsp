@@ -1,0 +1,32 @@
+.whiteback{
+    background-color: rgba(255,255,255,0.8);
+    table-layout: fixed;
+}
+
+.whiteheader{
+    color: white;
+    table-layout: fixed;
+}
+
+body {
+    height: 100%;
+    background: url(/resource/image/fon1.jpg) no-repeat;
+    background-size: 100%;
+    background-attachment: fixed;
+    padding-bottom: 90px
+}
+
+header{
+    background-color: black;
+    color: white;
+}
+
+footer {
+    background-color: black;
+    color: white;
+}
+
+.parent
+{
+    display: inline-block;
+}

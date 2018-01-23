@@ -9,6 +9,7 @@ public class ActionFactory {
         MessageManager messageManager = MessageManager.defineLocale(request);
         ActionCommand current = new EmptyCommand();
         String action = request.getParameter("command");
+        System.out.println(action);
         if (action == null || action.isEmpty()) {
             return current;
         }

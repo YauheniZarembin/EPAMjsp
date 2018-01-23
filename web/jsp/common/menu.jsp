@@ -15,17 +15,36 @@
     <title>Title</title>
 </head>
 <body>
-
-    <table width="100%"  border="1" align="center" class="whiteback">
+    <table width="100%"  border="1"  class="whiteback">
         <tr>
             <td colspan="5" align="center"><b><h1><fmt:message key="label.menu" bundle="${var}"/></h1></b></td>
         </tr>
         <tr  align="center">
-            <td><b><fmt:message key="label.soup" bundle="${var}"/></b></td>
-            <td><b><fmt:message key="label.sidedish" bundle="${var}"/></b></td>
-            <td><b><fmt:message key="label.basic" bundle="${var}"/></b></td>
-            <td><b><fmt:message key="label.dessert" bundle="${var}"/></b></td>
-            <td><b><fmt:message key="label.drink" bundle="${var}"/></b></td>
+            <form name="localeForm" method="POST" action="/controller">
+                <input type="hidden" name="command" value="typeOfDish"/>
+                <input type="hidden" name="dishType" value="soup"/>
+                <td><input type="submit" value="<fmt:message key="label.soup" bundle="${var}"/>"/></td>
+            </form>
+            <form name="localeForm" method="POST" action="/controller">
+                <input type="hidden" name="command" value="typeOfDish"/>
+                <input type="hidden"  name="dishType" value="basic"/>
+                <td><input type="submit" value="<fmt:message key="label.basic" bundle="${var}"/>"/></td>
+            </form>
+            <form name="localeForm" method="POST" action="/controller">
+                <input type="hidden" name="command" value="typeOfDish"/>
+                <input type="hidden"  name="dishType" value="side_dish" />
+                <td><input type="submit" value="<fmt:message key="label.sidedish" bundle="${var}"/>"/></td>
+            </form>
+            <form name="localeForm" method="POST" action="/controller">
+                <input type="hidden" name="command" value="typeOfDish"/>
+                <input type="hidden"   name="dishType" value="dessert" />
+                <td><input type="submit" value="<fmt:message key="label.dessert" bundle="${var}"/>"/></td>
+            </form>
+            <form name="localeForm" method="POST" action="/controller">
+                <input type="hidden" name="command" value="typeOfDish"/>
+                <input type="hidden"  name="dishType" value="drink" />
+                <td><input type="submit" value="<fmt:message key="label.drink" bundle="${var}"/>"/></td>
+            </form>
         </tr>
     </table>
 </body>

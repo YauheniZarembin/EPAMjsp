@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class I18nCommand implements ActionCommand {
     private final String REG_EX_JSP = "/jsp.+";
     private static final String PARAM_CHANGE_LANGUAGE = "changeLanguage";
-    private static final String PARAM_NAME_USER_TYPE = "pagePath";
+    private static final String PARAM_PAGE_PATH = "pagePath";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -29,7 +29,7 @@ public class I18nCommand implements ActionCommand {
 
         String page = null;
         Pattern p = Pattern.compile(REG_EX_JSP);
-        Matcher m = p.matcher(request.getParameter(PARAM_NAME_USER_TYPE));
+        Matcher m = p.matcher(request.getParameter(PARAM_PAGE_PATH));
         if(m.find()){
             page = m.group();
         }

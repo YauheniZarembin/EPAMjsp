@@ -7,19 +7,15 @@
 <head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style1.css";
+        @import "/css/style.css";
     </style>
 </head>
+<div class="wrapper">
 <body>
 <header>
-    <h1><fmt:message key="label.starthead" bundle="${var}"/></h1>
-    <form name="localeForm" method="POST" action="/controller">
-        <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}"/>
-        <input type="hidden" name="command" value="locale"/>
-        <input type="submit" value="<fmt:message key="label.buttonlanguage" bundle="${var}"/>" />
-    </form>
+    <c:import url="../jsp/common/header.jsp" />
 </header>
-<div class="whiteback">
+<div class="whiteback" >
 <form name="loginForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="login"/>
     <fmt:message key="label.login" bundle="${var}"/><span class="req">*</span><br/>
@@ -40,4 +36,5 @@
 <hr/>
 <c:import url="../jsp/common/footer.jsp"/>
 </body>
+    </div>
 </html>

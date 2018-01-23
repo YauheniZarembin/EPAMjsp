@@ -14,7 +14,7 @@
 <head>
     <title>Admin page</title>
     <style>
-        @import "/css/style1.css";
+        @import "/css/style.css";
     </style>
     <h1><fmt:message key="label.adminhead" bundle="${var}"/></h1>
 </head>

@@ -5,11 +5,12 @@
 <fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html><head>
     <style>
-        @import "/css/style1.css";
+        @import "/css/style.css";
     </style>
     <title>Error Page</title>
 </head>
 <body>
+<c:import url="../jsp/common/header.jsp" />
 Request from ${pageContext.errorData.requestURI} is failed
 <br/>
 Servlet name or type: ${pageContext.errorData.servletName}
