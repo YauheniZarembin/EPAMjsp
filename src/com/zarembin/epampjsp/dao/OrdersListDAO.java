@@ -1,37 +1,37 @@
 package com.zarembin.epampjsp.dao;
 
-import com.zarembin.epampjsp.entity.User;
+import com.zarembin.epampjsp.entity.Order;
 import com.zarembin.epampjsp.exception.DAOException;
 import com.zarembin.epampjsp.proxy.ConnectionPool;
 import com.zarembin.epampjsp.proxy.ProxyConnection;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserListDAO {
-    private final String SQL_SELECT_USERS =
-            "SELECT user_name,password,is_admin,is_ban,name,last_name,loyalty_points,money,`e-mail`,number_of_orders,card_number FROM cafedb.personal_info;";
+public class OrdersListDAO {
+
+    private final String SQL_SELECT_ORDERS =
+            "SELECT id_order, user_name, date_of_receiving,is_cash_payment FROM cafedb.orders;";
 
 
-    public List<User> findAllUsers() throws DAOException {
+    public List<Order> findAllOrders() throws DAOException {
 
-        List<User> listUsers = new ArrayList<>();
+        List<Order> listOrders = new ArrayList<>();
         ProxyConnection connection = null;
         Statement statement;
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(SQL_SELECT_USERS);
+            resultSet = statement.executeQuery(SQL_SELECT_ORDERS);
             while (resultSet.next()) {
-                listUsers.add(new User(resultSet.getString(1), resultSet.getString(2),
-                        "1".equals(resultSet.getString(3)),"1".equals(resultSet.getString(4)),
-                        resultSet.getString(5),resultSet.getString(6),resultSet.getInt(7),
-                        resultSet.getBigDecimal(8),resultSet.getString(9),resultSet.getInt(10),
-                        resultSet.getString(11)));
+                listOrders.add(new Order(resultSet.getInt(1), resultSet.getString(2),
+                        LocalDateTime.of(resultSet.getDate(3).toLocalDate(),resultSet.getTime(3).toLocalTime())
+                        ,"1".equals(resultSet.getString(4))));
             }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
@@ -44,6 +44,6 @@ public class UserListDAO {
                 }
             }
         }
-        return listUsers;
+        return listOrders;
     }
 }

@@ -18,6 +18,7 @@
 <header>
     <table width="100%" class="whiteheader">
         <tr  align="center">
+            <c:if test="${not empty user}">
             <td>
                 <table class="whiteback" height="5">
                     <tr>
@@ -30,10 +31,20 @@
                     </tr>
                 </table>
             </td>
-            <td><fmt:message key="label.headermenu" bundle="${var}"/></td>
-            <td><fmt:message key="label.headercontacts" bundle="${var}"/></td>
-            <td><fmt:message key="label.headeraboutus" bundle="${var}"/></td>
-            <td><fmt:message key="label.headerreviews" bundle="${var}"/></td>
+            </c:if>
+            <c:if test="${empty user}">
+                <td align="left"><b><h2><fmt:message key="label.epamcafewelcome" bundle="${var}"/></h2></b></td>
+            </c:if>
+            <c:if test="${empty user}">
+                <td><a href='/jsp/login.jsp' style="color: white"><fmt:message key="label.entersite" bundle="${var}"/></a></td>
+            </c:if>
+            <td><a href='/jsp/main.jsp' style="color: white"><fmt:message key="label.headermenu" bundle="${var}"/></a></td>
+            <td><a href='/jsp/contacts.jsp' style="color: white"><fmt:message key="label.headercontacts" bundle="${var}"/></a></td>
+            <td><a href='/jsp/aboutUs.jsp' style="color: white"><fmt:message key="label.headeraboutus" bundle="${var}"/></a></td>
+            <form name="localeForm4" method="POST" action="/controller">
+                <input type="hidden" name="command" value="user_reviews"/>
+                <td><a href='#' style="color: white" onClick="document.forms['localeForm4'].submit();"><fmt:message key="label.headerreviews" bundle="${var}"/></a></td>
+            </form>
             <td>
                 <form name="localeForm" method="POST" action="/controller">
                     <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />

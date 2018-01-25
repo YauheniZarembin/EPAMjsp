@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class I18nCommand implements ActionCommand {
-    private final String REG_EX_JSP = "/jsp.+";
+    private static final String REG_EX_JSP = "/jsp.+";
     private static final String PARAM_CHANGE_LANGUAGE = "changeLanguage";
     private static final String PARAM_PAGE_PATH = "pagePath";
 

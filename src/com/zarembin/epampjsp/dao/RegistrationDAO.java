@@ -20,7 +20,6 @@ public class RegistrationDAO {
             "INSERT INTO `cafedb`.`personal_info` (user_name, password, is_admin, is_ban, `name`, last_name, loyalty_points, money, `e-mail`,number_of_orders, card_number) VALUES (?, ?, 0, 0, ?, ?, 0, 0, ?, 0, ?)";
 
     public boolean insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) throws DAOException {
-        System.out.println("DA0DA0DAO");
         ProxyConnection connection = null;
         PreparedStatement preparedStatementInsertUser;
         PreparedStatement preparedStatementCheckCardNumber;

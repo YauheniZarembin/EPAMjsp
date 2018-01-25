@@ -22,28 +22,30 @@
     <tr>
         <td><fmt:message key="label.dishname" bundle="${var}"/></td>
         <td><fmt:message key="label.dishprice" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishcookingtime" bundle="${var}"/></td>
         <td><fmt:message key="label.dishpictire" bundle="${var}"/></td>
     </tr>
     <c:forEach items="${dishes}" var="dish">
         <tr>
             <td>${dish.dishName}</td>
             <td>${dish.price}</td>
-            <td>${dish.cookingTime}</td>
             <td><img src="${dish.imagePath}" height="100" width="100" border="2px"></td>
 
+            <c:if test="${not empty user}">
             <form name="localeForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="add_Dish"/>
                 <input type="hidden" name="choosenDish" value="${dish.dishName}"/>
                 <td><input type="submit" value="<fmt:message key="label.dishorder" bundle="${var}"/>" ></td>
             </form>
+            </c:if>
         </tr>
     </c:forEach>
     </table>
     </td>
+        <c:if test="${not empty user}">
             <td valign="top" width="25%">
                 <c:import url="../jsp/common/order.jsp" />
             </td>
+        </c:if>
     </tr>
 </table>
 <form name="loginForm" method="POST" action="/controller">

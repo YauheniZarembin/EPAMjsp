@@ -53,7 +53,8 @@
         <br/>
     </table>
     <input type="submit" value="<fmt:message key="label.buttonsignup" bundle="${var}"/>">
-    <input type="button" value="<fmt:message key="label.back" bundle="${var}"/>" onClick='location.href="/jsp/login.jsp"'>
-</form><hr/>
+</form>
+<input type="button" value="<fmt:message key="label.back" bundle="${var}"/>" onClick='location.href="/jsp/login.jsp"'>
+<hr/>
 <c:import url="../jsp/common/footer.jsp" />
 </body></html>

@@ -3,7 +3,7 @@ package com.zarembin.epampjsp.command;
 import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
-import com.zarembin.epampjsp.service.SignUpService;
+import com.zarembin.epampjsp.service.UserService;
 import com.zarembin.epampjsp.servlet.Router;
 import com.zarembin.epampjsp.validator.InputTextValidator;
 
@@ -20,9 +20,9 @@ public class SignupCommand implements ActionCommand{
     private static final String PARAM_ERROR_MESSAGE = "errorMessage";
     private static final String PARAM_MESSAGE = "Message";
 
-    private SignUpService receiver;
+    private UserService receiver;
 
-    public SignupCommand(SignUpService userReceiver){
+    public SignupCommand(UserService userReceiver){
         receiver = userReceiver;
     }
     @Override

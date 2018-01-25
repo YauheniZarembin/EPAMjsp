@@ -1,20 +1,18 @@
 package com.zarembin.epampjsp.command;
 
-import com.zarembin.epampjsp.entity.TypeOfDish;
 import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
-import com.zarembin.epampjsp.service.MenuService;
+import com.zarembin.epampjsp.service.AdminService;
 import com.zarembin.epampjsp.servlet.Router;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class MenuCommand implements ActionCommand {
+public class UserListCommand implements ActionCommand {
 
-    private MenuService receiver;
-    private static final String PARAM_DISH_TYPE = "dishType";
-    private static final String PARAM_DISHES = "dishes";
+    private static final String PARAM_USERS = "users";
+    private AdminService receiver;
 
-    public MenuCommand(MenuService receiver) {
+    public UserListCommand(AdminService receiver) {
         this.receiver = receiver;
     }
 
@@ -22,17 +20,15 @@ public class MenuCommand implements ActionCommand {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         String page;
-        TypeOfDish typeOfDish = TypeOfDish.valueOf((request.getParameter(PARAM_DISH_TYPE)).toUpperCase());
         try {
-            request.getSession().setAttribute(PARAM_DISHES,receiver.findDishesByType(typeOfDish));
+            request.getSession().setAttribute(PARAM_USERS,receiver.findAllUsers());
         } catch (ServiceException e) {
             ////////    как ошибку отправлять Forfard или REDIRECT
             page = ConfigurationManager.getProperty("path.page.login");
             router.setPagePath(page);
             return router;
         }
-
-        page = ConfigurationManager.getProperty("path.page.main");
+        page = ConfigurationManager.getProperty("path.page.adminUsers");
         router.setPagePath(page);
         return router;
     }
