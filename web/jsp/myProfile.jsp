@@ -49,14 +49,18 @@
         <b><fmt:message key="label.cardnumber" bundle="${var}"/>:</b>      ${user.cardNumber}
     </p>
 
+    <table>
     <form name="loginForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="top_up"/>
-
-        <fmt:message key="label.cardpassword" bundle="${var}"/><span class="req">*</span></td>
-        <input type="password" name="password" value=""/>
-        <input type="submit" value="<fmt:message key="label.topup" bundle="${var}"/>"/>
-
+        <tr><td> <fmt:message key="label.cardpassword" bundle="${var}"/><span class="req">*</span></td>
+        <td><input type="password" name="cardPassword" value=""/></td></tr>
+        <tr><td> <fmt:message key="label.cardmoney" bundle="${var}"/><span class="req">*</span></td>
+            <td><input type="text" name="newMoney" value=""/></td></tr>
+        <tr> <td colspan="2"> ${Message} </td></tr>
+        <tr> <td> <input type="submit" value="<fmt:message key="label.topup" bundle="${var}"/>"/> </td></tr>
     </form>
+
+    </table>
 </div>
 
 

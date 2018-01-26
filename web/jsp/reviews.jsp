@@ -28,19 +28,43 @@
         <c:choose>
             <c:when test="${ review.mark > 7 }" >
                     <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
-                        <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
-                    <tr><td style="background-color: rgba(0,255,0,0.5)">${review.textReview}</td></tr>
+                        <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td>
+                   </tr>
+                    <tr><td style="background-color: rgba(0,255,0,0.5)">${review.textReview}</td>
+                    <c:if test="${user.userName eq review.userName}">
+                        <form name="localeForm" method="POST" action="/controller">
+                            <input type="hidden" name="command" value="delete_review"/>
+                            <input type="hidden"  name="reviewId" value=${review.reviewId} />
+                            <td><input type="image" src="/resource/image/cross.jpg" height="20" width="20"></td>
+                        </form>
+                    </c:if>
+                    </tr>
             </c:when>
             <c:when test="${ review.mark < 5 }" >
                     <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
                         <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
-                    <tr><td style="background-color: rgba(255,0,0,0.5)">${review.textReview}</td></tr>
+                     <tr><td style="background-color: rgba(255,0,0,0.5)">${review.textReview}</td>
+                         <c:if test="${user.userName eq review.userName}">
+                             <form name="localeForm" method="POST" action="/controller">
+                                 <input type="hidden" name="command" value="delete_review"/>
+                                 <input type="hidden"  name="reviewId" value=${review.reviewId} />
+                                 <td><input type="image" src="/resource/image/cross.jpg" height="20" width="20"></td>
+                             </form>
+                         </c:if></tr>
+
                 </div>
             </c:when>
             <c:otherwise>
                 <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
                     <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
-                <tr><td>${review.textReview}</td></tr>
+                <tr><td>${review.textReview}</td>
+                    <c:if test="${user.userName eq review.userName}">
+                        <form name="localeForm" method="POST" action="/controller">
+                            <input type="hidden" name="command" value="delete_review"/>
+                            <input type="hidden"  name="reviewId" value=${review.reviewId} />
+                            <td><input type="image" src="/resource/image/cross.jpg" height="20" width="20"></td>
+                        </form>
+                    </c:if></tr>
             </c:otherwise>
         </c:choose>
         <tr><td></td></tr>
@@ -57,7 +81,6 @@
         <tr><td></td></tr>
     </c:forEach>
     </table>
-
     <c:if test="${not empty user}">
         <h3><fmt:message key="label.givefeedback" bundle="${var}"/></h3>
         <form name="localeForm" id="addFormId" method="POST" action="/controller">
@@ -88,7 +111,6 @@
             <br>
         </form>
     </c:if>
-
 
 </div>
 <c:import url="../jsp/common/footer.jsp" />

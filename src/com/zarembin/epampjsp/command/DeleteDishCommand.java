@@ -30,7 +30,7 @@ public class DeleteDishCommand implements ActionCommand {
         String choosenDish = request.getParameter(PARAM_CHOOSEN_DISH);
 
         try {
-
+            ////////////////    скорее всего это надо в receiver
             Dish dish = receiver.findDishByName(choosenDish);
             if (orders.get(dish) == 1) {
                 orders.remove(dish);

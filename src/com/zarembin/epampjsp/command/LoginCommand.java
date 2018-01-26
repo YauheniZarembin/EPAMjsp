@@ -44,6 +44,7 @@ public class LoginCommand implements ActionCommand {
                         page = ConfigurationManager.getProperty("path.page.login");
                     }
                     else if(user.isAdmin()){
+                        request.getSession().setAttribute(PARAM_USER, user);
                         page = ConfigurationManager.getProperty("path.page.admin");
                     }
                     else {

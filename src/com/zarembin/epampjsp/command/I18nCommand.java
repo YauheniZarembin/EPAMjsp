@@ -13,9 +13,14 @@ public class I18nCommand implements ActionCommand {
     private static final String PARAM_CHANGE_LANGUAGE = "changeLanguage";
     private static final String PARAM_PAGE_PATH = "pagePath";
 
+
+
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
+
+        ////////////////    скорее всего это надо в receiver
+
         if (request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE) == null){
             request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE , "ru_RU");
         }

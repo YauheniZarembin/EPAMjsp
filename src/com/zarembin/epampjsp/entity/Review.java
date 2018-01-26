@@ -1,14 +1,24 @@
 package com.zarembin.epampjsp.entity;
 
 public class Review extends Entity{
+    private int reviewId;
     private String userName;
     private int mark;
     private String textReview;
 
-    public Review(String userName, int mark, String textReview) {
+    public Review(int reviewId, String userName, int mark, String textReview) {
+        this.reviewId = reviewId;
         this.userName = userName;
         this.mark = mark;
         this.textReview = textReview;
+    }
+
+    public int getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
     }
 
     public String getUserName() {
@@ -42,6 +52,7 @@ public class Review extends Entity{
 
         Review review = (Review) o;
 
+        if (reviewId != review.reviewId) return false;
         if (mark != review.mark) return false;
         if (userName != null ? !userName.equals(review.userName) : review.userName != null) return false;
         return textReview != null ? textReview.equals(review.textReview) : review.textReview == null;
@@ -49,7 +60,8 @@ public class Review extends Entity{
 
     @Override
     public int hashCode() {
-        int result = userName != null ? userName.hashCode() : 0;
+        int result = reviewId;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + mark;
         result = 31 * result + (textReview != null ? textReview.hashCode() : 0);
         return result;
@@ -58,7 +70,8 @@ public class Review extends Entity{
     @Override
     public String toString() {
         return "Review{" +
-                "userName='" + userName + '\'' +
+                "reviewId=" + reviewId +
+                ", userName='" + userName + '\'' +
                 ", mark=" + mark +
                 ", textReview='" + textReview + '\'' +
                 '}';

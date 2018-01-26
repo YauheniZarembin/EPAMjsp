@@ -15,10 +15,14 @@ import java.util.List;
 public class ReviewsDAO {
 
     private final static String SQL_SELECT_REVIEWS =
-            "SELECT user_name, mark, text_review FROM cafedb.reviews;";
+            "SELECT id_review, user_name, mark, text_review FROM cafedb.reviews;";
 
     private final static String SQL_INSERT_REVIEW =
             "INSERT INTO cafedb.reviews (user_name, mark, text_review) VALUES (?, ?, ?);";
+
+    private final static String SQL_DELETE_REVIEW =
+            "DELETE FROM cafedb.reviews WHERE id_review=?;";
+
 
     public List<Review> findReviews() throws DAOException {
         List<Review> reviewsList = new ArrayList<>();
@@ -30,7 +34,8 @@ public class ReviewsDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_SELECT_REVIEWS);
             while (resultSet.next()) {
-                reviewsList.add(new Review(resultSet.getString(1), resultSet.getInt(2), resultSet.getString(3)));
+                reviewsList.add(new Review(resultSet.getInt(1),resultSet.getString(2),
+                        resultSet.getInt(3), resultSet.getString(4)));
             }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
@@ -58,6 +63,27 @@ public class ReviewsDAO {
 
             preparedStatement.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+        }
+    }
+
+    public void deleteReview(int reviewId) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(SQL_DELETE_REVIEW);
+            preparedStatement.setString(1, String.valueOf(reviewId));
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {

@@ -30,7 +30,7 @@ public class AddDishCommand implements ActionCommand {
         String choosenDish = request.getParameter(PARAM_CHOOSEN_DISH);
 
         try {
-
+            ////////////////    скорее всего это надо в receiver
             if (orderCost == null){
                 orderCost = 0;
             }

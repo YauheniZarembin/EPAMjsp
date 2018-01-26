@@ -8,13 +8,16 @@ import com.zarembin.epampjsp.servlet.Router;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ReviewCommand implements ActionCommand {
 
+public class DeleteReviewCommand implements ActionCommand {
+
+    private final static String PARAM_REVIEW_ID="reviewId";
+    private final static String PARAM_REVIEWS ="reviews";
     private static final String PARAM_USER = "user";
-    private static final String PARAM_REVIEWS = "reviews";
+
     private UserService receiver;
 
-    public ReviewCommand(UserService receiver) {
+    public DeleteReviewCommand(UserService receiver) {
         this.receiver = receiver;
     }
 
@@ -24,15 +27,15 @@ public class ReviewCommand implements ActionCommand {
         String page;
         User user = (User) request.getSession().getAttribute(PARAM_USER);
         try {
-            request.getSession().setAttribute(PARAM_REVIEWS,receiver.findReviews());
+            int reviewId = Integer.valueOf(request.getParameter(PARAM_REVIEW_ID));
+            receiver.deleteReview(reviewId);
+            request.getSession().setAttribute(PARAM_REVIEWS, receiver.findReviews());
         } catch (ServiceException e) {
             ////////    как ошибку отправлять Forfard или REDIRECT
             page = ConfigurationManager.getProperty("path.page.login");
             router.setPagePath(page);
             return router;
         }
-
-
         page = ((user == null) || !user.isAdmin()) ? ConfigurationManager.getProperty("path.page.reviews") : ConfigurationManager.getProperty("path.page.adminReviews");
         router.setPagePath(page);
         return router;

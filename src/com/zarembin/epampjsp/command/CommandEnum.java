@@ -41,6 +41,11 @@ public enum CommandEnum {
             this.command = new AddReviewCommand(new UserService());
         }
     },
+    DELETE_REVIEW{
+        {
+            this.command = new DeleteReviewCommand(new UserService());
+        }
+    },
     DELETE_DISH{
         {
             this.command = new DeleteDishCommand(new MenuService());
@@ -69,6 +74,11 @@ public enum CommandEnum {
     REVIEWS_COMMAND{
         {
             this.command = new ReviewCommand(new UserService());
+        }
+    },
+    TOP_UP{
+        {
+            this.command = new TopUpCommand(new UserService());
         }
     };
 
