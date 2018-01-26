@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AuthenticationDAO {
-    private final String SQL_SELECT_USER =
+    private final static String SQL_SELECT_USER =
             "SELECT user_name,password,is_admin,is_ban,name,last_name,loyalty_points,money,`e-mail`,number_of_orders,card_number FROM cafedb.personal_info WHERE user_name=? AND password =?";
 
     public User findUser(String login, String password) throws DAOException {
@@ -40,7 +40,7 @@ public class AuthenticationDAO {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
+                    throw new DAOException(e.getMessage(), e.getCause());
                 }
             }
         }

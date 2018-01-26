@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuDAO {
-    private final String SQL_SELECT_DISHES =
+    private final static  String SQL_SELECT_DISHES =
             "SELECT dish_name , type_of_dish , price , cooking_time , max_number_of_servings , image_path FROM cafedb.menu";
 
-    private final String SQL_SELECT_DISHES_BY_TYPE =
+    private final static String SQL_SELECT_DISHES_BY_TYPE =
             "SELECT dish_name , type_of_dish , price , cooking_time , max_number_of_servings , image_path FROM cafedb.menu WHERE type_of_dish=?";
 
-    private final String SQL_SELECT_DISHES_BY_NAME =
+    private final static String SQL_SELECT_DISHES_BY_NAME =
             "SELECT dish_name , type_of_dish , price , cooking_time , max_number_of_servings , image_path FROM cafedb.menu WHERE dish_name=?";
 
 
@@ -56,7 +56,7 @@ public class MenuDAO {
 
     public List<Dish> findDishesByType(TypeOfDish typeOfDish) throws DAOException {
 
-        List<Dish> dishListByType = new ArrayList<>();
+        List<Dish> dishByTypeList = new ArrayList<>();
         ProxyConnection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet;
@@ -67,7 +67,7 @@ public class MenuDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                dishListByType.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
+                dishByTypeList.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
                         resultSet.getBigDecimal(3), resultSet.getTime(4).toLocalTime(),
                         resultSet.getInt(5), resultSet.getString(6)));
             }
@@ -82,7 +82,7 @@ public class MenuDAO {
                 }
             }
         }
-        return dishListByType;
+        return dishByTypeList;
     }
 
     public Dish findDishByName(String dishName) throws DAOException {
@@ -108,7 +108,7 @@ public class MenuDAO {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
+                    throw new DAOException(e.getMessage(), e.getCause());
                 }
             }
         }

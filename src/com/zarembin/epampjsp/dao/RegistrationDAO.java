@@ -10,13 +10,13 @@ import java.sql.SQLException;
 
 public class RegistrationDAO {
 
-    private final String SQL_CHECK_CARD_NUMBER =
+    private final static String SQL_CHECK_CARD_NUMBER =
             "SELECT card_number FROM cafedb.bank_info where card_number=?";
 
-    private final String SQL_CHECK_USER_NAME =
+    private final static String SQL_CHECK_USER_NAME =
             "SELECT user_name FROM cafedb.personal_info where user_name=?";
 
-    private final String SQL_INSERT_USER =
+    private final static String SQL_INSERT_USER =
             "INSERT INTO `cafedb`.`personal_info` (user_name, password, is_admin, is_ban, `name`, last_name, loyalty_points, money, `e-mail`,number_of_orders, card_number) VALUES (?, ?, 0, 0, ?, ?, 0, 0, ?, 0, ?)";
 
     public boolean insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) throws DAOException {
@@ -59,7 +59,7 @@ public class RegistrationDAO {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
+                    throw new DAOException(e.getMessage(), e.getCause());
                 }
             }
         }

@@ -6,7 +6,7 @@
 <html><head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style.css";
+        @import "/css/style2.css";
     </style>
 </head>
 <body>
@@ -48,11 +48,6 @@
         </c:if>
     </tr>
 </table>
-<form name="loginForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="logout" />
-    <br/>
-    <input type="submit" value=" <fmt:message key="label.logout" bundle="${var}"/>">
-</form>
 <c:import url="../jsp/common/footer.jsp" />
 </body>
 </html>

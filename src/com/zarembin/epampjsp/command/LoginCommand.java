@@ -16,6 +16,7 @@ public class LoginCommand implements ActionCommand {
     private static final String PARAM_LOGIN = "login";
     private static final String PARAM_PASSWORD = "password";
     private static final String PARAM_USER = "user";
+    private static final String PARAM_USER_NAME = "userName";
     private static final String PARAM_MESSAGE = "Message";
     private UserService receiver;
 
@@ -46,9 +47,10 @@ public class LoginCommand implements ActionCommand {
                         page = ConfigurationManager.getProperty("path.page.admin");
                     }
                     else {
-                        List<Dish> orders = new ArrayList<>();
-                        request.getSession().setAttribute("orders", orders);
-                        request.getSession().setAttribute(PARAM_USER, user.getName() + " " + user.getLastname());
+                        //List<Dish> orders = new ArrayList<>();
+                        //request.getSession().setAttribute("orders", orders);
+                        request.getSession().setAttribute(PARAM_USER_NAME, user.getUserName());
+                        request.getSession().setAttribute(PARAM_USER, user);
                         page = ConfigurationManager.getProperty("path.page.main");
                     }
                 } else {

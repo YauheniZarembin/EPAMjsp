@@ -15,22 +15,34 @@
     <title></title>
 </head>
 <body>
-<table width="100%"  border="1" class="whiteback" align="center" >
+<table width="100%"  border="1" class="whiteback" >
     <tr>
-        <td colspan="3" align="center"><b><h1><fmt:message key="label.dishbasket" bundle="${var}"/></h1></b></td>
+        <td colspan="4" align="center"><b><h1><fmt:message key="label.dishbasket" bundle="${var}"/></h1></b></td>
     </tr>
+    <c:if test="${not empty orders }">
+    <tr align="center">
+        <td><fmt:message key="label.dishname" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishprice" bundle="${var}"/></td>
+        <td><fmt:message key="label.numberofservings" bundle="${var}"/></td>
+    </tr>
+    </c:if>
     <c:forEach items="${orders}" var="order">
         <tr>
-            <td>${order.dishName}</td>
-            <td>${order.price}</td>
-            <td align="centre">
-                <input type="image" src="/resource/image/cross.jpg" height="10" width="10" alt="ОК">
+            <td>${order.key.dishName}</td>
+            <td align="center">${order.key.price}</td>
+            <td align="center">${order.value}</td>
+            <td align="center">
+                <form name="localeForm" method="POST" action="/controller">
+                    <input type="hidden" name="command" value="delete_dish"/>
+                    <input type="hidden"  name="dish" value=${order.key.dishName} />
+                    <input type="image" src="/resource/image/cross.jpg" height="20" width="20">
+                </form>
             </td>
         </tr>
     </c:forEach>
     <c:if test="${empty orders }">
         <tr>
-            <td colspan="3" align="center">
+            <td colspan="4" align="center">
                 <fmt:message key="label.basketisempty" bundle="${var}"/>
             </td>
         </tr>
@@ -38,12 +50,12 @@
 
     <c:if test="${not empty orders }">
         <tr>
-            <td colspan="3" align="center">
-                <fmt:message key="label.orderprice" bundle="${var}"/>
+            <td colspan="4" align="center">
+                <fmt:message key="label.orderprice" bundle="${var}"/>  ${orderCost}
             </td>
         </tr>
         <tr>
-            <td colspan="3" align="center">
+            <td colspan="4" align="center">
                 <input type="submit" value="<fmt:message key="label.makeorder" bundle="${var}"/>">
             </td>
         </tr>

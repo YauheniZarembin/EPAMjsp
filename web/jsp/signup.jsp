@@ -6,7 +6,7 @@
 <html><head>
     <title>Welcome</title>
     <style>
-        @import "/css/style.css";
+        @import "/css/style2.css";
     </style>
 <body>
 

@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserListDAO {
-    private final String SQL_SELECT_USERS =
+    private final static String SQL_SELECT_USERS =
             "SELECT user_name,password,is_admin,is_ban,name,last_name,loyalty_points,money,`e-mail`,number_of_orders,card_number FROM cafedb.personal_info;";
 
 
     public List<User> findAllUsers() throws DAOException {
 
-        List<User> listUsers = new ArrayList<>();
+        List<User> usersList = new ArrayList<>();
         ProxyConnection connection = null;
         Statement statement;
         ResultSet resultSet;
@@ -27,7 +27,7 @@ public class UserListDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_SELECT_USERS);
             while (resultSet.next()) {
-                listUsers.add(new User(resultSet.getString(1), resultSet.getString(2),
+                usersList.add(new User(resultSet.getString(1), resultSet.getString(2),
                         "1".equals(resultSet.getString(3)),"1".equals(resultSet.getString(4)),
                         resultSet.getString(5),resultSet.getString(6),resultSet.getInt(7),
                         resultSet.getBigDecimal(8),resultSet.getString(9),resultSet.getInt(10),
@@ -40,10 +40,10 @@ public class UserListDAO {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.err.println("Сonnection close error: " + e);
+                    throw new DAOException(e.getMessage(), e.getCause());
                 }
             }
         }
-        return listUsers;
+        return usersList;
     }
 }

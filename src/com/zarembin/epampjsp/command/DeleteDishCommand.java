@@ -7,17 +7,17 @@ import com.zarembin.epampjsp.service.MenuService;
 import com.zarembin.epampjsp.servlet.Router;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddDishCommand implements ActionCommand {
-    private static final String PARAM_CHOOSEN_DISH = "choosenDish";
+public class DeleteDishCommand implements ActionCommand {
+
+    private static final String PARAM_CHOOSEN_DISH = "dish";
     private static final String PARAM_ORDERS = "orders";
     private static final String PARAM_ORDER_COST = "orderCost";
     private MenuService receiver;
 
-    public AddDishCommand(MenuService receiver) {
+    public DeleteDishCommand(MenuService receiver) {
         this.receiver = receiver;
     }
 
@@ -25,31 +25,23 @@ public class AddDishCommand implements ActionCommand {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         String page;
-        Integer orderCost= (Integer) request.getSession().getAttribute(PARAM_ORDER_COST);
-        Map<Dish,Integer> orders= (HashMap<Dish,Integer>) request.getSession().getAttribute(PARAM_ORDERS);
+        Integer orderCost = (Integer) request.getSession().getAttribute(PARAM_ORDER_COST);
+        Map<Dish, Integer> orders = (HashMap<Dish, Integer>) request.getSession().getAttribute(PARAM_ORDERS);
         String choosenDish = request.getParameter(PARAM_CHOOSEN_DISH);
 
         try {
 
-            if (orderCost == null){
-                orderCost = 0;
-            }
-            if (orders == null){
-                orders = new HashMap<>();
-            }
-
             Dish dish = receiver.findDishByName(choosenDish);
-
-            if (orders.containsKey(dish)){
-                orders.replace(dish,orders.get(dish)+1);
+            if (orders.get(dish) == 1) {
+                orders.remove(dish);
+            } else {
+                orders.replace(dish, orders.get(dish) - 1);
             }
-            else{
-                orders.put(dish,1);
-            }
-            orderCost += dish.getPrice().intValue();
 
-            request.getSession().setAttribute(PARAM_ORDERS,orders);
-            request.getSession().setAttribute(PARAM_ORDER_COST,orderCost);
+            orderCost -= dish.getPrice().intValue();
+
+            request.getSession().setAttribute(PARAM_ORDERS, orders);
+            request.getSession().setAttribute(PARAM_ORDER_COST, orderCost);
 
 
         } catch (ServiceException e) {

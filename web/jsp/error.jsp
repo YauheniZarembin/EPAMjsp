@@ -5,7 +5,7 @@
 <fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html><head>
     <style>
-        @import "/css/style.css";
+        @import "/css/style2.css";
     </style>
     <title>Error Page</title>
 </head>

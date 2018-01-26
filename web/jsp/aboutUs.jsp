@@ -14,14 +14,14 @@
 <head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style.css";
+        @import "/css/style2.css";
     </style>
 </head>
 <body>
 <header>
     <c:import url="../jsp/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 60%">
+<div class="whiteback" style="width: 40%">
     <h1>EPAM-cafe</h1>
     <p>
         <fmt:message key="label.information1" bundle="${var}"/>

@@ -18,7 +18,7 @@ public enum CommandEnum {
     },
     SIGNUP{
         {
-            this.command = new SignupCommand(new UserService());
+            this.command = new SignUpCommand(new UserService());
         }
     },
     LOCALE{
@@ -36,6 +36,16 @@ public enum CommandEnum {
             this.command = new AddDishCommand(new MenuService());
         }
     },
+    ADD_REVIEW{
+        {
+            this.command = new AddReviewCommand(new UserService());
+        }
+    },
+    DELETE_DISH{
+        {
+            this.command = new DeleteDishCommand(new MenuService());
+        }
+    },
     ADMIN_MENU{
         {
             this.command = new AdminMenuCommand(new MenuService());
@@ -49,6 +59,16 @@ public enum CommandEnum {
     ADMIN_ORDERS{
         {
             this.command = new AdminOrdersCommand(new AdminService());
+        }
+    },
+    USER_ORDERS {
+        {
+            this.command = new UserOrdersCommand(new UserService());
+        }
+    },
+    REVIEWS_COMMAND{
+        {
+            this.command = new ReviewCommand(new UserService());
         }
     };
 

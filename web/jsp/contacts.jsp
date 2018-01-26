@@ -14,14 +14,14 @@
 <head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style.css";
+        @import "/css/style2.css";
     </style>
 </head>
 <body>
 <header class="whiteback">
     <c:import url="../jsp/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 45%">
+<div class="whiteback" style="width: 40%">
     <h1><fmt:message key="label.headercontacts" bundle="${var}"/></h1>
     <img src="/resource/image/epamcafe.jpg" width="270" height="280"
          alt="Иллюстрация" align="left"

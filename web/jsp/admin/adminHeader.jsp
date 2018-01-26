@@ -14,7 +14,7 @@
 <head>
     <title>Title</title>
     <style>
-        @import "/css/style.css";
+        @import "/css/style2.css";
     </style>
 </head>
 <body>

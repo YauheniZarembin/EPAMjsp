@@ -20,14 +20,21 @@
         <tr  align="center">
             <c:if test="${not empty user}">
             <td>
-                <table class="whiteback" height="5">
+                <table class="whiteback" height="5" border="5">
                     <tr>
-                        <td colspan="3" align="center"><b><h3>${user}, <fmt:message key="label.hello" bundle="${var}"/></h3></b></td>
+                        <td colspan="3" align="center"><b><h3>${user.name} ${user.lastname}, <fmt:message key="label.hello" bundle="${var}"/></h3></b></td>
                     </tr>
                     <tr>
-                        <td><fmt:message key="label.myprofile" bundle="${var}"/></td>
-                        <td><fmt:message key="label.myorders" bundle="${var}"/></td>
-                        <td><fmt:message key="label.logout" bundle="${var}"/></td>
+                        <td><a href='/jsp/myProfile.jsp' style="color: black"><fmt:message key="label.myprofile" bundle="${var}"/></a></td>
+                        <form name="localeFormOrders" method="POST" action="/controller">
+                            <input type="hidden" name="command" value="user_orders"/>
+                            <input type="hidden" name="userName" value="${userName}"/>
+                            <td><a href='#' style="color:black" onClick="document.forms['localeFormOrders'].submit();"><fmt:message key="label.myorders" bundle="${var}"/></a></td>
+                        </form>
+                        <form name="localeFormOut" method="POST" action="/controller">
+                            <input type="hidden" name="command" value="logout"/>
+                            <td><a href='#' style="color:black" onClick="document.forms['localeFormOut'].submit();"><fmt:message key="label.logout" bundle="${var}"/></a></td>
+                        </form>
                     </tr>
                 </table>
             </td>
@@ -41,17 +48,15 @@
             <td><a href='/jsp/main.jsp' style="color: white"><fmt:message key="label.headermenu" bundle="${var}"/></a></td>
             <td><a href='/jsp/contacts.jsp' style="color: white"><fmt:message key="label.headercontacts" bundle="${var}"/></a></td>
             <td><a href='/jsp/aboutUs.jsp' style="color: white"><fmt:message key="label.headeraboutus" bundle="${var}"/></a></td>
-            <form name="localeForm4" method="POST" action="/controller">
-                <input type="hidden" name="command" value="user_reviews"/>
-                <td><a href='#' style="color: white" onClick="document.forms['localeForm4'].submit();"><fmt:message key="label.headerreviews" bundle="${var}"/></a></td>
+            <form name="localeForm9" method="POST" action="/controller">
+                <input type="hidden" name="command" value="reviews_command"/>
+                <td><a href='#' style="color: white" onClick="document.forms['localeForm9'].submit();"><fmt:message key="label.headerreviews" bundle="${var}"/></a> </td>
             </form>
-            <td>
-                <form name="localeForm" method="POST" action="/controller">
-                    <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
-                    <input type="hidden" name="command" value="locale"/>
-                    <input type="image" src="<fmt:message key="label.picturelocale" bundle="${var}"/>" height="20" width="30" alt="<fmt:message key="label.buttonlanguage" bundle="${var}"/>">
-                </form>
-            </td>
+            <form name="localeForm" method="POST" action="/controller">
+                <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
+                <input type="hidden" name="command" value="locale"/>
+                <td><input type="image" src="<fmt:message key="label.picturelocale" bundle="${var}"/>" height="20" width="30" alt="<fmt:message key="label.buttonlanguage" bundle="${var}"/>"> </td>
+            </form>
         </tr>
     </table>
 </header>

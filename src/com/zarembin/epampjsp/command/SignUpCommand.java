@@ -9,7 +9,7 @@ import com.zarembin.epampjsp.validator.InputTextValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class SignupCommand implements ActionCommand{
+public class SignUpCommand implements ActionCommand{
 
     private static final String PARAM_USER_NAME = "username";
     private static final String PARAM_PASSWORD = "password";
@@ -22,7 +22,7 @@ public class SignupCommand implements ActionCommand{
 
     private UserService receiver;
 
-    public SignupCommand(UserService userReceiver){
+    public SignUpCommand(UserService userReceiver){
         receiver = userReceiver;
     }
     @Override

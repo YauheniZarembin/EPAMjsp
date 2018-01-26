@@ -7,7 +7,7 @@
 <head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style.css";
+        @import "/css/style2.css";
     </style>
 </head>
 <div class="wrapper">
@@ -38,7 +38,6 @@
             </td>
         </tr>
     </table>
-
 </form>
 <hr/>
 <c:import url="../jsp/common/footer.jsp"/>
