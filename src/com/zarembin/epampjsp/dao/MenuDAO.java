@@ -15,13 +15,13 @@ import java.util.List;
 
 public class MenuDAO {
     private final static  String SQL_SELECT_DISHES =
-            "SELECT dish_name , type_of_dish , price , cooking_time , max_number_of_servings , image_path FROM cafedb.menu";
+            "SELECT dish_name , type_of_dish , price , image_path FROM cafedb.menu";
 
     private final static String SQL_SELECT_DISHES_BY_TYPE =
-            "SELECT dish_name , type_of_dish , price , cooking_time , max_number_of_servings , image_path FROM cafedb.menu WHERE type_of_dish=?";
+            "SELECT dish_name , type_of_dish , price , image_path FROM cafedb.menu WHERE type_of_dish=?";
 
     private final static String SQL_SELECT_DISHES_BY_NAME =
-            "SELECT dish_name , type_of_dish , price , cooking_time , max_number_of_servings , image_path FROM cafedb.menu WHERE dish_name=?";
+            "SELECT dish_name , type_of_dish , price , image_path FROM cafedb.menu WHERE dish_name=?";
 
 
     public List<Dish> findAllDishes() throws DAOException {
@@ -36,8 +36,7 @@ public class MenuDAO {
             resultSet = statement.executeQuery(SQL_SELECT_DISHES);
             while (resultSet.next()) {
                 dishList.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
-                        resultSet.getBigDecimal(3), resultSet.getTime(4).toLocalTime(),
-                        resultSet.getInt(5), resultSet.getString(6)));
+                        resultSet.getBigDecimal(3), resultSet.getString(4)));
             }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
@@ -68,8 +67,7 @@ public class MenuDAO {
 
             while (resultSet.next()) {
                 dishByTypeList.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
-                        resultSet.getBigDecimal(3), resultSet.getTime(4).toLocalTime(),
-                        resultSet.getInt(5), resultSet.getString(6)));
+                        resultSet.getBigDecimal(3), resultSet.getString(4)));
             }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
@@ -98,8 +96,7 @@ public class MenuDAO {
 
             if (resultSet.next()) {
                 return new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
-                        resultSet.getBigDecimal(3), resultSet.getTime(4).toLocalTime(),
-                        resultSet.getInt(5), resultSet.getString(6));
+                        resultSet.getBigDecimal(3), resultSet.getString(4));
             }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());

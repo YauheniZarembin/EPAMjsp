@@ -1,6 +1,5 @@
 package com.zarembin.epampjsp.service;
 
-import com.zarembin.epampjsp.dao.OrdersListDAO;
 import com.zarembin.epampjsp.dao.UserListDAO;
 import com.zarembin.epampjsp.entity.Order;
 import com.zarembin.epampjsp.entity.User;
@@ -20,12 +19,12 @@ public class AdminService {
     }
 
 
-    public List<Order> findAllOrders() throws ServiceException {
-        OrdersListDAO ordersListDAO = new OrdersListDAO();
-        try {
-            return ordersListDAO.findAllOrders();
-        } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
-        }
-    }
+//    public List<Order> findAllOrders() throws ServiceException {
+//        OrdersListDAO ordersListDAO = new OrdersListDAO();
+//        try {
+//            return ordersListDAO.findAllOrders();
+//        } catch (DAOException e) {
+//            throw new ServiceException(e.getMessage(), e.getCause());
+//        }
+//    }
 }

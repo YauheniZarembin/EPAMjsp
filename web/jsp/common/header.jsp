@@ -28,7 +28,6 @@
                         <td><a href='/jsp/myProfile.jsp' style="color: black"><fmt:message key="label.myprofile" bundle="${var}"/></a></td>
                         <form name="localeFormOrders" method="POST" action="/controller">
                             <input type="hidden" name="command" value="user_orders"/>
-                            <input type="hidden" name="userName" value="${userName}"/>
                             <td><a href='#' style="color:black" onClick="document.forms['localeFormOrders'].submit();"><fmt:message key="label.myorders" bundle="${var}"/></a></td>
                         </form>
                         <form name="localeFormOut" method="POST" action="/controller">

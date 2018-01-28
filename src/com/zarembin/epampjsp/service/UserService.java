@@ -9,8 +9,9 @@ import com.zarembin.epampjsp.exception.DAOException;
 import com.zarembin.epampjsp.exception.ServiceException;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Map;
 
 public class UserService {
     public User findUserByEncryption(String login, String password) throws ServiceException {
@@ -39,15 +40,6 @@ public class UserService {
         OrdersListDAO ordersListDAO = new OrdersListDAO();
         try {
             return ordersListDAO.findOrdersByName(userName);
-        } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
-        }
-    }
-
-    public Map<String, Integer> findDishesByOrderId(int orderId) throws ServiceException {
-        OrdersListDAO ordersListDAO = new OrdersListDAO();
-        try {
-            return ordersListDAO.findOrdersByOrderId(orderId);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
@@ -101,5 +93,53 @@ public class UserService {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
         return user;
+    }
+
+    public boolean checkDateTimeOrder(LocalDateTime localDateTime) {
+        if (localDateTime == null) {
+            return false;
+        }
+        if (!(LocalDateTime.now().until(localDateTime, ChronoUnit.HOURS) > 0) || !(LocalDateTime.now().until(localDateTime, ChronoUnit.DAYS) < 8)) {
+            return false;
+        }
+        switch (localDateTime.getDayOfWeek()) {
+            case SUNDAY:
+                return false;
+            case SATURDAY:
+                if (!(localDateTime.getHour() >= 10) || !(localDateTime.getHour() <= 23)) {
+                    return false;
+                }
+                break;
+            default:
+                if (!(localDateTime.getHour() >= 10) || !(localDateTime.getHour() <= 21)) {
+                    return false;
+                }
+                break;
+        }
+        return true;
+    }
+
+    public void makeOrder(Order order, User user) throws ServiceException {
+
+        OrderingDAO orderingDAO = new OrderingDAO();
+        int newLoyaltyPoints = user.getLoyaltyPoints();
+        long untilDay = LocalDateTime.now().until(order.getDateOfReceiving(), ChronoUnit.DAYS);
+        if (untilDay >= 1 && untilDay <= 3) {
+            newLoyaltyPoints++;
+        } else if (untilDay >= 4) {
+            newLoyaltyPoints += 3;
+        }
+        BigDecimal newUserMoney = (order.isCashPayment()) ? user.getMoney() : user.getMoney().subtract(order.getOrderCost());
+        int newOrdersAmount = user.getNumberOfOrders();
+        newOrdersAmount++;
+
+        try {
+            user.setLoyaltyPoints(newLoyaltyPoints);
+            user.setMoney(newUserMoney);
+            user.setNumberOfOrders(newOrdersAmount);
+            orderingDAO.makeOrder(newUserMoney, newLoyaltyPoints, newOrdersAmount, order);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
     }
 }

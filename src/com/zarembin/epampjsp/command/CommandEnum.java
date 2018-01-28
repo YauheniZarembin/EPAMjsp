@@ -61,11 +61,11 @@ public enum CommandEnum {
             this.command = new UserListCommand(new AdminService());
         }
     },
-    ADMIN_ORDERS{
-        {
-            this.command = new AdminOrdersCommand(new AdminService());
-        }
-    },
+//    ADMIN_ORDERS{
+//        {
+//            this.command = new AdminOrdersCommand(new AdminService());
+//        }
+//    },
     USER_ORDERS {
         {
             this.command = new UserOrdersCommand(new UserService());
@@ -74,6 +74,11 @@ public enum CommandEnum {
     REVIEWS_COMMAND{
         {
             this.command = new ReviewCommand(new UserService());
+        }
+    },
+    ORDERING{
+        {
+            this.command = new OrderingCommand(new UserService());
         }
     },
     TOP_UP{

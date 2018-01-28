@@ -7,7 +7,7 @@
 <head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style2.css";
+        @import "/css/style.css";
     </style>
 </head>
 <div class="wrapper">
@@ -21,17 +21,17 @@
         <tr>
             <td colspan="2" align="center"><b><h1><fmt:message key="label.enter" bundle="${var}"/></h1></b></td>
         </tr>
-        <tr><td><fmt:message key="label.login" bundle="${var}"/><span class="req">*</span></td></tr>
-        <tr><td><input type="text" name="login" value=""/></td></tr>
-        <tr><td><br/><fmt:message key="label.password" bundle="${var}"/><span class="req">*</span></td></tr>
-        <tr><td><input type="password" name="password" value=""/></td></tr>
+        <tr><td><fmt:message key="label.login" bundle="${var}" /></td></tr>
+        <tr><td><input type="text" name="login" value="" required oninvalid="this.setCustomValidity('<fmt:message key="label.inputdata" bundle="${var}" />')" oninput="setCustomValidity('')"></td></tr>
+        <tr><td><br/><fmt:message key="label.password" bundle="${var}"/></td></tr>
+        <tr><td><input type="password" name="password" value=""  required oninvalid="this.setCustomValidity('<fmt:message key="label.inputdata" bundle="${var}"/>')" oninput="setCustomValidity('')"></td></tr>
         <tr><td>${Message}</td> </tr>
         <tr><td>${wrongAction}</td></tr>
         <tr><td>${nullPage}</td></tr>
         <tr><td></td></tr>
         <tr>
             <td>
-                <input type="submit" value="<fmt:message key="label.buttonlogin" bundle="${var}"/>"/>
+                <input type="submit" value="<fmt:message key="label.buttonlogin" bundle="${var}"/>">
             </td>
             <td>
                 <input type="button" value="<fmt:message key="label.buttonsignup" bundle="${var}"/>"  onClick='location.href="/jsp/signup.jsp"' />

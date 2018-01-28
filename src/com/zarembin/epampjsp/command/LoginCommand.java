@@ -1,9 +1,11 @@
 package com.zarembin.epampjsp.command;
 import com.zarembin.epampjsp.entity.Dish;
+import com.zarembin.epampjsp.entity.TypeOfDish;
 import com.zarembin.epampjsp.entity.User;
 import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
+import com.zarembin.epampjsp.service.MenuService;
 import com.zarembin.epampjsp.service.UserService;
 import com.zarembin.epampjsp.servlet.Router;
 import com.zarembin.epampjsp.validator.InputTextValidator;
@@ -18,6 +20,7 @@ public class LoginCommand implements ActionCommand {
     private static final String PARAM_USER = "user";
     private static final String PARAM_USER_NAME = "userName";
     private static final String PARAM_MESSAGE = "Message";
+    private static final String PARAM_DISHES = "dishes";
     private UserService receiver;
 
     public LoginCommand(UserService userReceiver) {
@@ -48,8 +51,7 @@ public class LoginCommand implements ActionCommand {
                         page = ConfigurationManager.getProperty("path.page.admin");
                     }
                     else {
-                        //List<Dish> orders = new ArrayList<>();
-                        //request.getSession().setAttribute("orders", orders);
+                        request.getSession().setAttribute(PARAM_DISHES,new MenuService().findDishesByType(TypeOfDish.SOUP));
                         request.getSession().setAttribute(PARAM_USER_NAME, user.getUserName());
                         request.getSession().setAttribute(PARAM_USER, user);
                         page = ConfigurationManager.getProperty("path.page.main");

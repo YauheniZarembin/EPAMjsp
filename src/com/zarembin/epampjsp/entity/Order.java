@@ -1,6 +1,8 @@
 package com.zarembin.epampjsp.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class Order extends Entity {
 
@@ -8,12 +10,16 @@ public class Order extends Entity {
     private String userName;
     private LocalDateTime dateOfReceiving;
     private boolean isCashPayment;
+    private BigDecimal orderCost;
+    private Map<Dish,Integer> dishes;
 
-    public Order(int orderId, String userName, LocalDateTime dateOfReceiving, boolean isCashPayment) {
+    public Order(int orderId, String userName, LocalDateTime dateOfReceiving, boolean isCashPayment, BigDecimal orderCost, Map<Dish, Integer> dishes) {
         this.orderId = orderId;
         this.userName = userName;
         this.dateOfReceiving = dateOfReceiving;
         this.isCashPayment = isCashPayment;
+        this.orderCost = orderCost;
+        this.dishes = dishes;
     }
 
     public int getOrderId() {
@@ -48,6 +54,22 @@ public class Order extends Entity {
         isCashPayment = cashPayment;
     }
 
+    public BigDecimal getOrderCost() {
+        return orderCost;
+    }
+
+    public void setOrderCost(BigDecimal orderCost) {
+        this.orderCost = orderCost;
+    }
+
+    public Map<Dish, Integer> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Map<Dish, Integer> dishes) {
+        this.dishes = dishes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,7 +80,10 @@ public class Order extends Entity {
         if (orderId != order.orderId) return false;
         if (isCashPayment != order.isCashPayment) return false;
         if (userName != null ? !userName.equals(order.userName) : order.userName != null) return false;
-        return dateOfReceiving != null ? dateOfReceiving.equals(order.dateOfReceiving) : order.dateOfReceiving == null;
+        if (dateOfReceiving != null ? !dateOfReceiving.equals(order.dateOfReceiving) : order.dateOfReceiving != null)
+            return false;
+        if (orderCost != null ? !orderCost.equals(order.orderCost) : order.orderCost != null) return false;
+        return dishes != null ? dishes.equals(order.dishes) : order.dishes == null;
     }
 
     @Override
@@ -67,6 +92,8 @@ public class Order extends Entity {
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (dateOfReceiving != null ? dateOfReceiving.hashCode() : 0);
         result = 31 * result + (isCashPayment ? 1 : 0);
+        result = 31 * result + (orderCost != null ? orderCost.hashCode() : 0);
+        result = 31 * result + (dishes != null ? dishes.hashCode() : 0);
         return result;
     }
 
@@ -77,6 +104,10 @@ public class Order extends Entity {
                 ", userName='" + userName + '\'' +
                 ", dateOfReceiving=" + dateOfReceiving +
                 ", isCashPayment=" + isCashPayment +
+                ", orderCost=" + orderCost +
+                ", dishes=" + dishes +
                 '}';
     }
 }
+
+

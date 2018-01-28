@@ -34,7 +34,7 @@
             <td align="center">
                 <form name="localeForm" method="POST" action="/controller">
                     <input type="hidden" name="command" value="delete_dish"/>
-                    <input type="hidden"  name="dish" value=${order.key.dishName} />
+                    <input type="hidden"  name="dish" value="${order.key.dishName}" />
                     <input type="image" src="/resource/image/cross.jpg" height="20" width="20">
                 </form>
             </td>
@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <td colspan="4" align="center">
-                <input type="submit" value="<fmt:message key="label.makeorder" bundle="${var}"/>">
+                <input type="button" value="<fmt:message key="label.ordering" bundle="${var}"/>"  onClick='location.href="/jsp/ordering.jsp"' />
             </td>
         </tr>
     </c:if>

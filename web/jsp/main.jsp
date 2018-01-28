@@ -6,7 +6,7 @@
 <html><head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style2.css";
+        @import "/css/style.css";
     </style>
 </head>
 <body>
@@ -17,8 +17,8 @@
 <hr/>
 <table width="100%">
     <tr>
-        <td valign="top" width="75%">
-    <table width="60%" float="left" class="whiteback">
+        <td valign="top" width="50%">
+    <table width="70%" float="left" class="whiteback">
     <tr>
         <td><fmt:message key="label.dishname" bundle="${var}"/></td>
         <td><fmt:message key="label.dishprice" bundle="${var}"/></td>

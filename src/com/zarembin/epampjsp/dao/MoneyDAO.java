@@ -93,7 +93,7 @@ public class MoneyDAO {
             }
             if (connection != null) {
                 try {
-                    connection.setAutoCommit(false);
+                    connection.setAutoCommit(true);
                     connection.close();
                 } catch (SQLException e) {
                     throw new DAOException(e.getMessage(), e.getCause());

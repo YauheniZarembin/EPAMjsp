@@ -14,26 +14,44 @@
 <head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/style2.css";
+        @import "/css/style.css";
     </style>
 </head>
 <body>
 <header>
     <c:import url="../jsp/common/header.jsp" />
 </header>
-
-<h1 class="h1order"><fmt:message key="label.myorders" bundle="${var}"/></h1>
-<table width="60%" float="left" class="whiteback">
-    <tr>
-        <td><h1><fmt:message key="label.orderid" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.orderdishlist" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.orderdate" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.orderpayment" bundle="${var}"/></h1></td>
+<c:if test="${empty userOrders}">
+    <h1 class="whiteback"><fmt:message key="label.noOrders" bundle="${var}"/></h1>
+</c:if>
+<c:if test="${not empty userOrders}">
+    <div class="whiteback">
+<h1><fmt:message key="label.myorders" bundle="${var}"/></h1>
+<table width="100%" style="table-layout: fixed" border="1px">
+    <tr align="center">
+        <td><h3><fmt:message key="label.orderid" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderuser" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderdate" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderdishlist" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.ordercost" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderpayment" bundle="${var}"/></h3></td>
     </tr>
     <c:forEach items="${userOrders}" var="userOrder">
-        <tr>
+        <tr align="center">
             <td>${userOrder.orderId}</td>
+            <td>${userOrder.userName}</td>
             <td>${userOrder.dateOfReceiving}</td>
+            <td>
+                <table style="table-layout: fixed">
+                    <c:forEach items="${userOrder.dishes}" var="orderDish">
+                        <tr>
+                            <td>${orderDish.key.dishName}</td>
+                            <td><fmt:message key="label.amount" bundle="${var}"/>  ${orderDish.value}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </td>
+            <td>${userOrder.orderCost}</td>
             <td>
                 <c:if test="${userOrder.isCashPayment()}">
                     <fmt:message key="label.ordercash" bundle="${var}"/>
@@ -42,16 +60,11 @@
                     <fmt:message key="label.ordersite" bundle="${var}"/>
                 </c:if>
             </td>
-            <td>
-                <form name="localeForm" method="POST" action="/controller">
-                    <input type="hidden" name="command" value="delete_user_order"/>
-                    <input type="hidden" name="choosenDish" value="${userOrder.orderId}"/>
-                    <input type="submit" value="<fmt:message key="label.delete" bundle="${var}"/>">
-            </form>
-            </td>
         </tr>
     </c:forEach>
 </table>
+    </div>
+</c:if>
 <c:import url="../jsp/common/footer.jsp" />
 </body>
 </html>

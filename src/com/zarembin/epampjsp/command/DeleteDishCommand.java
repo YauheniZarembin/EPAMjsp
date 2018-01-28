@@ -7,6 +7,7 @@ import com.zarembin.epampjsp.service.MenuService;
 import com.zarembin.epampjsp.servlet.Router;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class DeleteDishCommand implements ActionCommand {
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
         String page;
-        Integer orderCost = (Integer) request.getSession().getAttribute(PARAM_ORDER_COST);
+        BigDecimal orderCost = (BigDecimal) request.getSession().getAttribute(PARAM_ORDER_COST);
         Map<Dish, Integer> orders = (HashMap<Dish, Integer>) request.getSession().getAttribute(PARAM_ORDERS);
         String choosenDish = request.getParameter(PARAM_CHOOSEN_DISH);
 
@@ -38,7 +39,7 @@ public class DeleteDishCommand implements ActionCommand {
                 orders.replace(dish, orders.get(dish) - 1);
             }
 
-            orderCost -= dish.getPrice().intValue();
+            orderCost = orderCost.subtract(dish.getPrice());
 
             request.getSession().setAttribute(PARAM_ORDERS, orders);
             request.getSession().setAttribute(PARAM_ORDER_COST, orderCost);

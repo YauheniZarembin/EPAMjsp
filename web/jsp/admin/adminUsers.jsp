@@ -14,7 +14,7 @@
 <head>
     <title>Admin page</title>
     <style>
-        @import "/css/style2.css";
+        @import "/css/style.css";
     </style>
 </head>
 <body>

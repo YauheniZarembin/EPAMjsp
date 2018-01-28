@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -33,12 +34,13 @@ public class Main {
 
 
         InputTextValidator inputTextValidator = new InputTextValidator();
-        System.out.println(inputTextValidator.isMoneyValid(mo));
+        int dd = 23;
+        dd++;
+        System.out.println(dd);
 
-        BigDecimal bigDecimalbank = new BigDecimal(2.4);
-        BigDecimal bigDecimaladd = new BigDecimal(4.4);
 
-        System.out.println(bigDecimalbank.compareTo(bigDecimaladd) == 1);
+        LocalDateTime ff = LocalDateTime.of(2018,2,3,22,00);
+        System.out.println(new UserService().checkDateTimeOrder(ff));
 
 //        User user = null;
 //        try {
