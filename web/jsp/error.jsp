@@ -8,6 +8,7 @@
         @import "/css/style.css";
     </style>
     <title>Error Page</title>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <c:import url="../jsp/common/header.jsp" />

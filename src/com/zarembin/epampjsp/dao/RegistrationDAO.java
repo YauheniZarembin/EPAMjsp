@@ -21,9 +21,9 @@ public class RegistrationDAO {
 
     public boolean insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) throws DAOException {
         ProxyConnection connection = null;
-        PreparedStatement preparedStatementInsertUser;
-        PreparedStatement preparedStatementCheckCardNumber;
-        PreparedStatement preparedStatementCheckUserName;
+        PreparedStatement preparedStatementInsertUser = null;
+        PreparedStatement preparedStatementCheckCardNumber= null;
+        PreparedStatement preparedStatementCheckUserName = null;
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -55,6 +55,27 @@ public class RegistrationDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(),e.getCause());
         } finally {
+            if (preparedStatementCheckCardNumber != null){
+                try {
+                    preparedStatementCheckCardNumber.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (preparedStatementCheckUserName != null){
+                try {
+                    preparedStatementCheckUserName.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (preparedStatementInsertUser != null){
+                try {
+                    preparedStatementInsertUser.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();

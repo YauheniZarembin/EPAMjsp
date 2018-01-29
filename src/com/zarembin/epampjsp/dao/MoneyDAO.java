@@ -25,7 +25,7 @@ public class MoneyDAO {
     public BigDecimal findMoneyFromCard(String loginСard, String passwordCard) throws DAOException {
         BigDecimal money = null;
         ProxyConnection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -39,6 +39,13 @@ public class MoneyDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();

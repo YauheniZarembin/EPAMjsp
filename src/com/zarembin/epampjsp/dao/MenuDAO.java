@@ -28,7 +28,7 @@ public class MenuDAO {
 
         List<Dish> dishList = new ArrayList<>();
         ProxyConnection connection = null;
-        Statement statement;
+        Statement statement = null;
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -41,6 +41,13 @@ public class MenuDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -72,6 +79,13 @@ public class MenuDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -101,6 +115,13 @@ public class MenuDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();

@@ -26,15 +26,15 @@
 </c:if>
 <c:if test="${not empty userOrders}">
     <div class="whiteback">
-<h1><fmt:message key="label.myorders" bundle="${var}"/></h1>
+<h1><fmt:message key="label.myOrders" bundle="${var}"/></h1>
 <table width="100%" style="table-layout: fixed" border="1px">
     <tr align="center">
-        <td><h3><fmt:message key="label.orderid" bundle="${var}"/></h3></td>
-        <td><h3><fmt:message key="label.orderuser" bundle="${var}"/></h3></td>
-        <td><h3><fmt:message key="label.orderdate" bundle="${var}"/></h3></td>
-        <td><h3><fmt:message key="label.orderdishlist" bundle="${var}"/></h3></td>
-        <td><h3><fmt:message key="label.ordercost" bundle="${var}"/></h3></td>
-        <td><h3><fmt:message key="label.orderpayment" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderId" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderUser" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderDate" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderDishList" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderCost" bundle="${var}"/></h3></td>
+        <td><h3><fmt:message key="label.orderPayment" bundle="${var}"/></h3></td>
     </tr>
     <c:forEach items="${userOrders}" var="userOrder">
         <tr align="center">
@@ -42,11 +42,11 @@
             <td>${userOrder.userName}</td>
             <td>${userOrder.dateOfReceiving}</td>
             <td>
-                <table style="table-layout: fixed">
+                <table>
                     <c:forEach items="${userOrder.dishes}" var="orderDish">
                         <tr>
                             <td>${orderDish.key.dishName}</td>
-                            <td><fmt:message key="label.amount" bundle="${var}"/>  ${orderDish.value}</td>
+                            <td><fmt:message key="label.amount" bundle="${var}"/>${orderDish.value}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -54,10 +54,10 @@
             <td>${userOrder.orderCost}</td>
             <td>
                 <c:if test="${userOrder.isCashPayment()}">
-                    <fmt:message key="label.ordercash" bundle="${var}"/>
+                    <fmt:message key="label.orderCash" bundle="${var}"/>
                 </c:if>
                 <c:if test="${!userOrder.isCashPayment()}">
-                    <fmt:message key="label.ordersite" bundle="${var}"/>
+                    <fmt:message key="label.orderSite" bundle="${var}"/>
                 </c:if>
             </td>
         </tr>

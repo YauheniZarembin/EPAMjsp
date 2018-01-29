@@ -16,6 +16,7 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
     <header>
@@ -24,10 +25,10 @@
 
     <table width="100%" float="left" class="whiteback">
         <tr>
-            <td><h1><fmt:message key="label.orderid" bundle="${var}"/></h1></td>
-            <td><h1><fmt:message key="label.orderuser" bundle="${var}"/></h1></td>
-            <td><h1><fmt:message key="label.orderdate" bundle="${var}"/></h1></td>
-            <td><h1><fmt:message key="label.orderpayment" bundle="${var}"/></h1></td>
+            <td><h1><fmt:message key="label.orderId" bundle="${var}"/></h1></td>
+            <td><h1><fmt:message key="label.orderUser" bundle="${var}"/></h1></td>
+            <td><h1><fmt:message key="label.orderDate" bundle="${var}"/></h1></td>
+            <td><h1><fmt:message key="label.orderPayment" bundle="${var}"/></h1></td>
         </tr>
         <c:forEach items="${orders}" var="order">
             <tr>
@@ -36,10 +37,10 @@
                 <td>${order.dateOfReceiving}</td>
                 <td>
                     <c:if test="${order.isCashPayment()}">
-                        <fmt:message key="label.ordercash" bundle="${var}"/>
+                        <fmt:message key="label.orderCash" bundle="${var}"/>
                     </c:if>
                     <c:if test="${!order.isCashPayment()}">
-                        <fmt:message key="label.ordersite" bundle="${var}"/>
+                        <fmt:message key="label.orderSite" bundle="${var}"/>
                     </c:if>
                 </td>
                 <td>
@@ -55,7 +56,7 @@
     <form name="loginForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="logout" />
         <br/>
-        <input type="submit" value=" <fmt:message key="label.logout" bundle="${var}"/>">
+        <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
     </form>
     <c:import url="/jsp/common/footer.jsp" />
 

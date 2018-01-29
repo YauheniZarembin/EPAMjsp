@@ -16,18 +16,19 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
     <c:import url="../jsp/common/header.jsp" />
 </header>
 <div class="whiteback" style="width: 40%">
-    <h1><fmt:message key="label.headerreviews" bundle="${var}"/></h1>
+    <h1><fmt:message key="label.headerReviews" bundle="${var}"/></h1>
     <table width="80%" float="left">
     <c:forEach items="${reviews}" var="review">
         <c:choose>
             <c:when test="${ review.mark > 7 }" >
-                    <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
+                    <tr><td><b><fmt:message key="label.userRoleUser" bundle="${var}"/>:</b>      ${review.userName}
                         <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td>
                    </tr>
                     <tr><td style="background-color: rgba(0,255,0,0.5)">${review.textReview}</td>
@@ -41,7 +42,7 @@
                     </tr>
             </c:when>
             <c:when test="${ review.mark < 5 }" >
-                    <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
+                    <tr><td><b><fmt:message key="label.userRoleUser" bundle="${var}"/>:</b>      ${review.userName}
                         <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
                      <tr><td style="background-color: rgba(255,0,0,0.5)">${review.textReview}</td>
                          <c:if test="${user.userName eq review.userName}">
@@ -55,7 +56,7 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
+                <tr><td><b><fmt:message key="label.userRoleUser" bundle="${var}"/>:</b>      ${review.userName}
                     <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
                 <tr><td>${review.textReview}</td>
                     <c:if test="${user.userName eq review.userName}">
@@ -82,7 +83,7 @@
     </c:forEach>
     </table>
     <c:if test="${not empty user}">
-        <h3><fmt:message key="label.givefeedback" bundle="${var}"/></h3>
+        <h3><fmt:message key="label.giveFeedback" bundle="${var}"/></h3>
         <form name="localeForm" id="addFormId" method="POST" action="/controller">
             <input type="hidden" name="command" value="add_review"/>
             <b><fmt:message key="label.mark" bundle="${var}"/></b>:

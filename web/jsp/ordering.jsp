@@ -16,6 +16,7 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
@@ -25,12 +26,12 @@
     <h1><fmt:message key="label.ordering" bundle="${var}"/></h1>
     <table width="80%"  border="1">
         <tr>
-            <td colspan="4" align="center"><b><h1><fmt:message key="label.yourorder" bundle="${var}"/></h1></b></td>
+            <td colspan="4" align="center"><b><h1><fmt:message key="label.yourOrder" bundle="${var}"/></h1></b></td>
         </tr>
             <tr align="center">
-                <td><fmt:message key="label.dishname" bundle="${var}"/></td>
-                <td><fmt:message key="label.dishprice" bundle="${var}"/></td>
-                <td><fmt:message key="label.numberofservings" bundle="${var}"/></td>
+                <td><fmt:message key="label.dishName" bundle="${var}"/></td>
+                <td><fmt:message key="label.dishPrice" bundle="${var}"/></td>
+                <td><fmt:message key="label.numberOfServings" bundle="${var}"/></td>
             </tr>
         <c:forEach items="${orders}" var="order">
             <tr>
@@ -42,7 +43,7 @@
         </c:forEach>
             <tr>
                 <td colspan="4" align="center">
-                    <b><fmt:message key="label.orderprice" bundle="${var}"/></b>  ${orderCost}
+                    <b><fmt:message key="label.orderPrice" bundle="${var}"/></b>  ${orderCost}
                 </td>
             </tr>
     </table>
@@ -50,19 +51,19 @@
 
     <form name="localeForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="ordering"/>
-        <h3><fmt:message key="label.paymentway" bundle="${var}"/></h3>
-        <input type="radio" name="payment" value="1" checked> <fmt:message key="label.ordercash" bundle="${var}"/><br>
-        <input type="radio" name="payment" value="0"> <fmt:message key="label.ordersite" bundle="${var}"/><br>
-        <h3><fmt:message key="label.setdateoforder" bundle="${var}"/></h3>
-        <fmt:message key="label.datecondition" bundle="${var}"/><br>
+        <h3><fmt:message key="label.paymentWay" bundle="${var}"/></h3>
+        <input type="radio" name="payment" value="1" checked> <fmt:message key="label.orderCash" bundle="${var}"/><br>
+        <input type="radio" name="payment" value="0"> <fmt:message key="label.orderSite" bundle="${var}"/><br>
+        <h3><fmt:message key="label.setDateOfOrder" bundle="${var}"/></h3>
+        <fmt:message key="label.dateCondition" bundle="${var}"/><br>
         <br>
         <fmt:message key="label.points" bundle="${var}"/><br>
         <fmt:message key="label.13points" bundle="${var}"/><br>
         <fmt:message key="label.47points" bundle="${var}"/><br>
         <br>
-        <input type="datetime-local" name="dateTimeOrder" required oninvalid="this.setCustomValidity('<fmt:message key="label.incorrectdateortime" bundle="${var}"/>')" oninput="setCustomValidity('')"><br>
+        <input type="datetime-local" name="dateTimeOrder" required oninvalid="this.setCustomValidity('<fmt:message key="label.incorrectDateOrTime" bundle="${var}"/>')" oninput="setCustomValidity('')"><br>
         ${Message}<br>
-        <input type="submit" style="width: 200px; height: 50px;" value="<fmt:message key="label.makeorder" bundle="${var}"/>" >
+        <input type="submit" style="width: 200px; height: 50px;" value="<fmt:message key="label.makeOrder" bundle="${var}"/>" >
     </form>
 </div>
 

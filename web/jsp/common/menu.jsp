@@ -33,7 +33,7 @@
             <form name="localeForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="typeOfDish"/>
                 <input type="hidden"  name="dishType" value="side_dish" />
-                <td><input type="submit" value="<fmt:message key="label.sidedish" bundle="${var}"/>"/></td>
+                <td><input type="submit" value="<fmt:message key="label.sideDish" bundle="${var}"/>"/></td>
             </form>
             <form name="localeForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="typeOfDish"/>

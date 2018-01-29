@@ -16,6 +16,7 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
@@ -24,25 +25,25 @@
 <div class="whiteback" style="width: 40%">
     <h1><fmt:message key="label.ordering" bundle="${var}"/></h1>
     <p style="color: green">
-        <h2><fmt:message key="label.successorder" bundle="${var}"/></h2>
+        <h2><fmt:message key="label.successOrder" bundle="${var}"/></h2>
     </p>
     <p style="color: green">
         <b><fmt:message key="label.orderId" bundle="${var}"/></b>      ${orderID}
     </p>
     <p style="color: green">
-        <b><fmt:message key="label.ordercost" bundle="${var}"/></b>      ${costResult}
+        <b><fmt:message key="label.orderCost" bundle="${var}"/></b>      ${costResult}
     </p>
     <p style="color: green">
-        <b><fmt:message key="label.orderdate" bundle="${var}"/></b>      ${dateTimeOrder}
+        <b><fmt:message key="label.orderDate" bundle="${var}"/></b>      ${dateTimeOrder}
     </p>
     <c:if test="${payment eq '1'}">
         <p style="color: green">
-            <b><fmt:message key="label.orderpaymentcash" bundle="${var}"/></b>
+            <b><fmt:message key="label.orderPaymentCash" bundle="${var}"/></b>
         </p>
     </c:if>
     <c:if test="${payment eq '0'}">
         <p style="color: green">
-            <b><fmt:message key="label.orderpaymentOK" bundle="${var}"/></b>
+            <b><fmt:message key="label.orderPaymentOK" bundle="${var}"/></b>
         </p>
     </c:if>
 </div>

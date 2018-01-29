@@ -43,7 +43,7 @@ public class LoginCommand implements ActionCommand {
                 if (user != null) {
                     if(user.isBan()){
                         request.setAttribute(PARAM_MESSAGE,
-                                messageManager.getMessage("message.youareban"));
+                                messageManager.getMessage("message.youAreBan"));
                         page = ConfigurationManager.getProperty("path.page.login");
                     }
                     else if(user.isAdmin()){
@@ -58,17 +58,17 @@ public class LoginCommand implements ActionCommand {
                     }
                 } else {
                     request.setAttribute(PARAM_MESSAGE,
-                            messageManager.getMessage("message.loginerror"));
+                            messageManager.getMessage("message.loginError"));
                     page = ConfigurationManager.getProperty("path.page.login");
                 }
             } catch (ServiceException e) {
                 request.setAttribute(PARAM_MESSAGE,
-                        messageManager.getMessage("message.loginerror"));
+                        messageManager.getMessage("message.loginError"));
                 page = ConfigurationManager.getProperty("path.page.login");
             }
         } else {
             request.setAttribute(PARAM_MESSAGE,
-                    messageManager.getMessage("message.loginerror"));
+                    messageManager.getMessage("message.loginError"));
             page = ConfigurationManager.getProperty("path.page.login");
         }
 

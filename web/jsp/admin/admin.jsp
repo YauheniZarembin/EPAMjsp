@@ -16,6 +16,7 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
     <header>
@@ -23,7 +24,7 @@
     </header>
     <form name="loginForm" method="POST" action="/controller">
         <input type="hidden" name="command" value="logout" />
-        <input type="submit" value=" <fmt:message key="label.logout" bundle="${var}"/>">
+        <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
     </form>
     <c:import url="/jsp/common/footer.jsp" />
 </body>

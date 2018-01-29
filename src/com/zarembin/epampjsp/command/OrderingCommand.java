@@ -71,13 +71,13 @@ public class OrderingCommand  implements ActionCommand{
             }
             else{
                 request.setAttribute(PARAM_MESSAGE,
-                        messageManager.getMessage("message.notmoneyforpayment"));
+                        messageManager.getMessage("message.notMoneyForPayment"));
                 page = ConfigurationManager.getProperty("path.page.ordering");
             }
         }
         else{
             request.setAttribute(PARAM_MESSAGE,
-                    messageManager.getMessage("message.datenotcondition"));
+                    messageManager.getMessage("message.dateNotCondition"));
             page = ConfigurationManager.getProperty("path.page.ordering");
         }
 

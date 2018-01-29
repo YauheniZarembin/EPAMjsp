@@ -16,6 +16,7 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
@@ -23,16 +24,16 @@
 </header>
 <form name="localeForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="new_dish"/>
-    <input type="submit" value="<fmt:message key="label.newdish" bundle="${var}"/>" style="width:200px;height:50px"/>
+    <input type="submit" value="<fmt:message key="label.newDish" bundle="${var}"/>" style="width:200px;height:50px"/>
 </form>
 <table width="100%" float="left" class="whiteback">
     <tr>
-        <td><fmt:message key="label.dishname" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishtype" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishprice" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishcookingtime" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishamount" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishpictire" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishName" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishType" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishPrice" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishCookingTime" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishAmount" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishPicture" bundle="${var}"/></td>
     </tr>
     <c:forEach items="${dishes}" var="dish">
         <tr>
@@ -46,7 +47,7 @@
                 <form name="localeForm" method="POST" action="/controller">
                     <input type="hidden" name="command" value="edit_dish"/>
                     <input type="hidden" name="choosenDish" value="${dish.dishName}"/>
-                    <td><input type="submit" value="<fmt:message key="label.dishedit" bundle="${var}"/>" ></td>
+                    <td><input type="submit" value="<fmt:message key="label.dishEdit" bundle="${var}"/>" ></td>
                 </form>
             </td>
 
@@ -56,7 +57,7 @@
 <form name="loginForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="logout" />
     <br/>
-    <input type="submit" value=" <fmt:message key="label.logout" bundle="${var}"/>">
+    <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
 </form>
 <c:import url="/jsp/common/footer.jsp" />
 </body>

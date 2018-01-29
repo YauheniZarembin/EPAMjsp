@@ -27,7 +27,7 @@ public class ReviewsDAO {
     public List<Review> findReviews() throws DAOException {
         List<Review> reviewsList = new ArrayList<>();
         ProxyConnection connection = null;
-        Statement statement;
+        Statement statement = null;
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -40,6 +40,13 @@ public class ReviewsDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -53,7 +60,7 @@ public class ReviewsDAO {
 
     public void insertNewReview(String userName, int mark, String textReview) throws DAOException {
         ProxyConnection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(SQL_INSERT_REVIEW);
@@ -66,6 +73,13 @@ public class ReviewsDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -78,7 +92,7 @@ public class ReviewsDAO {
 
     public void deleteReview(int reviewId) throws DAOException {
         ProxyConnection connection = null;
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(SQL_DELETE_REVIEW);
@@ -87,6 +101,13 @@ public class ReviewsDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (preparedStatement!= null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();

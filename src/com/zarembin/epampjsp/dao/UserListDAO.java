@@ -20,7 +20,7 @@ public class UserListDAO {
 
         List<User> usersList = new ArrayList<>();
         ProxyConnection connection = null;
-        Statement statement;
+        Statement statement = null;
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -36,6 +36,13 @@ public class UserListDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();

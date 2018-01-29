@@ -36,6 +36,13 @@ public class AuthenticationDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(),e.getCause());
         } finally {
+            if (preparedStatement != null){
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();

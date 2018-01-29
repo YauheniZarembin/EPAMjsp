@@ -16,15 +16,16 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
     <table width="100%" class="whiteheader">
         <tr>
-            <td colspan="3" align="left"><b><h1><fmt:message key="label.pageadmin" bundle="${var}"/></h1></b></td>
+            <td colspan="3" align="left"><b><h1><fmt:message key="label.pageAdmin" bundle="${var}"/></h1></b></td>
             <form name="localeForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="admin_menu"/>
-                <td><a href='#' style="color: white" onClick="document.forms['localeForm'].submit();"><fmt:message key="label.headermenu" bundle="${var}"/></a></td>
+                <td><a href='#' style="color: white" onClick="document.forms['localeForm'].submit();"><fmt:message key="label.headerMenu" bundle="${var}"/></a></td>
             </form>
             <form name="localeForm1" method="POST" action="/controller">
                 <input type="hidden" name="command" value="admin_users"/>
@@ -36,15 +37,13 @@
             </form>
             <form name="localeForm9" method="POST" action="/controller">
                 <input type="hidden" name="command" value="reviews_command"/>
-                <td><a href='#' style="color: white" onClick="document.forms['localeForm9'].submit();"><fmt:message key="label.headerreviews" bundle="${var}"/></a> </td>
+                <td><a href='#' style="color: white" onClick="document.forms['localeForm9'].submit();"><fmt:message key="label.headerReviews" bundle="${var}"/></a> </td>
             </form>
-            <td>
-                <form name="localeForm" method="POST" action="/controller">
-                    <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
-                    <input type="hidden" name="command" value="locale"/>
-                    <input type="image" src="<fmt:message key="label.picturelocale" bundle="${var}"/>" height="20" width="30" alt="<fmt:message key="label.buttonlanguage" bundle="${var}"/>">
-                </form>
-            </td>
+            <form name="localeForm" method="POST" action="/controller">
+                <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
+                <input type="hidden" name="command" value="locale"/>
+                <td><input type="image" src="<fmt:message key="label.pictureLocale" bundle="${var}"/>" height="20" width="30" alt="<fmt:message key="label.buttonLanguage" bundle="${var}"/>"></td>
+            </form>
         </tr>
     </table>
 </header>

@@ -16,18 +16,19 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
     <c:import url="/jsp/admin/adminHeader.jsp" />
 </header>
 <div class="whiteback" style="width: 40%">
-    <h1><fmt:message key="label.headerreviews" bundle="${var}"/></h1>
+    <h1><fmt:message key="label.headerReviews" bundle="${var}"/></h1>
     <table width="80%" float="left">
         <c:forEach items="${reviews}" var="review">
         <c:choose>
         <c:when test="${ review.mark > 7 }" >
-        <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
+        <tr><td><b><fmt:message key="label.userRoleUser" bundle="${var}"/>:</b>      ${review.userName}
             <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td>
         </tr>
         <tr><td style="background-color: rgba(0,255,0,0.5)">${review.textReview}</td>
@@ -39,7 +40,7 @@
         </tr>
         </c:when>
         <c:when test="${ review.mark < 5 }" >
-        <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
+        <tr><td><b><fmt:message key="label.userRoleUser" bundle="${var}"/>:</b>      ${review.userName}
             <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
         <tr><td style="background-color: rgba(255,0,0,0.5)">${review.textReview}</td>
                 <form name="localeForm" method="POST" action="/controller">
@@ -52,7 +53,7 @@
 </div>
 </c:when>
 <c:otherwise>
-    <tr><td><b><fmt:message key="label.userroleuser" bundle="${var}"/>:</b>      ${review.userName}
+    <tr><td><b><fmt:message key="label.userRoleUser" bundle="${var}"/>:</b>      ${review.userName}
         <b><fmt:message key="label.mark" bundle="${var}"/></b>:           ${review.mark}</td></tr>
     <tr><td>${review.textReview}</td>
             <form name="localeForm" method="POST" action="/controller">
@@ -81,7 +82,7 @@
 
 <form name="loginForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="logout" />
-    <input type="submit" value=" <fmt:message key="label.logout" bundle="${var}"/>">
+    <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
 </form>
 <c:import url="/jsp/common/footer.jsp" />
 </body>

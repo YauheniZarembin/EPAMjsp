@@ -8,6 +8,7 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
@@ -20,9 +21,9 @@
         <td valign="top" width="50%">
     <table width="70%" float="left" class="whiteback">
     <tr>
-        <td><fmt:message key="label.dishname" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishprice" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishpictire" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishName" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishPrice" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishPicture" bundle="${var}"/></td>
     </tr>
     <c:forEach items="${dishes}" var="dish">
         <tr>
@@ -34,7 +35,7 @@
             <form name="localeForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="add_Dish"/>
                 <input type="hidden" name="choosenDish" value="${dish.dishName}"/>
-                <td><input type="submit" value="<fmt:message key="label.dishorder" bundle="${var}"/>" ></td>
+                <td><input type="submit" value="<fmt:message key="label.dishOrder" bundle="${var}"/>" ></td>
             </form>
             </c:if>
         </tr>

@@ -46,25 +46,25 @@ public class TopUpCommand implements ActionCommand {
                         page = ConfigurationManager.getProperty("path.page.myProfile");
                     } else {
                         request.setAttribute(PARAM_MESSAGE,
-                                messageManager.getMessage("message.notenoughmoney"));
+                                messageManager.getMessage("message.notEnoughMoney"));
                         page = ConfigurationManager.getProperty("path.page.myProfile");
                     }
                 }
                 else{
                     request.setAttribute(PARAM_MESSAGE,
-                            messageManager.getMessage("message.cardpassworderror"));
+                            messageManager.getMessage("message.cardPasswordError"));
                     page = ConfigurationManager.getProperty("path.page.myProfile");
 
                 }
             } catch (ServiceException e) {
                 request.setAttribute(PARAM_MESSAGE,
-                        messageManager.getMessage("message.loginerror"));
+                        messageManager.getMessage("message.loginError"));
                 page = ConfigurationManager.getProperty("path.page.login");
             }
         }
         else{
             request.setAttribute(PARAM_MESSAGE,
-                    messageManager.getMessage("message.moneyerror"));
+                    messageManager.getMessage("message.moneyError"));
             page = ConfigurationManager.getProperty("path.page.myProfile");
         }
         router.setPagePath(page);

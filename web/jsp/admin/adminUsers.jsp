@@ -16,6 +16,7 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header>
@@ -23,13 +24,13 @@
 </header>
 <table width="100%" float="left" class="whiteback">
     <tr>
-        <td><h1><fmt:message key="label.userlogin" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.username" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.userlastname" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.userorders" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.userpoints" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.userban" bundle="${var}"/></h1></td>
-        <td><h1><fmt:message key="label.userrole" bundle="${var}"/></h1></td>
+        <td><h1><fmt:message key="label.userLogin" bundle="${var}"/></h1></td>
+        <td><h1><fmt:message key="label.userName" bundle="${var}"/></h1></td>
+        <td><h1><fmt:message key="label.userLastname" bundle="${var}"/></h1></td>
+        <td><h1><fmt:message key="label.userOrders" bundle="${var}"/></h1></td>
+        <td><h1><fmt:message key="label.userPoints" bundle="${var}"/></h1></td>
+        <td><h1><fmt:message key="label.userBan" bundle="${var}"/></h1></td>
+        <td><h1><fmt:message key="label.userRole" bundle="${var}"/></h1></td>
     </tr>
     <c:forEach items="${users}" var="user">
         <tr>
@@ -40,37 +41,34 @@
             <td>${user.loyaltyPoints}</td>
             <td>
                 <c:if test="${user.isBan()}">
-                        <fmt:message key="label.userbanyes" bundle="${var}"/>
+                        <fmt:message key="label.userBanYes" bundle="${var}"/>
                 </c:if>
                 <c:if test="${!user.isBan()}">
-                    <fmt:message key="label.userbanno" bundle="${var}"/>
+                    <fmt:message key="label.userBanNo" bundle="${var}"/>
                 </c:if>
             </td>
             <td>
                 <c:if test="${user.isAdmin()}">
-                    <fmt:message key="label.userroleadmin" bundle="${var}"/>
+                    <fmt:message key="label.userRoleAdmin" bundle="${var}"/>
                 </c:if>
                 <c:if test="${!user.isAdmin()}">
-                    <fmt:message key="label.userroleuser" bundle="${var}"/>
+                    <fmt:message key="label.userRoleUser" bundle="${var}"/>
                 </c:if>
             </td>
             <td>
                 <form name="localeForm" method="POST" action="/controller">
                     <input type="hidden" name="command" value="edit_user"/>
                     <input type="hidden" name="choosenDish" value="${user.userName}"/>
-            <td><input type="submit" value="<fmt:message key="label.dishedit" bundle="${var}"/>" ></td>
+            <td><input type="submit" value="<fmt:message key="label.dishEdit" bundle="${var}"/>" ></td>
             </form>
             </td>
 
         </tr>
     </c:forEach>
 </table>
-
-
-
 <form name="loginForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="logout" />
-    <input type="submit" value=" <fmt:message key="label.logout" bundle="${var}"/>">
+    <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
 </form>
 <c:import url="/jsp/common/footer.jsp" />
 </body>

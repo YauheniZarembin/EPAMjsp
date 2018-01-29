@@ -43,22 +43,22 @@ public class SignUpCommand implements ActionCommand{
            try {
                if (receiver.singUpUserByEncryption(userName, password, name, lastname, email, cardNumber)) {
                    request.setAttribute(PARAM_MESSAGE,
-                           messageManager.getMessage("message.signupsucces"));
+                           messageManager.getMessage("message.signUpSuccess"));
                    page = ConfigurationManager.getProperty("path.page.login");
                } else {
                    request.setAttribute(PARAM_ERROR_MESSAGE,
-                           messageManager.getMessage("message.signuperror"));
+                           messageManager.getMessage("message.signUpError"));
                    page = ConfigurationManager.getProperty("path.page.signup");
                }
            } catch (ServiceException e) {
                request.setAttribute(PARAM_ERROR_MESSAGE,
-                       messageManager.getMessage("message.signuperror"));
+                       messageManager.getMessage("message.signUpError"));
                page = ConfigurationManager.getProperty("path.page.signup");
            }
        }
         else {
             request.setAttribute(PARAM_ERROR_MESSAGE,
-                    messageManager.getMessage("message.signuperror"));
+                    messageManager.getMessage("message.signUpError"));
             page = ConfigurationManager.getProperty("path.page.signup");
         }
 

@@ -16,26 +16,27 @@
     <style>
         @import "/css/style.css";
     </style>
+    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
 <header class="whiteback">
     <c:import url="../jsp/common/header.jsp" />
 </header>
 <div class="whiteback" style="width: 40%">
-    <h1><fmt:message key="label.headercontacts" bundle="${var}"/></h1>
+    <h1><fmt:message key="label.headerContacts" bundle="${var}"/></h1>
     <img src="/resource/image/epamcafe.jpg" width="270" height="280"
          alt="Иллюстрация" align="left"
          vspace="10" hspace="10">
     <p>
-        <h3><fmt:message key="label.contactadress" bundle="${var}"/></h3>
-        <fmt:message key="label.contactadressinfo" bundle="${var}"/>
+        <h3><fmt:message key="label.contactAddress" bundle="${var}"/></h3>
+        <fmt:message key="label.contactAddressInfo" bundle="${var}"/>
     </p>
     <p>
-        <h3><fmt:message key="label.contacttelephone" bundle="${var}"/></h3>
+        <h3><fmt:message key="label.contactTelephone" bundle="${var}"/></h3>
         +375 (29) 210-60-57
     </p>
     <p>
-        <h3><fmt:message key="label.contacttime" bundle="${var}"/></h3>
+        <h3><fmt:message key="label.contactTime" bundle="${var}"/></h3>
         <fmt:message key="label.contactMnFr" bundle="${var}"/> 10:00 - 22:00<br>
         <fmt:message key="label.contactSt" bundle="${var}"/> 10:00 - 00:00<br>
         <fmt:message key="label.contactSn" bundle="${var}"/>
