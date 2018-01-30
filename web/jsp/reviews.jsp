@@ -102,11 +102,11 @@
             <br>
             <b><fmt:message key="label.textReview" bundle="${var}"/></b>
             <br>
-            <textarea rows="4" cols="50" name="comment" form="addFormId"></textarea>
+            <textarea rows="4" cols="50" name="comment" form="addFormId" ></textarea>
             <br>
             <b>${Message}</b>
             <br>
-            <input type="submit" style="width: 200px; height: 50px;" value="<fmt:message key="label.sendReview" bundle="${var}"/>" >
+            <input type="submit" style="width: 200px; height: 50px;" value="<fmt:message key="label.sendReview" bundle="${var}"/>" />
             <br>
             <br>
             <br>

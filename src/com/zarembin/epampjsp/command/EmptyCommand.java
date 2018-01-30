@@ -1,7 +1,5 @@
 package com.zarembin.epampjsp.command;
 
-
-
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.servlet.Router;
 
@@ -13,7 +11,7 @@ public class EmptyCommand implements ActionCommand {
         /* в случае ошибки или прямого обращения к контроллеру
          * переадресация на страницу ввода логина */
         Router router = new Router();
-        String pagePath = ConfigurationManager.getProperty("path.page.login");
+        String pagePath = ConfigurationManager.getProperty("path.page.error");
         router.setPagePath(pagePath);
         return router;
     }

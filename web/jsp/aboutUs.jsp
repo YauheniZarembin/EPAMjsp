@@ -30,7 +30,6 @@
     <p>
         <fmt:message key="label.information2" bundle="${var}"/>
     </p>
-
 </div>
 <c:import url="../jsp/common/footer.jsp" />
 </body>

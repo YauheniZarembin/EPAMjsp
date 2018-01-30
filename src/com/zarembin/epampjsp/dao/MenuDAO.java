@@ -94,7 +94,7 @@ public class MenuDAO {
                 }
             }
         }
-        return dishByTypeList;
+       return dishByTypeList;
     }
 
     public Dish findDishByName(String dishName) throws DAOException {
@@ -107,11 +107,11 @@ public class MenuDAO {
             preparedStatement  = connection.prepareStatement(SQL_SELECT_DISHES_BY_NAME);
             preparedStatement.setString(1, dishName);
             resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next()) {
                 return new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
                         resultSet.getBigDecimal(3), resultSet.getString(4));
             }
+
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
@@ -130,6 +130,6 @@ public class MenuDAO {
                 }
             }
         }
-        return null;
+       return null;
     }
 }

@@ -3,6 +3,7 @@ package com.zarembin.epampjsp.command;
 import com.zarembin.epampjsp.entity.Dish;
 import com.zarembin.epampjsp.entity.Order;
 import com.zarembin.epampjsp.entity.User;
+import com.zarembin.epampjsp.exception.CommandException;
 import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
@@ -32,7 +33,7 @@ public class OrderingCommand  implements ActionCommand{
     }
 
     @Override
-    public Router execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) throws CommandException {
 
         Router router = new Router();
         String page = null;
@@ -44,29 +45,23 @@ public class OrderingCommand  implements ActionCommand{
         String payment = request.getParameter(PARAM_IS_CASH_PAYMENT);
         MessageManager messageManager = MessageManager.defineLocale(request);
         LocalDateTime date = LocalDateTime.parse(dateString);
-        System.out.println(date);
-        System.out.println(payment);
 
         if (receiver.checkDateTimeOrder(date)){
             if ("1".equals(payment) ||  (user.getMoney().compareTo(orderCost) >= 0)) {
                 try {
-                    Order order = new Order(0, user.getUserName(), date, "1".equals(payment), orderCost, orderMap);
+                    Order order = new Order(0, user.getUserName(), date, "1".equals(payment), orderCost, orderMap,false);
                     receiver.makeOrder(order, user);
                     request.getSession().setAttribute(PARAM_USER,user);
                     request.getSession().setAttribute(PARAM_ORDER_COST,null);
                     request.getSession().setAttribute(PARAM_MAP_ORDER,null);
-                    request.setAttribute(PARAM_IS_CASH_PAYMENT,payment);
-                    request.setAttribute(PARAM_COST_RESULT,orderCost);
-                    request.setAttribute(PARAM_ORDER_ID,order.getOrderId());
-                    request.setAttribute(PARAM_DATE_TIME_RECEIVING,date);
+                    request.getSession().setAttribute(PARAM_IS_CASH_PAYMENT,payment);
+                    request.getSession().setAttribute(PARAM_COST_RESULT,orderCost);
+                    request.getSession().setAttribute(PARAM_ORDER_ID,order.getOrderId());
+                    request.getSession().setAttribute(PARAM_DATE_TIME_RECEIVING,date);
                     page = ConfigurationManager.getProperty("path.page.successOrdering");
-                    ////router.setRoute(Router.RouteType.REDIRECT);   ???????????????????????????
+                    router.setRoute(Router.RouteType.REDIRECT);
                 } catch (ServiceException e) {
-                    ////////    как ошибку отправлять Forfard или REDIRECT  ????????????????????????
-                    page = ConfigurationManager.getProperty("path.page.login");
-                    request.setAttribute(PARAM_MESSAGE, e.getMessage());
-                    router.setPagePath(page);
-                    return router;
+                    throw new CommandException(e.getMessage(), e.getCause());
                 }
             }
             else{

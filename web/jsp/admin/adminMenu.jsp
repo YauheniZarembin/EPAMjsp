@@ -12,7 +12,7 @@
 <fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html>
 <head>
-    <title>Title</title>
+    <title>EPAM-cafe</title>
     <style>
         @import "/css/style.css";
     </style>
@@ -22,17 +22,13 @@
 <header>
     <c:import url="/jsp/admin/adminHeader.jsp" />
 </header>
-<form name="localeForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="new_dish"/>
-    <input type="submit" value="<fmt:message key="label.newDish" bundle="${var}"/>" style="width:200px;height:50px"/>
-</form>
+<c:import url="/jsp/common/menu.jsp"/>
+<input type="button" value="<fmt:message key="label.newDish" bundle="${var}"/>"  onClick='location.href="/jsp/admin/adminAddDish.jsp"' style="width:200px;height:50px"/>
 <table width="100%" float="left" class="whiteback">
     <tr>
         <td><fmt:message key="label.dishName" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishType" bundle="${var}"/></td>
         <td><fmt:message key="label.dishPrice" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishCookingTime" bundle="${var}"/></td>
-        <td><fmt:message key="label.dishAmount" bundle="${var}"/></td>
+        <td><fmt:message key="label.dishType" bundle="${var}"/></td>
         <td><fmt:message key="label.dishPicture" bundle="${var}"/></td>
     </tr>
     <c:forEach items="${dishes}" var="dish">
@@ -40,8 +36,6 @@
             <td>${dish.dishName}</td>
             <td>${dish.price}</td>
             <td>${dish.typeOfDish}</td>
-            <td>${dish.cookingTime}</td>
-            <td>${dish.maxNumberOfServings}</td>
             <td><img src="${dish.imagePath}" height="100" width="100" border="2px"></td>
             <td>
                 <form name="localeForm" method="POST" action="/controller">
@@ -54,11 +48,6 @@
         </tr>
     </c:forEach>
 </table>
-<form name="loginForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="logout" />
-    <br/>
-    <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
-</form>
 <c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

@@ -12,7 +12,7 @@
 <fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html>
 <head>
-    <title>Admin page</title>
+    <title>EPAM-cafe</title>
     <style>
         @import "/css/style.css";
     </style>
@@ -66,10 +66,6 @@
         </tr>
     </c:forEach>
 </table>
-<form name="loginForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="logout" />
-    <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
-</form>
 <c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

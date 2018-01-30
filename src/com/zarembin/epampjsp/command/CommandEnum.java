@@ -23,7 +23,7 @@ public enum CommandEnum {
     },
     LOCALE{
         {
-            this.command = new I18nCommand();
+            this.command = new I18nCommand(new UserService());
         }
     },
     TYPEOFDISH {
@@ -61,11 +61,16 @@ public enum CommandEnum {
             this.command = new UserListCommand(new AdminService());
         }
     },
-//    ADMIN_ORDERS{
-//        {
-//            this.command = new AdminOrdersCommand(new AdminService());
-//        }
-//    },
+    ADMIN_ORDERS{
+       {
+            this.command = new AdminOrdersCommand(new AdminService());
+        }
+    },
+    CHANGE_RECEIVED{
+        {
+            this.command = new ChangeReceivedOrderCommand(new AdminService());
+        }
+    },
     USER_ORDERS {
         {
             this.command = new UserOrdersCommand(new UserService());

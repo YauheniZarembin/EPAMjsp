@@ -2,6 +2,7 @@ package com.zarembin.epampjsp.command;
 
 import com.sun.deploy.net.HttpRequest;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
+import com.zarembin.epampjsp.service.UserService;
 import com.zarembin.epampjsp.servlet.Router;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,32 +14,22 @@ public class I18nCommand implements ActionCommand {
     private static final String PARAM_CHANGE_LANGUAGE = "changeLanguage";
     private static final String PARAM_PAGE_PATH = "pagePath";
 
+    private UserService receiver;
 
+    public I18nCommand(UserService receiver) {
+        this.receiver = receiver;
+    }
 
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-
-        ////////////////    скорее всего это надо в receiver
-
-        if (request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE) == null){
-            request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE , "ru_RU");
-        }
-        if ("en_US".equals(request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE))){
-            request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE , "ru_RU");
-        }
-        else{
-            request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE , "en_US");
-        }
+        String locale = (String) request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE);
+        String page = request.getParameter(PARAM_PAGE_PATH);
 
 
-        String page = null;
-        Pattern p = Pattern.compile(REG_EX_JSP);
-        Matcher m = p.matcher(request.getParameter(PARAM_PAGE_PATH));
-        if(m.find()){
-            page = m.group();
-        }
-        router.setPagePath(request.getContextPath()+page);
+        request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE, receiver.changeLanguage(locale));
+        router.setRoute(Router.RouteType.REDIRECT);
+        router.setPagePath(request.getContextPath()+receiver.returnSamePage(page,REG_EX_JSP));
         return router;
     }
 }

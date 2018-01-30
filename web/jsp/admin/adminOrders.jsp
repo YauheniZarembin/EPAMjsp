@@ -1,64 +1,68 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Евгений
-  Date: 24.01.2018
-  Time: 14:41
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${changeLanguage}"/>
 <fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html>
 <head>
-    <title>Title</title>
+    <title>EPAM-cafe</title>
     <style>
         @import "/css/style.css";
     </style>
-    <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 </head>
 <body>
-    <header>
-        <c:import url="/jsp/admin/adminHeader.jsp" />
-    </header>
-
-    <table width="100%" float="left" class="whiteback">
-        <tr>
-            <td><h1><fmt:message key="label.orderId" bundle="${var}"/></h1></td>
-            <td><h1><fmt:message key="label.orderUser" bundle="${var}"/></h1></td>
-            <td><h1><fmt:message key="label.orderDate" bundle="${var}"/></h1></td>
-            <td><h1><fmt:message key="label.orderPayment" bundle="${var}"/></h1></td>
+<header>
+    <c:import url="/jsp/admin/adminHeader.jsp" />
+</header>
+<div class="whiteback">
+    <h1><fmt:message key="label.allOrders" bundle="${var}"/></h1>
+    <table width="100%" style="table-layout: fixed" border="1px">
+        <tr align="center">
+            <td><h3><fmt:message key="label.orderId" bundle="${var}"/></h3></td>
+            <td><h3><fmt:message key="label.orderUser" bundle="${var}"/></h3></td>
+            <td><h3><fmt:message key="label.orderDate" bundle="${var}"/></h3></td>
+            <td><h3><fmt:message key="label.orderDishList" bundle="${var}"/></h3></td>
+            <td><h3><fmt:message key="label.orderCost" bundle="${var}"/></h3></td>
+            <td><h3><fmt:message key="label.orderPayment" bundle="${var}"/></h3></td>
+            <td><h3><fmt:message key="label.orderReceived" bundle="${var}"/> ? </h3></td>
         </tr>
-        <c:forEach items="${orders}" var="order">
-            <tr>
-                <td>${order.orderId}</td>
-                <td>${order.userName}</td>
-                <td>${order.dateOfReceiving}</td>
+        <c:forEach items="${userOrders}" var="userOrder">
+            <tr align="center">
+                <td>${userOrder.orderId}</td>
+                <td>${userOrder.userName}</td>
+                <td>${userOrder.dateOfReceiving}</td>
                 <td>
-                    <c:if test="${order.isCashPayment()}">
+                    <table>
+                        <c:forEach items="${userOrder.dishes}" var="orderDish">
+                            <tr>
+                                <td>${orderDish.key.dishName}</td>
+                                <td><fmt:message key="label.amount" bundle="${var}"/>${orderDish.value}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </td>
+                <td>${userOrder.orderCost}</td>
+                <td>
+                    <c:if test="${userOrder.isCashPayment()}">
                         <fmt:message key="label.orderCash" bundle="${var}"/>
                     </c:if>
-                    <c:if test="${!order.isCashPayment()}">
+                    <c:if test="${!userOrder.isCashPayment()}">
                         <fmt:message key="label.orderSite" bundle="${var}"/>
                     </c:if>
                 </td>
-                <td>
+                <c:if test="${userOrder.isReceived()}">
+                    <td><img src="\resource\image\done.jpg" height="50" width="50"></td>
+                </c:if>
+                <c:if test="${!userOrder.isReceived()}">
                     <form name="localeForm" method="POST" action="/controller">
-                        <input type="hidden" name="command" value="delete_order"/>
-                        <input type="hidden" name="choosenDish" value="${dish.dishName}"/>
-                <td><input type="submit" value="<fmt:message key="label.delete" bundle="${var}"/>" ></td>
-                </form>
-                </td>
+                        <input type="hidden" name="command" value="change_received"/>
+                        <input type="hidden" name="chosenOrder" value="${userOrder.orderId}"/>
+                        <td><input type="submit" value="<fmt:message key="label.orderReceived" bundle="${var}"/>" ></td>
+                    </form>
+                </c:if>
             </tr>
         </c:forEach>
     </table>
-    <form name="loginForm" method="POST" action="/controller">
-        <input type="hidden" name="command" value="logout" />
-        <br/>
-        <input type="submit" value=" <fmt:message key="label.logOut" bundle="${var}"/>">
-    </form>
-    <c:import url="/jsp/common/footer.jsp" />
-
+</div>
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

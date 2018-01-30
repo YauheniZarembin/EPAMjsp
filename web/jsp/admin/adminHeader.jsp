@@ -12,7 +12,7 @@
 <fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html>
 <head>
-    <title>Title</title>
+    <title>EPAM-cafe</title>
     <style>
         @import "/css/style.css";
     </style>
@@ -23,6 +23,10 @@
     <table width="100%" class="whiteheader">
         <tr>
             <td colspan="3" align="left"><b><h1><fmt:message key="label.pageAdmin" bundle="${var}"/></h1></b></td>
+            <form name="localeForm23" method="POST" action="/controller">
+                <input type="hidden" name="command" value="logout"/>
+                <td><a href='#' style="color: white" onClick="document.forms['localeForm23'].submit();"><fmt:message key="label.logOut" bundle="${var}"/></a></td>
+            </form>
             <form name="localeForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="admin_menu"/>
                 <td><a href='#' style="color: white" onClick="document.forms['localeForm'].submit();"><fmt:message key="label.headerMenu" bundle="${var}"/></a></td>
@@ -31,9 +35,9 @@
                 <input type="hidden" name="command" value="admin_users"/>
                 <td><a href='#' style="color: white" onClick="document.forms['localeForm1'].submit();"><fmt:message key="label.users" bundle="${var}"/></a></td>
             </form>
-            <form name="localeForm2" method="POST" action="/controller">
+            <form name="localeFormOrders" method="POST" action="/controller">
                 <input type="hidden" name="command" value="admin_orders"/>
-                <td><a href='#' style="color: white" onClick="document.forms['localeForm2'].submit();"><fmt:message key="label.orders" bundle="${var}"/></a></td>
+                <td><a href='#' style="color: white" onClick="document.forms['localeFormOrders'].submit();"><fmt:message key="label.orders" bundle="${var}"/></a></td>
             </form>
             <form name="localeForm9" method="POST" action="/controller">
                 <input type="hidden" name="command" value="reviews_command"/>

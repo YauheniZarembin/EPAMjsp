@@ -12,8 +12,32 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserService {
+
+    public boolean isSuchUserExist(String login) throws ServiceException {
+        RegistrationDAO registrationDAO = new RegistrationDAO();
+        try {
+            return registrationDAO.isSuchUserExist(login);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+    }
+
+    public boolean isSuchCardExist(String cardNumber , String cardPassword) throws ServiceException {
+        RegistrationDAO registrationDAO = new RegistrationDAO();
+        try {
+            return registrationDAO.isSuchCardExist(cardNumber,cardPassword);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+    }
+
+
+
+
     public User findUserByEncryption(String login, String password) throws ServiceException {
         Encryption encryption = new Encryption();
         password = encryption.encrypt(password);
@@ -25,12 +49,12 @@ public class UserService {
         }
     }
 
-    public boolean singUpUserByEncryption(String userName, String password, String name, String lastname, String email, String cardNumber) throws ServiceException {
+    public void singUpUserByEncryption(String userName, String password, String name, String lastname, String email, String cardNumber) throws ServiceException {
         Encryption encryption = new Encryption();
         password = encryption.encrypt(password);
         RegistrationDAO registrationDAO = new RegistrationDAO();
         try {
-            return registrationDAO.insertNewUser(userName, password, name, lastname, email, cardNumber);
+            registrationDAO.insertNewUser(userName, password, name, lastname, email, cardNumber);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
@@ -141,5 +165,23 @@ public class UserService {
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
         }
+    }
+
+    public String changeLanguage(String locale){
+        if (locale == null){
+            return "en_US";
+        }
+        return ("en_US").equals(locale) ? "ru_RU" : "en_US";
+    }
+
+    public String returnSamePage(String pagePath , String regEx){
+
+        String page = null;
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(pagePath);
+        if(m.find()){
+            page = m.group();
+        }
+        return page;
     }
 }

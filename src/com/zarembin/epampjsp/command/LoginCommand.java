@@ -1,7 +1,7 @@
 package com.zarembin.epampjsp.command;
-import com.zarembin.epampjsp.entity.Dish;
 import com.zarembin.epampjsp.entity.TypeOfDish;
 import com.zarembin.epampjsp.entity.User;
+import com.zarembin.epampjsp.exception.CommandException;
 import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
@@ -11,8 +11,6 @@ import com.zarembin.epampjsp.servlet.Router;
 import com.zarembin.epampjsp.validator.InputTextValidator;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginCommand implements ActionCommand {
     private static final String PARAM_LOGIN = "login";
@@ -28,12 +26,13 @@ public class LoginCommand implements ActionCommand {
     }
 
     @Override
-    public Router execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String page;
         String login = request.getParameter(PARAM_LOGIN);
         String pass = request.getParameter(PARAM_PASSWORD);
         MessageManager messageManager = MessageManager.defineLocale(request);
+        request.getSession().setAttribute(PARAM_MESSAGE, null);
 
 
         InputTextValidator inputTextValidator = new InputTextValidator();
@@ -48,7 +47,8 @@ public class LoginCommand implements ActionCommand {
                     }
                     else if(user.isAdmin()){
                         request.getSession().setAttribute(PARAM_USER, user);
-                        page = ConfigurationManager.getProperty("path.page.admin");
+                        request.getSession().setAttribute(PARAM_DISHES,new MenuService().findDishesByType(TypeOfDish.SOUP));
+                        page = ConfigurationManager.getProperty("path.page.adminMenu");
                     }
                     else {
                         request.getSession().setAttribute(PARAM_DISHES,new MenuService().findDishesByType(TypeOfDish.SOUP));
@@ -62,9 +62,7 @@ public class LoginCommand implements ActionCommand {
                     page = ConfigurationManager.getProperty("path.page.login");
                 }
             } catch (ServiceException e) {
-                request.setAttribute(PARAM_MESSAGE,
-                        messageManager.getMessage("message.loginError"));
-                page = ConfigurationManager.getProperty("path.page.login");
+                throw new CommandException(e.getMessage(), e.getCause());
             }
         } else {
             request.setAttribute(PARAM_MESSAGE,

@@ -2,6 +2,7 @@ package com.zarembin.epampjsp.servlet;
 
 import com.zarembin.epampjsp.command.ActionCommand;
 import com.zarembin.epampjsp.command.ActionFactory;
+import com.zarembin.epampjsp.exception.CommandException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
 
@@ -20,10 +21,12 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
     private void processRequest(HttpServletRequest request,
                                 HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,25 +34,29 @@ public class Controller extends HttpServlet {
 
         ActionFactory client = new ActionFactory();
         ActionCommand command = client.defineCommand(request);
-        router = command.execute(request);
-        MessageManager messageManager = MessageManager.defineLocale(request);
-        // метод возвращает страницу ответа
-        //page = null; // поэксперементировать!
-        if (router.getPagePath() != null) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(router.getPagePath());
-            switch (router.getRoute()){
-                case FORWARD:
-                    dispatcher.forward(request, response);
-                    break;
-                case REDIRECT:
-                    response.sendRedirect(request.getContextPath()+router.getPagePath());
-                    break;
+        try {
+            router = command.execute(request);
+            MessageManager messageManager = MessageManager.defineLocale(request);
+            if (router.getPagePath() != null) {
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(router.getPagePath());
+                switch (router.getRoute()) {
+                    case FORWARD:
+                        dispatcher.forward(request, response);
+                        break;
+                    case REDIRECT:
+                        response.sendRedirect(request.getContextPath() + router.getPagePath());
+                        break;
+                }
+            } else {
+                String page = ConfigurationManager.getProperty("path.page.error");
+                request.getSession().setAttribute("nullPage",
+                        messageManager.getMessage("message.nullPage"));
+                response.sendRedirect(request.getContextPath() + page);
             }
-        } else {
-            String page = ConfigurationManager. getProperty("path.page.index");
-            request.getSession().setAttribute("nullPage",
-                    messageManager.getMessage("message.nullPage"));
-            response.sendRedirect(request.getContextPath() + page);
+        } catch (CommandException e) {
+            request.setAttribute("exceptionCause", e.getCause().toString());
+            request.setAttribute("exceptionMessage", e.getMessage());
+            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
         }
     }
 }

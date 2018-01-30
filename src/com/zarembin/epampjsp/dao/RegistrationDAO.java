@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class RegistrationDAO {
 
     private final static String SQL_CHECK_CARD_NUMBER =
-            "SELECT card_number FROM cafedb.bank_info where card_number=?";
+            "SELECT card_number FROM cafedb.bank_info where card_number=? AND password=?;";
 
     private final static String SQL_CHECK_USER_NAME =
             "SELECT user_name FROM cafedb.personal_info where user_name=?";
@@ -19,11 +19,75 @@ public class RegistrationDAO {
     private final static String SQL_INSERT_USER =
             "INSERT INTO `cafedb`.`personal_info` (user_name, password, is_admin, is_ban, `name`, last_name, loyalty_points, money, `e-mail`,number_of_orders, card_number) VALUES (?, ?, 0, 0, ?, ?, 0, 0, ?, 0, ?)";
 
-    public boolean insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) throws DAOException {
+
+    public boolean isSuchUserExist(String userName) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatementCheckUserName = null;
+        ResultSet resultSet;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+
+            preparedStatementCheckUserName = connection.prepareStatement(SQL_CHECK_USER_NAME);
+            preparedStatementCheckUserName.setString(1, userName);
+            resultSet = preparedStatementCheckUserName.executeQuery();
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (preparedStatementCheckUserName != null) {
+                try {
+                    preparedStatementCheckUserName.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+        }
+    }
+
+    public boolean isSuchCardExist(String cardNumber, String cardPassword) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatementCheckCard = null;
+        ResultSet resultSet;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            preparedStatementCheckCard = connection.prepareStatement(SQL_CHECK_CARD_NUMBER);
+            preparedStatementCheckCard.setString(1, cardNumber);
+            preparedStatementCheckCard.setString(2, cardPassword);
+            resultSet = preparedStatementCheckCard.executeQuery();
+
+            return resultSet.next();
+
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (preparedStatementCheckCard != null) {
+                try {
+                    preparedStatementCheckCard.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+        }
+    }
+
+    public void insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) throws DAOException {
         ProxyConnection connection = null;
         PreparedStatement preparedStatementInsertUser = null;
-        PreparedStatement preparedStatementCheckCardNumber= null;
-        PreparedStatement preparedStatementCheckUserName = null;
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -35,41 +99,12 @@ public class RegistrationDAO {
             preparedStatementInsertUser.setString(5, email);
             preparedStatementInsertUser.setString(6, cardNumber);
 
+            preparedStatementInsertUser.executeUpdate();
 
-            preparedStatementCheckCardNumber = connection.prepareStatement(SQL_CHECK_CARD_NUMBER);
-            preparedStatementCheckCardNumber.setString(1, cardNumber);
-
-            preparedStatementCheckUserName = connection.prepareStatement(SQL_CHECK_USER_NAME);
-            preparedStatementCheckUserName.setString(1, userName);
-
-            ////////   check e-mail
-
-            resultSet = preparedStatementCheckUserName.executeQuery();
-            if (!resultSet.next()) {
-                resultSet = preparedStatementCheckCardNumber.executeQuery();
-                if (resultSet.next()) {
-                    preparedStatementInsertUser.executeUpdate();
-                    return true;
-                }
-            }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage(),e.getCause());
+            throw new DAOException(e.getMessage(), e.getCause());
         } finally {
-            if (preparedStatementCheckCardNumber != null){
-                try {
-                    preparedStatementCheckCardNumber.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e.getCause());
-                }
-            }
-            if (preparedStatementCheckUserName != null){
-                try {
-                    preparedStatementCheckUserName.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e.getCause());
-                }
-            }
-            if (preparedStatementInsertUser != null){
+            if (preparedStatementInsertUser != null) {
                 try {
                     preparedStatementInsertUser.close();
                 } catch (SQLException e) {
@@ -84,6 +119,5 @@ public class RegistrationDAO {
                 }
             }
         }
-        return false;
     }
 }

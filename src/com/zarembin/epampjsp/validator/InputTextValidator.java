@@ -1,5 +1,6 @@
 package com.zarembin.epampjsp.validator;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,12 +8,23 @@ public class InputTextValidator {
 
     private final String REG_EX_CARD_NUMBER = "\\d{4}";
     private final String REG_EX_MONEY = "\\d+(\\.\\d+)?";
-    private final String REG_EX_EMAIL = "^((\\w|[-+])+(\\.[\\w-]+)*@[\\w-]+((\\.[\\d\\p{Alpha}]+)*(\\.\\p{Alpha}{2,})*)*)$";
+    private final String REG_EX_EMAIL = "^([\\w-]+\\.)*[\\w-]+@[\\w-]+(\\.[\\w-]+)*\\.[a-z]{2,6}$";
     private final String REG_EX_PASSWORD = "\\w+";
     private final String REG_EX_USER_NAME = "\\w+";
+    private final String REG_EX_COMMENT="\\s*";
 
 
 
+
+
+    public boolean isCommentValid(String comment){
+        if ((comment==null) || (comment.isEmpty())){
+            return false;
+        }
+        Pattern p = Pattern.compile(REG_EX_COMMENT);
+        Matcher m = p.matcher(comment);
+        return !m.matches();
+    }
 
     public boolean isLogInValid(String login){
         if ((login==null) || (login.isEmpty())){

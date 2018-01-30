@@ -1,6 +1,7 @@
 package com.zarembin.epampjsp.command;
 
 import com.zarembin.epampjsp.entity.Dish;
+import com.zarembin.epampjsp.exception.CommandException;
 import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.service.MenuService;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddDishCommand implements ActionCommand {
-    private static final String PARAM_CHOOSEN_DISH = "choosenDish";
+    private static final String PARAM_CHOSEN_DISH = "choosenDish";
     private static final String PARAM_ORDERS = "orders";
     private static final String PARAM_ORDER_COST = "orderCost";
     private MenuService receiver;
@@ -23,45 +24,23 @@ public class AddDishCommand implements ActionCommand {
     }
 
     @Override
-    public Router execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
         String page;
         BigDecimal orderCost= (BigDecimal) request.getSession().getAttribute(PARAM_ORDER_COST);
         Map<Dish,Integer> orders= (HashMap<Dish,Integer>) request.getSession().getAttribute(PARAM_ORDERS);
-        String choosenDish = request.getParameter(PARAM_CHOOSEN_DISH);
+        String chosenDish = request.getParameter(PARAM_CHOSEN_DISH);
 
         try {
-            ////////////////    скорее всего это надо в receiver
-            if (orderCost == null){
-                orderCost = new BigDecimal(0);
-            }
-            if (orders == null){
-                orders = new HashMap<>();
-            }
-
-            Dish dish = receiver.findDishByName(choosenDish);
-            System.out.println(dish.getDishName());
-
-            if (orders.containsKey(dish)){
-                orders.replace(dish,orders.get(dish)+1);
-            }
-            else{
-                orders.put(dish,1);
-            }
-            orderCost = orderCost.add(dish.getPrice());
-
-            request.getSession().setAttribute(PARAM_ORDERS,orders);
-            request.getSession().setAttribute(PARAM_ORDER_COST,orderCost);
-
-
-        } catch (ServiceException e) {
-            ////////    как ошибку отправлять Forfard или REDIRECT
-            page = ConfigurationManager.getProperty("path.page.login");
+            Dish dish = receiver.findDishByName(chosenDish);
+            request.getSession().setAttribute(PARAM_ORDERS,receiver.addDish(orders,dish));
+            request.getSession().setAttribute(PARAM_ORDER_COST,receiver.addCost(orderCost,dish));
+            page = ConfigurationManager.getProperty("path.page.main");
             router.setPagePath(page);
+            router.setRoute(Router.RouteType.REDIRECT);
             return router;
+        } catch (ServiceException e) {
+            throw new CommandException(e.getMessage(),e.getCause());
         }
-        page = ConfigurationManager.getProperty("path.page.main");
-        router.setPagePath(page);
-        return router;
     }
 }

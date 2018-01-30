@@ -30,9 +30,13 @@ footer {
 {
     display: inline-block;
 }
-input :invalid {
+
+input:invalid {
     border: 3px solid red;
 }
-input :valid {
+input:valid {
     border: 3px solid green;
+}
+input{
+    border: 3px solid black;
 }

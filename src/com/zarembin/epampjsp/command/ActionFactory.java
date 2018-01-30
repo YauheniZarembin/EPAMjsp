@@ -5,6 +5,7 @@ import com.zarembin.epampjsp.resource.MessageManager;
 import javax.servlet.http.HttpServletRequest;
 
 public class ActionFactory {
+    ////////////////    здесь что-то не то !!!!!!!!!!!!!!!!!!!!
     public ActionCommand defineCommand(HttpServletRequest request) {
         MessageManager messageManager = MessageManager.defineLocale(request);
         ActionCommand current = new EmptyCommand();
@@ -18,7 +19,7 @@ public class ActionFactory {
             current = currentEnum.getCurrentCommand();
         } catch (IllegalArgumentException e) {
             request.setAttribute("wrongAction", action
-                    + messageManager.getMessage("message.wrongaction"));
+                    + messageManager.getMessage("message.wrongAction"));
         }
         return current;
     }

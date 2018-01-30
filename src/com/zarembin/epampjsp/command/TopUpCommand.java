@@ -1,6 +1,7 @@
 package com.zarembin.epampjsp.command;
 
 import com.zarembin.epampjsp.entity.User;
+import com.zarembin.epampjsp.exception.CommandException;
 import com.zarembin.epampjsp.exception.ServiceException;
 import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.resource.MessageManager;
@@ -25,9 +26,9 @@ public class TopUpCommand implements ActionCommand {
     }
 
     @Override
-    public Router execute(HttpServletRequest request) {
+    public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        String page = null;
+        String page;
         User user = (User) request.getSession().getAttribute(PARAM_USER);
         String cardPassword = request.getParameter(PARAM_CARD_PASSWORD);
         String moneyString = request.getParameter(PARAM_ADD_MONEY);
@@ -44,6 +45,7 @@ public class TopUpCommand implements ActionCommand {
                         user = receiver.topUpMoney(bankMoney,moneyForTopUp,user);
                         request.getSession().setAttribute(PARAM_USER,user);
                         page = ConfigurationManager.getProperty("path.page.myProfile");
+                        router.setRoute(Router.RouteType.REDIRECT);
                     } else {
                         request.setAttribute(PARAM_MESSAGE,
                                 messageManager.getMessage("message.notEnoughMoney"));
@@ -57,9 +59,7 @@ public class TopUpCommand implements ActionCommand {
 
                 }
             } catch (ServiceException e) {
-                request.setAttribute(PARAM_MESSAGE,
-                        messageManager.getMessage("message.loginError"));
-                page = ConfigurationManager.getProperty("path.page.login");
+                throw new CommandException(e.getMessage(), e.getCause());
             }
         }
         else{
