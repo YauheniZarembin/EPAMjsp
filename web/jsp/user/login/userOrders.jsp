@@ -19,7 +19,7 @@
 </head>
 <body>
 <header>
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </header>
 <c:if test="${empty userOrders}">
     <h1 class="whiteback"><fmt:message key="label.noOrders" bundle="${var}"/></h1>
@@ -65,6 +65,6 @@
 </table>
     </div>
 </c:if>
-<c:import url="../jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

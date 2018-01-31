@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <td colspan="4" align="center">
-                <input type="button" value="<fmt:message key="label.ordering" bundle="${var}"/>"  onClick='location.href="/jsp/ordering.jsp"' />
+                <input type="button" value="<fmt:message key="label.ordering" bundle="${var}"/>"  onClick='location.href="/jsp/user/login/ordering.jsp"' />
             </td>
         </tr>
     </c:if>

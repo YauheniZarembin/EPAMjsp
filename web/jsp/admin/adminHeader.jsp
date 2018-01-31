@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 <fmt:setLocale value="${changeLanguage}"/>
 <fmt:setBundle basename="resource.pagecontent" var="var"/>
 <html>
@@ -22,7 +23,7 @@
 <header>
     <table width="100%" class="whiteheader">
         <tr>
-            <td colspan="3" align="left"><b><h1><fmt:message key="label.pageAdmin" bundle="${var}"/></h1></b></td>
+            <td colspan="2" align="center"><ctg:role user="${user}"/></td>
             <form name="localeForm23" method="POST" action="/controller">
                 <input type="hidden" name="command" value="logout"/>
                 <td><a href='#' style="color: white" onClick="document.forms['localeForm23'].submit();"><fmt:message key="label.logOut" bundle="${var}"/></a></td>
@@ -43,11 +44,18 @@
                 <input type="hidden" name="command" value="reviews_command"/>
                 <td><a href='#' style="color: white" onClick="document.forms['localeForm9'].submit();"><fmt:message key="label.headerReviews" bundle="${var}"/></a> </td>
             </form>
-            <form name="localeForm" method="POST" action="/controller">
-                <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
-                <input type="hidden" name="command" value="locale"/>
-                <td><input type="image" src="<fmt:message key="label.pictureLocale" bundle="${var}"/>" height="20" width="30" alt="<fmt:message key="label.buttonLanguage" bundle="${var}"/>"></td>
-            </form>
+            <td>
+                <table class="whiteheader" align="center">
+                    <tr align="center">
+                        <form name="localeForm" method="POST" action="/controller">
+                            <input type="hidden" name="pagePath" value="${pageContext.request.requestURL}" />
+                            <input type="hidden" name="command" value="locale"/>
+                            <td><input type="image" src="<fmt:message key="label.pictureLocale" bundle="${var}"/>" height="20" width="30" alt="<fmt:message key="label.buttonLanguage" bundle="${var}"/>"> </td>
+                        </form>
+                    </tr>
+                    <tr><td><ctg:infoTimeTag/></td></tr>
+                </table>
+            </td>
         </tr>
     </table>
 </header>

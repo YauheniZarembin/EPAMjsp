@@ -29,8 +29,7 @@ public class MenuCommand implements ActionCommand {
         User user = (User) request.getSession().getAttribute(PARAM_USER);
         try {
             request.getSession().setAttribute(PARAM_DISHES,receiver.findDishesByType(typeOfDish));
-
-            page = (user.isAdmin()) ? ConfigurationManager.getProperty("path.page.adminMenu") :ConfigurationManager.getProperty("path.page.main");
+            page = (user == null || !user.isAdmin()) ? ConfigurationManager.getProperty("path.page.main") : ConfigurationManager.getProperty("path.page.adminMenu");
             router.setPagePath(page);
             return router;
         } catch (ServiceException e) {

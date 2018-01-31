@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 
 public class UserService {
 
+    private static final String REG_EX_JSP = "/jsp.+";
+
     public boolean isSuchUserExist(String login) throws ServiceException {
         RegistrationDAO registrationDAO = new RegistrationDAO();
         try {
@@ -174,10 +176,10 @@ public class UserService {
         return ("en_US").equals(locale) ? "ru_RU" : "en_US";
     }
 
-    public String returnSamePage(String pagePath , String regEx){
+    public String returnSamePage(String pagePath){
 
         String page = null;
-        Pattern p = Pattern.compile(regEx);
+        Pattern p = Pattern.compile(REG_EX_JSP);
         Matcher m = p.matcher(pagePath);
         if(m.find()){
             page = m.group();

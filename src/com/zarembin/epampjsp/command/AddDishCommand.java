@@ -9,11 +9,16 @@ import com.zarembin.epampjsp.servlet.Router;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class AddDishCommand implements ActionCommand {
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static final String PARAM_CHOSEN_DISH = "choosenDish";
     private static final String PARAM_ORDERS = "orders";
     private static final String PARAM_ORDER_COST = "orderCost";
@@ -38,6 +43,7 @@ public class AddDishCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.main");
             router.setPagePath(page);
             router.setRoute(Router.RouteType.REDIRECT);
+            LOGGER.log(Level.INFO, "Add " + dish.getDishName()+ "in the basket");
             return router;
         } catch (ServiceException e) {
             throw new CommandException(e.getMessage(),e.getCause());

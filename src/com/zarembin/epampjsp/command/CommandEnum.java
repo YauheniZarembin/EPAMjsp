@@ -90,7 +90,13 @@ public enum CommandEnum {
         {
             this.command = new TopUpCommand(new UserService());
         }
+    },
+    CHANGE_BAN{
+        {
+            this.command = new ChangeBanCommand(new AdminService());
+        }
     };
+
 
     ActionCommand command;
     public ActionCommand getCurrentCommand() {

@@ -20,7 +20,7 @@
 </head>
 <body>
 <header>
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </header>
 <div class="whiteback" style="width: 40%">
     <h1>EPAM-cafe</h1>
@@ -31,6 +31,6 @@
         <fmt:message key="label.information2" bundle="${var}"/>
     </p>
 </div>
-<c:import url="../jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

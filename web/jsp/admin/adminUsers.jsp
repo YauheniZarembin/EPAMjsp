@@ -41,10 +41,38 @@
             <td>${user.loyaltyPoints}</td>
             <td>
                 <c:if test="${user.isBan()}">
-                        <fmt:message key="label.userBanYes" bundle="${var}"/>
+                    <table width="100%" style="table-layout: fixed">
+                        <tr>
+                            <td>
+                                <fmt:message key="label.userBanYes" bundle="${var}"/>
+                            </td>
+                            <c:if test="${!user.isAdmin()}">
+                                <form name="localeForm" method="POST" action="/controller">
+                                    <input type="hidden" name="command" value="change_Ban"/>
+                                    <input type="hidden" name="editUserName" value="${user.userName}"/>
+                                    <input type="hidden" name="editUserBan" value="${user.isBan()}"/>
+                                    <td><input type="submit" value="<fmt:message key="label.deleteBan" bundle="${var}"/>" ></td>
+                                </form>
+                            </c:if>
+                        </tr>
+                    </table>
                 </c:if>
                 <c:if test="${!user.isBan()}">
-                    <fmt:message key="label.userBanNo" bundle="${var}"/>
+                    <table width="100%" style="table-layout: fixed">
+                        <tr>
+                            <td>
+                                <fmt:message key="label.userBanNo" bundle="${var}"/>
+                            </td>
+                            <c:if test="${!user.isAdmin()}">
+                            <form name="localeForm" method="POST" action="/controller">
+                                <input type="hidden" name="command" value="change_Ban"/>
+                                <input type="hidden" name="editUserName" value="${user.userName}"/>
+                                <input type="hidden" name="editUserBan" value="${user.isBan()}"/>
+                                <td><input type="submit" value="<fmt:message key="label.setBan" bundle="${var}"/>" ></td>
+                            </form>
+                            </c:if>
+                        </tr>
+                    </table>
                 </c:if>
             </td>
             <td>
@@ -55,17 +83,9 @@
                     <fmt:message key="label.userRoleUser" bundle="${var}"/>
                 </c:if>
             </td>
-            <td>
-                <form name="localeForm" method="POST" action="/controller">
-                    <input type="hidden" name="command" value="edit_user"/>
-                    <input type="hidden" name="choosenDish" value="${user.userName}"/>
-            <td><input type="submit" value="<fmt:message key="label.dishEdit" bundle="${var}"/>" ></td>
-            </form>
-            </td>
-
         </tr>
     </c:forEach>
 </table>
-<c:import url="/jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

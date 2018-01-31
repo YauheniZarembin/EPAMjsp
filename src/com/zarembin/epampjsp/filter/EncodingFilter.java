@@ -1,4 +1,4 @@
-package com.zarembin.epampjsp.client;
+package com.zarembin.epampjsp.filter;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

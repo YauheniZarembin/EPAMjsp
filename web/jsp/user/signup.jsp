@@ -12,7 +12,7 @@
 <body>
 
 <header>
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </header>
 
 <form  name="loginForm" method="POST" action="/controller">
@@ -64,5 +64,5 @@
         <br/>
     </table>
 </form>
-<c:import url="../jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body></html>

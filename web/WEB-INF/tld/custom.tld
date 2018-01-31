@@ -12,27 +12,23 @@
 
     <tag>
         <name>infoTimeTag</name>
-        <tag-class>tagcustom.InfoTimeTag</tag-class>
+        <tag-class>com.zarembin.epampjsp.tagcustom.InfoTimeTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 
     <tag>
-        <name>revenueTableTag</name>
-        <tag-class>tagcustom.RevenueTableTag</tag-class>
-        <body-content>scriptless</body-content>
-
+        <name>role</name>
+        <tag-class>com.zarembin.epampjsp.tagcustom.HelloUserTag</tag-class>
+        <body-content>empty</body-content>
         <attribute>
-            <name>rows</name>
-            <required>false</required>
+            <name>user</name>
+            <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>com.zarembin.epampjsp.entity.User</type>
         </attribute>
-        <attribute>
-            <name>head</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-
     </tag>
+
+
 
 
     <!-- Invoke 'Generate' action to add tags or functions -->

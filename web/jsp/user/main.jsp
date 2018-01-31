@@ -12,9 +12,9 @@
 </head>
 <body>
 <header>
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </header>
-<c:import url="../jsp/common/menu.jsp"/>
+<c:import url="/jsp/user/common/menu.jsp"/>
 <hr/>
 <table width="100%">
     <tr>
@@ -44,11 +44,11 @@
     </td>
         <c:if test="${not empty user}">
             <td valign="top" width="25%">
-                <c:import url="../jsp/common/order.jsp" />
+                <c:import url="/jsp/user/common/order.jsp" />
             </td>
         </c:if>
     </tr>
 </table>
-<c:import url="../jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

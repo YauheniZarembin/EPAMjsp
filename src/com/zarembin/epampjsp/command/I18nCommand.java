@@ -9,8 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class I18nCommand implements ActionCommand {
-    private static final String REG_EX_JSP = "/jsp.+";
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private static final String PARAM_CHANGE_LANGUAGE = "changeLanguage";
     private static final String PARAM_PAGE_PATH = "pagePath";
 
@@ -25,11 +31,12 @@ public class I18nCommand implements ActionCommand {
         Router router = new Router();
         String locale = (String) request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE);
         String page = request.getParameter(PARAM_PAGE_PATH);
-
+        System.out.println(page);
 
         request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE, receiver.changeLanguage(locale));
         router.setRoute(Router.RouteType.REDIRECT);
-        router.setPagePath(request.getContextPath()+receiver.returnSamePage(page,REG_EX_JSP));
+        router.setPagePath(request.getContextPath()+receiver.returnSamePage(page));
+        LOGGER.log(Level.INFO, "11111111111111");
         return router;
     }
 }

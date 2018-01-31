@@ -22,7 +22,7 @@
 <header>
     <c:import url="/jsp/admin/adminHeader.jsp" />
 </header>
-<c:import url="/jsp/common/menu.jsp"/>
+<c:import url="/jsp/user/common/menu.jsp"/>
 <input type="button" value="<fmt:message key="label.newDish" bundle="${var}"/>"  onClick='location.href="/jsp/admin/adminAddDish.jsp"' style="width:200px;height:50px"/>
 <table width="100%" float="left" class="whiteback">
     <tr>
@@ -48,6 +48,6 @@
         </tr>
     </c:forEach>
 </table>
-<c:import url="/jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

@@ -19,7 +19,7 @@
 </head>
 <body>
 <header>
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </header>
 <div class="whiteback" style="width: 60%">
     <h1><fmt:message key="label.myProfile" bundle="${var}"/></h1>
@@ -65,6 +65,6 @@
 </div>
 
 
-<c:import url="../jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

@@ -14,7 +14,7 @@
 <div class="wrapper">
 <body>
 <header>
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </header>
 <form name="loginForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="login"/>
@@ -33,13 +33,13 @@
                 <input type="submit" value="<fmt:message key="label.buttonLogIn" bundle="${var}"/>">
             </td>
             <td>
-                <input type="button" value="<fmt:message key="label.buttonSignUp" bundle="${var}"/>"  onClick='location.href="/jsp/signup.jsp"' />
+                <input type="button" value="<fmt:message key="label.buttonSignUp" bundle="${var}"/>"  onClick='location.href="/jsp/user/signup.jsp"' />
             </td>
         </tr>
     </table>
 </form>
 <hr/>
-<c:import url="../jsp/common/footer.jsp"/>
+<c:import url="/jsp/user/common/footer.jsp"/>
 </body>
     </div>
 </html>

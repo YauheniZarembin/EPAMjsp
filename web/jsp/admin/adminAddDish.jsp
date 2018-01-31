@@ -62,6 +62,6 @@
         <br/>
     </table>
 </form>
-<c:import url="/jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

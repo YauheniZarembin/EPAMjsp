@@ -17,35 +17,34 @@ import javax.servlet.http.Part;
         maxRequestSize=1024*1024*100)   	// 100 MB
 public class FileUploadingServlet extends HttpServlet {
 
-    private static final String UPLOAD_DIR = "/web/resource/image";
+    private static final String UPLOAD_DIR = "resource/image";
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
 
-        File file = new File("web/resource/image");
-        String applicationPath = file.getAbsolutePath();
-        System.out.println(applicationPath + " 1111");
+        String applicationPath = request.getServletContext().getRealPath("");
+        String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
 
-//        File fileSaveDir = new File(UPLOAD_DIR);
-//        if (!fileSaveDir.exists()) {
-//            fileSaveDir.mkdirs();
-//        }
-//        System.out.println("Upload File Directory="+fileSaveDir.getAbsolutePath());
 
-        String fileName = null;
-        //Get all the parts from request and write it to the file on server
-        for (Part part : request.getParts()) {
-            fileName = getFileName(part);
-            part.write(applicationPath + File.separator + fileName);
+        File fileSaveDir = new File(uploadFilePath);
+        System.out.println(fileSaveDir.getAbsolutePath());
+        System.out.println(fileSaveDir.getPath());
+
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdirs();
         }
-
-        System.out.println(fileName + " File uploaded successfully!");
-        System.out.println("чекай");
+        String fileName;
+        int i = 0;
+        for (Part part : request.getParts()) {
+            i++;
+            fileName = getFileName(part);
+            System.out.println(fileName + "     "+String.valueOf(i));
+            part.write(uploadFilePath + File.separator + fileName);
+        }
     }
 
-    /**
-     * Utility method to get file name from HTTP header content-disposition
-     */
+
+
     private String getFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         System.out.println("content-disposition header= "+contentDisp);

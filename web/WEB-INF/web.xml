@@ -6,6 +6,6 @@
            version="3.0">
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/jsp/error.jsp</location>
+        <location>/jsp/user/error.jsp</location>
     </error-page>
 </web-app>

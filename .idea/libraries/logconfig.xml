@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="logconfig">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/web/logconfig" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

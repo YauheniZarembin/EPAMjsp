@@ -20,7 +20,7 @@
 </head>
 <body>
 <header>
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </header>
 <div class="whiteback" style="width: 50%">
     <h1><fmt:message key="label.ordering" bundle="${var}"/></h1>
@@ -67,6 +67,6 @@
     </form>
 </div>
 
-<c:import url="../jsp/common/footer.jsp" />
+<c:import url="/jsp/user/common/footer.jsp" />
 </body>
 </html>

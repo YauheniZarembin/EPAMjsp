@@ -12,10 +12,10 @@
 </head>
 <body>
 <c:if test="${!user.isAdmin()}">
-    <c:import url="../jsp/common/header.jsp" />
+    <c:import url="/jsp/user/common/header.jsp" />
 </c:if>
 <c:if test="${user.isAdmin()}">
-    <c:import url="../jsp/admin/adminHeader.jsp" />
+    <c:import url="../admin/adminHeader.jsp" />
 </c:if>
 <div class="whiteback" style="font-size: 21px">
     <b>Request from ${pageContext.errorData.requestURI} is failed</b>
@@ -40,7 +40,7 @@
     <br/>
     <br/>
     <b>${exceptionMessage} 4</b>
-    <c:import url="../jsp/common/footer.jsp" />
+    <c:import url="/jsp/user/common/footer.jsp" />
 </div>
 </body>
 </html>

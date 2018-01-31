@@ -5,6 +5,7 @@ import com.zarembin.epampjsp.exception.DAOException;
 import com.zarembin.epampjsp.proxy.ConnectionPool;
 import com.zarembin.epampjsp.proxy.ProxyConnection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +15,41 @@ import java.util.List;
 public class UserListDAO {
     private final static String SQL_SELECT_USERS =
             "SELECT user_name,password,is_admin,is_ban,name,last_name,loyalty_points,money,`e-mail`,number_of_orders,card_number FROM cafedb.personal_info;";
+
+    private final static String SQL_UPDATE_USER_BAN =
+            "UPDATE cafedb.personal_info SET is_ban=? WHERE user_name=?";
+
+
+    public void changeUserBan(String userName, String banString) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+
+
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_BAN);
+            preparedStatement.setString(1,banString);
+            preparedStatement.setString(2,userName);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+        }
+    }
 
 
     public List<User> findAllUsers() throws DAOException {
