@@ -36,9 +36,10 @@
                 <input type="hidden" name="command" value="admin_users"/>
                 <td><a href='#' style="color: white" onClick="document.forms['localeForm1'].submit();"><fmt:message key="label.users" bundle="${var}"/></a></td>
             </form>
-            <form name="localeFormOrders" method="POST" action="/controller">
-                <input type="hidden" name="command" value="admin_orders"/>
-                <td><a href='#' style="color: white" onClick="document.forms['localeFormOrders'].submit();"><fmt:message key="label.orders" bundle="${var}"/></a></td>
+            <form name="localeFormOrder" method="POST" action="/controller">
+                <input type="hidden" name="command" value="admin_order"/>
+                <input type="hidden" name="ordersType" value="today"/>
+                <td><a href='#' style="color: white" onClick="document.forms['localeFormOrder'].submit();"><fmt:message key="label.orders" bundle="${var}"/></a></td>
             </form>
             <form name="localeForm9" method="POST" action="/controller">
                 <input type="hidden" name="command" value="reviews_command"/>

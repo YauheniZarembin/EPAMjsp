@@ -20,7 +20,7 @@ public class AddReviewCommand implements ActionCommand {
     private final static String PARAM_MARK ="mark";
     private final static String PARAM_COMMENT ="comment";
     private final static String PARAM_REVIEWS ="reviews";
-    private final static String PARAM_ERROR_MESSAGE ="Message";
+    private final static String PARAM_ERROR_MESSAGE ="MessageReview";
 
 
     private UserService receiver;

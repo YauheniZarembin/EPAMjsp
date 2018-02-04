@@ -26,7 +26,8 @@
         <tr><td><input type="text" name="login" value="" required oninvalid="this.setCustomValidity('<fmt:message key="label.inputData" bundle="${var}" />')" oninput="setCustomValidity('')"></td></tr>
         <tr><td><br/><fmt:message key="label.password" bundle="${var}"/></td></tr>
         <tr><td><input type="password" name="password" value=""  required oninvalid="this.setCustomValidity('<fmt:message key="label.inputData" bundle="${var}"/>')" oninput="setCustomValidity('')"></td></tr>
-        <tr><td>${Message}</td> </tr>
+        <tr><td>${Message}</td></tr>
+        <tr><td>${nullPage}</td></tr>
         <tr><td></td></tr>
         <tr>
             <td>

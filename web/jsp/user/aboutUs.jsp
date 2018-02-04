@@ -22,7 +22,7 @@
 <header>
     <c:import url="/jsp/user/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 40%">
+<div class="centerTable">
     <h1>EPAM-cafe</h1>
     <p>
         <fmt:message key="label.information1" bundle="${var}"/>

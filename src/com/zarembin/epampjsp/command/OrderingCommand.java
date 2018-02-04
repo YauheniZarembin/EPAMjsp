@@ -49,7 +49,7 @@ public class OrderingCommand  implements ActionCommand{
         if (receiver.checkDateTimeOrder(date)){
             if ("1".equals(payment) ||  (user.getMoney().compareTo(orderCost) >= 0)) {
                 try {
-                    Order order = new Order(0, user.getUserName(), date, "1".equals(payment), orderCost, orderMap,false);
+                    Order order = new Order(0, user.getUserName(), date, "1".equals(payment), orderCost, orderMap);
                     receiver.makeOrder(order, user);
                     request.getSession().setAttribute(PARAM_USER,user);
                     request.getSession().setAttribute(PARAM_ORDER_COST,null);

@@ -22,7 +22,7 @@
 <header>
     <c:import url="/jsp/user/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 40%">
+<div class="centerTable">
     <h1><fmt:message key="label.ordering" bundle="${var}"/></h1>
     <p style="color: green">
         <h2><fmt:message key="label.successOrder" bundle="${var}"/></h2>

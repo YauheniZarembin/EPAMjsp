@@ -21,28 +21,23 @@
 <header>
     <c:import url="/jsp/user/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 60%">
+<div class="centerTable">
     <h1><fmt:message key="label.myProfile" bundle="${var}"/></h1>
     <p>
         <b><fmt:message key="label.profileName" bundle="${var}"/>:</b>     ${user.name}
     </p>
-    <br/>
     <p>
         <b><fmt:message key="label.profileLastname" bundle="${var}"/>:</b>    ${user.lastname}
     </p>
-    <br/>
     <p>
-        <b>E-mail:</b>   ${user.eMail}
+        <b><fmt:message key="label.email" bundle="${var}"/>:</b>   ${user.eMail}
     </p>
-    <br/>
     <p>
         <b><fmt:message key="label.profileNumberOfOrders" bundle="${var}"/>:</b>    ${user.numberOfOrders}
     </p>
-    <br/>
     <p>
         <b><fmt:message key="label.profileLoyaltyPoints" bundle="${var}"/>:</b>     ${user.loyaltyPoints}
     </p>
-    <br/>
     <p>
         <b><fmt:message key="label.profileMoney" bundle="${var}"/>:</b>      ${user.money}
     </p>
@@ -57,7 +52,7 @@
         <td><input type="password" name="cardPassword" value=""/></td></tr>
         <tr><td> <fmt:message key="label.cardMoney" bundle="${var}"/><span class="req">*</span></td>
             <td><input type="text" name="newMoney" value=""/></td></tr>
-        <tr> <td colspan="2"> ${Message} </td></tr>
+        <tr> <td colspan="2"> ${MessageTopUp} </td></tr>
         <tr> <td> <input type="submit" value="<fmt:message key="label.topUp" bundle="${var}"/>"/> </td></tr>
     </form>
 

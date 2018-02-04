@@ -13,6 +13,7 @@ public class ReviewCommand implements ActionCommand {
 
     private static final String PARAM_USER = "user";
     private static final String PARAM_REVIEWS = "reviews";
+    private final static String PARAM_ERROR_MESSAGE ="MessageReview";
     private UserService receiver;
 
     public ReviewCommand(UserService receiver) {
@@ -26,6 +27,7 @@ public class ReviewCommand implements ActionCommand {
         User user = (User) request.getSession().getAttribute(PARAM_USER);
         try {
             request.getSession().setAttribute(PARAM_REVIEWS,receiver.findReviews());
+            request.getSession().setAttribute(PARAM_ERROR_MESSAGE,null);
             page = ((user == null) || !user.isAdmin()) ? ConfigurationManager.getProperty("path.page.reviews") : ConfigurationManager.getProperty("path.page.adminReviews");
             router.setPagePath(page);
             return router;

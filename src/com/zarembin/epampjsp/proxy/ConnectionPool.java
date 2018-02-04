@@ -8,7 +8,14 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ConnectionPool {
+
+    private static final Logger LOGGER = LogManager.getLogger();
+
     private ArrayBlockingQueue<ProxyConnection> connectionQueue;
     private final int POOL_SIZE = 20;
     private static AtomicBoolean instanceCreated = new AtomicBoolean();
@@ -24,7 +31,7 @@ public class ConnectionPool {
                     instanceCreated.set(true);
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.ERROR  , e.getMessage());
             } finally {
                 lock.unlock();
             }
@@ -49,7 +56,7 @@ public class ConnectionPool {
             try {
                 connectionQueue.put(connection);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.ERROR  , e.getMessage());
             }
         }
     }
@@ -60,7 +67,7 @@ public class ConnectionPool {
         try {
             connection = connectionQueue.take();
         } catch (InterruptedException e) {
-            e.printStackTrace();//connection->daoexception->receiver-service->command_exception->error_page
+            LOGGER.log(Level.ERROR  , e.getMessage());
         }
         return connection;
     }

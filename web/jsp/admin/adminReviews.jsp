@@ -22,7 +22,7 @@
 <header>
     <c:import url="/jsp/admin/adminHeader.jsp" />
 </header>
-<div class="whiteback" style="width: 40%">
+<div class="centerTable">
     <h1><fmt:message key="label.headerReviews" bundle="${var}"/></h1>
     <table width="80%" float="left">
         <c:forEach items="${reviews}" var="review">

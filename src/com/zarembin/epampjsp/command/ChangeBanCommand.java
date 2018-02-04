@@ -31,7 +31,7 @@ public class ChangeBanCommand implements ActionCommand {
             receiver.changeUserBan(userName , new Boolean(userBan));
             request.getSession().setAttribute(PARAM_USERS, receiver.findAllUsers());
         } catch (ServiceException e) {
-            e.printStackTrace();
+            throw new CommandException(e.getMessage(),e);
         }
 
         page = ConfigurationManager.getProperty("path.page.adminUsers");

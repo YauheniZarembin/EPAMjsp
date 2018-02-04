@@ -6,7 +6,7 @@
 <html><head>
     <title>EPAM-cafe</title>
     <style>
-        @import "/css/styleSighUp.css";
+        @import "/css/styleSighUp2.css";
     </style>
     <link rel="icon" href="/resource/image/epamcafe.jpg" type="images/jpg">
 <body>

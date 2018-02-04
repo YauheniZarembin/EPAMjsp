@@ -27,11 +27,9 @@ public class Controller extends HttpServlet {
         processRequest(request, response);
     }
 
-    private void processRequest(HttpServletRequest request,
-                                HttpServletResponse response)
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Router router;
-
         ActionFactory client = new ActionFactory();
         ActionCommand command = client.defineCommand(request);
         try {
@@ -48,15 +46,15 @@ public class Controller extends HttpServlet {
                         break;
                 }
             } else {
-                String page = ConfigurationManager.getProperty("path.page.error");
+                String page = ConfigurationManager.getProperty("path.page.index");
                 request.getSession().setAttribute("nullPage",
                         messageManager.getMessage("message.nullPage"));
                 response.sendRedirect(request.getContextPath() + page);
             }
         } catch (CommandException e) {
-            request.setAttribute("exceptionCause", e.getCause().toString());
-            request.setAttribute("exceptionMessage", e.getMessage());
-            request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+            //request.getSession().setAttribute("exceptionCause", e.getCause().toString());
+            request.getSession().setAttribute("exceptionMessage", e.getMessage());
+            request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.error")).forward(request, response);
         }
     }
 }

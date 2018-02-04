@@ -22,9 +22,9 @@
 <header>
     <c:import url="/jsp/user/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 50%">
+<div class="centerTable">
     <h1><fmt:message key="label.ordering" bundle="${var}"/></h1>
-    <table width="80%"  border="1">
+    <table width="100%"  border="1">
         <tr>
             <td colspan="4" align="center"><b><h1><fmt:message key="label.yourOrder" bundle="${var}"/></h1></b></td>
         </tr>
@@ -60,6 +60,7 @@
         <fmt:message key="label.points" bundle="${var}"/><br>
         <fmt:message key="label.13points" bundle="${var}"/><br>
         <fmt:message key="label.47points" bundle="${var}"/><br>
+        <fmt:message key="label.gift" bundle="${var}"/><br>
         <br>
         <input type="datetime-local" name="dateTimeOrder" required oninvalid="this.setCustomValidity('<fmt:message key="label.incorrectDateOrTime" bundle="${var}"/>')" oninput="setCustomValidity('')"><br>
         ${Message}<br>

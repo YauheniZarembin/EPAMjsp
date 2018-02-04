@@ -9,6 +9,9 @@ public enum MessageManager {
     RU(ResourceBundle.getBundle("resource/message", new Locale("ru", "RU")));
     private ResourceBundle bundle;
 
+
+
+    /////////////////    NOT REQUEST
     MessageManager(ResourceBundle bundle) {
         this.bundle = bundle;
     }

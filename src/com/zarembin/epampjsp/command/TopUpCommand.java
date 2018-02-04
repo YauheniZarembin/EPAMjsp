@@ -17,7 +17,7 @@ public class TopUpCommand implements ActionCommand {
     private static final String PARAM_USER = "user";
     private static final String PARAM_CARD_PASSWORD ="cardPassword";
     private static final  String PARAM_ADD_MONEY ="newMoney";
-    private static final  String PARAM_MESSAGE ="Message";
+    private static final  String PARAM_MESSAGE ="MessageTopUp";
 
     private UserService receiver;
 

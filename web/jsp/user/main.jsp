@@ -26,6 +26,7 @@
         <td><fmt:message key="label.dishPicture" bundle="${var}"/></td>
     </tr>
     <c:forEach items="${dishes}" var="dish">
+        <c:if test="${!dish.isNoMore()}">
         <tr>
             <td>${dish.dishName}</td>
             <td>${dish.price}</td>
@@ -39,6 +40,7 @@
             </form>
             </c:if>
         </tr>
+        </c:if>
     </c:forEach>
     </table>
     </td>

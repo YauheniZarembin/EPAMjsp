@@ -88,7 +88,6 @@ public class RegistrationDAO {
     public void insertNewUser(String userName, String password, String name, String lastname, String email, String cardNumber) throws DAOException {
         ProxyConnection connection = null;
         PreparedStatement preparedStatementInsertUser = null;
-        ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             preparedStatementInsertUser = connection.prepareStatement(SQL_INSERT_USER);

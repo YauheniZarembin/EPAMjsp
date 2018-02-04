@@ -22,7 +22,7 @@
 <header>
     <c:import url="/jsp/user/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 40%">
+<div class="centerTable">
     <h1><fmt:message key="label.headerReviews" bundle="${var}"/></h1>
     <table width="80%" float="left">
     <c:forEach items="${reviews}" var="review">
@@ -104,7 +104,7 @@
             <br>
             <textarea rows="4" cols="50" name="comment" form="addFormId" ></textarea>
             <br>
-            <b>${Message}</b>
+            <b>${MessageReview}</b>
             <br>
             <input type="submit" style="width: 200px; height: 50px;" value="<fmt:message key="label.sendReview" bundle="${var}"/>" />
             <br>

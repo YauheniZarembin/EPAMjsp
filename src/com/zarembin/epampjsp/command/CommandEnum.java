@@ -5,6 +5,8 @@ import com.zarembin.epampjsp.service.AdminService;
 import com.zarembin.epampjsp.service.MenuService;
 import com.zarembin.epampjsp.service.UserService;
 
+import java.awt.*;
+
 public enum CommandEnum {
     LOGIN {
         {
@@ -36,6 +38,11 @@ public enum CommandEnum {
             this.command = new AddDishCommand(new MenuService());
         }
     },
+    DISH_NO_MORE{
+        {
+            this.command = new DishNoMoreCommand(new MenuService());
+        }
+    },
     ADD_REVIEW{
         {
             this.command = new AddReviewCommand(new UserService());
@@ -56,19 +63,24 @@ public enum CommandEnum {
             this.command = new AdminMenuCommand(new MenuService());
         }
     },
+    ADMIN_ADD_DISH{
+        {
+            this.command = new AdminAddDishCommand(new MenuService());
+        }
+    },
     ADMIN_USERS{
         {
             this.command = new UserListCommand(new AdminService());
         }
     },
-    ADMIN_ORDERS{
+    ADMIN_ORDER{
        {
             this.command = new AdminOrdersCommand(new AdminService());
         }
     },
-    CHANGE_RECEIVED{
+    DELETE_ORDER {
         {
-            this.command = new ChangeReceivedOrderCommand(new AdminService());
+            this.command = new DeleteOrderCommand(new AdminService());
         }
     },
     USER_ORDERS {
@@ -95,7 +107,13 @@ public enum CommandEnum {
         {
             this.command = new ChangeBanCommand(new AdminService());
         }
+    },
+    EDIT_DISH_PRICE{
+        {
+            this.command = new EditDishPriceCommand(new MenuService());
+        }
     };
+
 
 
     ActionCommand command;

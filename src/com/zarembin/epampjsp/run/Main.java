@@ -1,6 +1,9 @@
 package com.zarembin.epampjsp.run;
 
 
+import com.zarembin.epampjsp.dao.OrdersListDAO;
+import com.zarembin.epampjsp.entity.TypeOfDish;
+import com.zarembin.epampjsp.exception.DAOException;
 import com.zarembin.epampjsp.validator.InputTextValidator;
 
 import org.apache.logging.log4j.Level;
@@ -16,5 +19,16 @@ public class Main {
 
         InputTextValidator inputTextValidator = new InputTextValidator();
         System.out.println(inputTextValidator.isEmailValid(email));
+
+        System.out.println(TypeOfDish.valueOf("SOUP"));
+        System.out.println(TypeOfDish.valueOf("BASIC"));
+
+        OrdersListDAO ordersListDAO = new OrdersListDAO();
+        try {
+            System.out.println(ordersListDAO.findTodayOrders());
+            System.out.println(ordersListDAO.findPastOrders());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
     }
 }

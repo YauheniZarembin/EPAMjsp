@@ -22,9 +22,9 @@
 <header class="whiteback">
     <c:import url="/jsp/user/common/header.jsp" />
 </header>
-<div class="whiteback" style="width: 40%">
+<div class="centerTable">
     <h1><fmt:message key="label.headerContacts" bundle="${var}"/></h1>
-    <img src="/resource/image/epamcafe.jpg" width="270" height="280"
+    <img src="/resource/image/epamcafe.jpg" width="270" height="330"
          alt="Иллюстрация" align="left"
          vspace="10" hspace="10">
     <p>

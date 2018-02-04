@@ -10,8 +10,7 @@ import com.zarembin.epampjsp.exception.ServiceException;
 import java.util.List;
 
 public class AdminService {
-
-
+    
     public void changeUserBan(String userName , boolean ban) throws ServiceException {
         UserListDAO userListDAO = new UserListDAO();
         try {
@@ -41,11 +40,47 @@ public class AdminService {
         }
     }
 
-
     public List<Order> findAllOrders() throws ServiceException {
         OrdersListDAO ordersListDAO = new OrdersListDAO();
         try {
             return ordersListDAO.findAllOrders();
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+    }
+
+
+    public List<Order> findTodayOrders() throws ServiceException {
+        OrdersListDAO ordersListDAO = new OrdersListDAO();
+        try {
+            return ordersListDAO.findTodayOrders();
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+    }
+
+    public List<Order> findFutureOrders() throws ServiceException {
+        OrdersListDAO ordersListDAO = new OrdersListDAO();
+        try {
+            return ordersListDAO.findFutureOrders();
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+    }
+
+    public List<Order> findPastOrders() throws ServiceException {
+        OrdersListDAO ordersListDAO = new OrdersListDAO();
+        try {
+            return ordersListDAO.findPastOrders();
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage(), e.getCause());
+        }
+    }
+
+    public void deleteOrder(String orderId) throws ServiceException {
+        OrdersListDAO ordersListDAO = new OrdersListDAO();
+        try {
+            ordersListDAO.deleteOrder(orderId);
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage(), e.getCause());
         }

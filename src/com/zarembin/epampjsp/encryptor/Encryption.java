@@ -5,7 +5,14 @@ import com.zarembin.epampjsp.exception.ServiceException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 public class Encryption {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public String encrypt(String password) throws ServiceException {
 
@@ -18,7 +25,7 @@ public class Encryption {
             }
             System.out.println();
         } catch (NoSuchAlgorithmException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
+            LOGGER.log(Level.ERROR  , e.getMessage());
         }
         return bufferPassword.toString();
 

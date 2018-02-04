@@ -15,7 +15,7 @@ public class DeleteReviewCommand implements ActionCommand {
     private final static String PARAM_REVIEW_ID = "reviewId";
     private final static String PARAM_REVIEWS = "reviews";
     private static final String PARAM_USER = "user";
-    private final static String PARAM_ERROR_MESSAGE ="Message";
+    private final static String PARAM_ERROR_MESSAGE ="MessageReview";
 
     private UserService receiver;
 

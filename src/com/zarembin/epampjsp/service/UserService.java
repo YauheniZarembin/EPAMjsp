@@ -116,7 +116,7 @@ public class UserService {
         try {
             moneyDAO.topUpUserMoney(newBankMoney, newUserMoney, user);
         } catch (DAOException e) {
-            throw new ServiceException(e.getMessage(), e.getCause());
+            throw new ServiceException(e.getMessage(), e);
         }
         return user;
     }
@@ -148,6 +148,7 @@ public class UserService {
     public void makeOrder(Order order, User user) throws ServiceException {
 
         OrderingDAO orderingDAO = new OrderingDAO();
+        BigDecimal newUserMoney = user.getMoney();
         int newLoyaltyPoints = user.getLoyaltyPoints();
         long untilDay = LocalDateTime.now().until(order.getDateOfReceiving(), ChronoUnit.DAYS);
         if (untilDay >= 1 && untilDay <= 3) {
@@ -155,7 +156,11 @@ public class UserService {
         } else if (untilDay >= 4) {
             newLoyaltyPoints += 3;
         }
-        BigDecimal newUserMoney = (order.isCashPayment()) ? user.getMoney() : user.getMoney().subtract(order.getOrderCost());
+        if(newLoyaltyPoints >= 50){
+            newLoyaltyPoints -= 50;
+            newUserMoney = newUserMoney.add(new BigDecimal(10));
+        }
+        newUserMoney = (order.isCashPayment()) ? newUserMoney : newUserMoney.subtract(order.getOrderCost());
         int newOrdersAmount = user.getNumberOfOrders();
         newOrdersAmount++;
 
@@ -177,7 +182,6 @@ public class UserService {
     }
 
     public String returnSamePage(String pagePath){
-
         String page = null;
         Pattern p = Pattern.compile(REG_EX_JSP);
         Matcher m = p.matcher(pagePath);

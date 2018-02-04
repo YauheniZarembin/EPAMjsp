@@ -33,9 +33,6 @@
     <b>${wrongAction} 1</b>
     <br/>
     <br/>
-    <b>${nullPage} 2</b>
-    <br/>
-    <br/>
     <b>${exceptionCause} 3</b>
     <br/>
     <br/>

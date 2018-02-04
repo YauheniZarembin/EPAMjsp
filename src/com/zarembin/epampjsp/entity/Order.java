@@ -12,16 +12,14 @@ public class Order extends Entity {
     private boolean isCashPayment;
     private BigDecimal orderCost;
     private Map<Dish,Integer> dishes;
-    private boolean isReceived;
 
-    public Order(int orderId, String userName, LocalDateTime dateOfReceiving, boolean isCashPayment, BigDecimal orderCost, Map<Dish, Integer> dishes, boolean isReceived) {
+    public Order(int orderId, String userName, LocalDateTime dateOfReceiving, boolean isCashPayment, BigDecimal orderCost, Map<Dish, Integer> dishes) {
         this.orderId = orderId;
         this.userName = userName;
         this.dateOfReceiving = dateOfReceiving;
         this.isCashPayment = isCashPayment;
         this.orderCost = orderCost;
         this.dishes = dishes;
-        this.isReceived = isReceived;
     }
 
     public int getOrderId() {
@@ -72,13 +70,6 @@ public class Order extends Entity {
         this.dishes = dishes;
     }
 
-    public boolean isReceived() {
-        return isReceived;
-    }
-
-    public void setReceived(boolean received) {
-        isReceived = received;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -89,7 +80,6 @@ public class Order extends Entity {
 
         if (orderId != order.orderId) return false;
         if (isCashPayment != order.isCashPayment) return false;
-        if (isReceived != order.isReceived) return false;
         if (userName != null ? !userName.equals(order.userName) : order.userName != null) return false;
         if (dateOfReceiving != null ? !dateOfReceiving.equals(order.dateOfReceiving) : order.dateOfReceiving != null)
             return false;
@@ -105,7 +95,6 @@ public class Order extends Entity {
         result = 31 * result + (isCashPayment ? 1 : 0);
         result = 31 * result + (orderCost != null ? orderCost.hashCode() : 0);
         result = 31 * result + (dishes != null ? dishes.hashCode() : 0);
-        result = 31 * result + (isReceived ? 1 : 0);
         return result;
     }
 
@@ -118,7 +107,6 @@ public class Order extends Entity {
                 ", isCashPayment=" + isCashPayment +
                 ", orderCost=" + orderCost +
                 ", dishes=" + dishes +
-                ", isReceived=" + isReceived +
                 '}';
     }
 }

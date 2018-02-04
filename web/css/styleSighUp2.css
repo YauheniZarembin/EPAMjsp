@@ -1,29 +1,43 @@
 .whiteback{
     background-color: rgba(255,255,255,0.8);
     table-layout: fixed;
+    font-family: cursive;
 }
 
 .whiteheader{
     color: white;
     table-layout: fixed;
+    font-family: cursive;
 }
 
 body {
-    height: 100%;
+    margin-left: 2px;
+    margin-left: 4px;
+    margin-bottom: 30px;
+    width: 100%;
     background: url(/resource/image/fon1.jpg) no-repeat;
     background-size: 100%;
     background-attachment: fixed;
-    padding-bottom: 90px
 }
 
 header{
+    margin-top: -9px;
+    margin-left: -3px;
     background-color: black;
     color: white;
+    font-family: cursive;
 }
 
 footer {
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+    position: fixed;
     background-color: black;
     color: white;
+    font-family: cursive;
 }
 
 .parent
