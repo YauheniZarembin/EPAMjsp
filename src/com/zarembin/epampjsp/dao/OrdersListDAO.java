@@ -25,14 +25,14 @@ public class OrdersListDAO {
     private final static String SQL_SELECT_ORDERS_BY_NAME =
             "SELECT id_order, user_name, date_of_receiving, is_cash_payment FROM cafedb.orders WHERE user_name=?;";
 
+    private final static String SQL_SELECT_ORDERS_BY_ID =
+            "SELECT id_order, user_name, date_of_receiving, is_cash_payment FROM cafedb.orders WHERE id_order=?;";
+
     private final static String SQL_SELECT_DISHES_BY_ORDER_ID =
             "SELECT dish_name,number_of_servings FROM cafedb.preparing_dishes WHERE id_order=?;";
 
     private final static String SQL_SELECT_ORDERS_BY_DISH_NAME =
             "SELECT id_order FROM cafedb.preparing_dishes WHERE dish_name=?;";
-
-    private final static String SQL_UPDATE_ORDER_RECEIVED =
-            "UPDATE cafedb.orders SET is_received='1' WHERE id_order=?;";
 
     private final static String SQL_DELETE_ORDER =  "DELETE FROM cafedb.orders WHERE id_order=?;";
 
@@ -87,35 +87,64 @@ public class OrdersListDAO {
         }
     }
 
-
-
-
-    public void changeOrderReceived(String orderId) throws DAOException {
-        Connection connection = ConnectionPool.getInstance().getConnection();
-        PreparedStatement preparedStatement;
-
+    public Order findOrderById(String orderId) throws DAOException {
+        Order order = null;
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatementOrder = null;
+        PreparedStatement preparedStatementDishes = null;
+        ResultSet resultSetOrder;
+        ResultSet resultSetDishes;
+        MenuDAO menuDAO = new MenuDAO();
+        Map<Dish, Integer> dishOrderMap = null;
         try {
-            System.out.println(orderId + "DAo");
-            preparedStatement = connection.prepareStatement(SQL_UPDATE_ORDER_RECEIVED);
-            preparedStatement.setString(1, orderId);
-            preparedStatement.executeUpdate();
+            connection = ConnectionPool.getInstance().getConnection();
+            preparedStatementOrder = connection.prepareStatement(SQL_SELECT_ORDERS_BY_ID);
+            preparedStatementDishes = connection.prepareStatement(SQL_SELECT_DISHES_BY_ORDER_ID);
+            preparedStatementOrder.setString(1, orderId);
+            resultSetOrder = preparedStatementOrder.executeQuery();
+
+            if (resultSetOrder.next()) {
+                preparedStatementDishes.setString(1, resultSetOrder.getString(1));
+                resultSetDishes = preparedStatementDishes.executeQuery();
+                BigDecimal orderCost = new BigDecimal(0);
+                dishOrderMap = new HashMap<>();
+                while (resultSetDishes.next()) {
+                    Dish dishFromOrder = menuDAO.findDishByName(resultSetDishes.getString(1));
+                    Integer numberOfServings = resultSetDishes.getInt(2);
+                    orderCost = orderCost.add(dishFromOrder.getPrice().multiply(new BigDecimal(numberOfServings)));
+                    dishOrderMap.put(dishFromOrder, numberOfServings);
+                }
+                order = new Order(resultSetOrder.getInt(1), resultSetOrder.getString(2),
+                        LocalDateTime.of(resultSetOrder.getDate(3).toLocalDate(), resultSetOrder.getTime(3).toLocalTime()),
+                        "1".equals(resultSetOrder.getString(4)),
+                        orderCost, dishOrderMap);
+            }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
-        }
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (preparedStatementOrder != null) {
+                try {
+                    preparedStatementOrder.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (preparedStatementDishes != null) {
+                try {
+                    preparedStatementDishes.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
             }
         }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                throw new DAOException(e.getMessage(), e.getCause());
-            }
-        }
+        return order;
     }
 
     public List<Order> findOrdersByName(String userName) throws DAOException {

@@ -1,14 +1,9 @@
 package com.zarembin.epampjsp.command;
 
-import com.sun.deploy.net.HttpRequest;
-import com.zarembin.epampjsp.resource.ConfigurationManager;
 import com.zarembin.epampjsp.service.UserService;
 import com.zarembin.epampjsp.servlet.Router;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -31,8 +26,6 @@ public class I18nCommand implements ActionCommand {
         Router router = new Router();
         String locale = (String) request.getSession().getAttribute(PARAM_CHANGE_LANGUAGE);
         String page = request.getParameter(PARAM_PAGE_PATH);
-        System.out.println(page);
-
         request.getSession().setAttribute(PARAM_CHANGE_LANGUAGE, receiver.changeLanguage(locale));
         router.setRoute(Router.RouteType.REDIRECT);
         router.setPagePath(request.getContextPath()+receiver.returnSamePage(page));

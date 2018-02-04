@@ -61,6 +61,7 @@
         <fmt:message key="label.13points" bundle="${var}"/><br>
         <fmt:message key="label.47points" bundle="${var}"/><br>
         <fmt:message key="label.gift" bundle="${var}"/><br>
+        <fmt:message key="label.fine" bundle="${var}"/><br>
         <br>
         <input type="datetime-local" name="dateTimeOrder" required oninvalid="this.setCustomValidity('<fmt:message key="label.incorrectDateOrTime" bundle="${var}"/>')" oninput="setCustomValidity('')"><br>
         ${Message}<br>

@@ -83,6 +83,11 @@ public enum CommandEnum {
             this.command = new DeleteOrderCommand(new AdminService());
         }
     },
+    DELETE_PAST_ORDERS {
+        {
+            this.command = new DeletePastOrderCommand(new AdminService());
+        }
+    },
     USER_ORDERS {
         {
             this.command = new UserOrdersCommand(new UserService());

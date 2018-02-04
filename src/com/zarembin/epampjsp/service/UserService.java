@@ -37,9 +37,6 @@ public class UserService {
         }
     }
 
-
-
-
     public User findUserByEncryption(String login, String password) throws ServiceException {
         Encryption encryption = new Encryption();
         password = encryption.encrypt(password);

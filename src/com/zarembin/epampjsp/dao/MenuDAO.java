@@ -24,6 +24,9 @@ public class MenuDAO {
     private final static String SQL_SELECT_DISHES_BY_NAME =
             "SELECT dish_name , type_of_dish , price , image_path, is_no_more FROM cafedb.menu WHERE dish_name=?";
 
+    private final static String SQL_SELECT_DISHES_IS_NO_MORE =
+            "SELECT is_no_more FROM cafedb.menu WHERE dish_name=?";
+
     private final static String SQL_UPDATE_DISH_PICTURE =
             "UPDATE cafedb.menu SET image_path=? WHERE dish_name=?;";
 
@@ -40,8 +43,6 @@ public class MenuDAO {
             "DELETE FROM cafedb.menu WHERE dish_name=?;";
 
 
-
-
     public void deleteDish(String dishName) throws DAOException {
         ProxyConnection connection = null;
         PreparedStatement preparedStatement = null;
@@ -53,7 +54,7 @@ public class MenuDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
-            if (preparedStatement!= null){
+            if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
@@ -71,7 +72,6 @@ public class MenuDAO {
     }
 
 
-
     public List<Dish> findAllDishes() throws DAOException {
         List<Dish> dishList = new ArrayList<>();
         ProxyConnection connection = null;
@@ -82,8 +82,8 @@ public class MenuDAO {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(SQL_SELECT_DISHES);
             while (resultSet.next()) {
-                    dishList.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
-                            resultSet.getBigDecimal(3), resultSet.getString(4), "1".equals(resultSet.getString(5))));
+                dishList.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
+                        resultSet.getBigDecimal(3), resultSet.getString(4), "1".equals(resultSet.getString(5))));
             }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
@@ -120,8 +120,8 @@ public class MenuDAO {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                    dishByTypeList.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
-                            resultSet.getBigDecimal(3), resultSet.getString(4), "1".equals(resultSet.getString(5))));
+                dishByTypeList.add(new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
+                        resultSet.getBigDecimal(3), resultSet.getString(4), "1".equals(resultSet.getString(5))));
             }
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e.getCause());
@@ -155,8 +155,8 @@ public class MenuDAO {
             preparedStatement.setString(1, dishName);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                    return new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
-                            resultSet.getBigDecimal(3), resultSet.getString(4), "1".equals(resultSet.getString(5)));
+                return new Dish(resultSet.getString(1), TypeOfDish.valueOf(resultSet.getString(2).toUpperCase()),
+                        resultSet.getBigDecimal(3), resultSet.getString(4), "1".equals(resultSet.getString(5)));
             }
 
         } catch (SQLException e) {
@@ -267,7 +267,7 @@ public class MenuDAO {
         }
     }
 
-    public void insertNewDish(String dishName, TypeOfDish typeOfDish , String price) throws DAOException {
+    public void insertNewDish(String dishName, TypeOfDish typeOfDish, String price) throws DAOException {
         ProxyConnection connection = null;
         PreparedStatement preparedStatementInsertUser = null;
         try {
@@ -284,6 +284,36 @@ public class MenuDAO {
             if (preparedStatementInsertUser != null) {
                 try {
                     preparedStatementInsertUser.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+        }
+    }
+
+    public boolean isDishNoMore(String dishName) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(SQL_SELECT_DISHES_IS_NO_MORE);
+            preparedStatement.setString(1, dishName);
+            resultSet = preparedStatement.executeQuery();
+            return resultSet.next() ? "1".equals(resultSet.getString(1)) : false;
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
                 } catch (SQLException e) {
                     throw new DAOException(e.getMessage(), e.getCause());
                 }

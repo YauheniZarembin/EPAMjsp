@@ -19,12 +19,16 @@ public class UserListDAO {
     private final static String SQL_UPDATE_USER_BAN =
             "UPDATE cafedb.personal_info SET is_ban=? WHERE user_name=?";
 
+    private final static String SQL_SELECT_POINTS =
+            "SELECT loyalty_points FROM cafedb.personal_info WHERE user_name=?;";
+
+    private final static String SQL_UPDATE_USER_BAN_AND_POINTS=
+            "UPDATE cafedb.personal_info SET is_ban=?, loyalty_points=? WHERE user_name=?;";
+
 
     public void changeUserBan(String userName, String banString) throws DAOException {
         ProxyConnection connection = null;
         PreparedStatement preparedStatement = null;
-
-
         try {
             connection = ConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_BAN);
@@ -35,6 +39,36 @@ public class UserListDAO {
             throw new DAOException(e.getMessage(), e.getCause());
         } finally {
             if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+        }
+    }
+
+    public int findUserPoints(String userName) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(SQL_SELECT_POINTS);
+            preparedStatement.setString(1,userName);
+            resultSet = preparedStatement.executeQuery();
+            return resultSet.next() ? resultSet.getInt(1) : 0;
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (preparedStatement != null){
                 try {
                     preparedStatement.close();
                 } catch (SQLException e) {
@@ -88,5 +122,36 @@ public class UserListDAO {
             }
         }
         return usersList;
+    }
+
+    public void deleteLoyaltyPoint(String ban, int loyaltyPoints, String userName) throws DAOException {
+        ProxyConnection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_BAN_AND_POINTS);
+            preparedStatement.setString(1,ban);
+            preparedStatement.setString(2,String.valueOf(loyaltyPoints));
+            preparedStatement.setString(3,userName);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException(e.getMessage(), e.getCause());
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new DAOException(e.getMessage(), e.getCause());
+                }
+            }
+        }
+
     }
 }

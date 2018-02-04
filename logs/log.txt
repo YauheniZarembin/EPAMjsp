@@ -1,1 +1,1 @@
-2018-02-03 12:59:29,534 [main] INFO  com.zarembin.epampjsp.run.Main - Add in the basket
+2018-02-04 20:53:51,743 [main] INFO  com.zarembin.epampjsp.run.Main - Add in the basket

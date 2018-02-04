@@ -43,7 +43,7 @@ public class AddDishCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.main");
             router.setPagePath(page);
             router.setRoute(Router.RouteType.REDIRECT);
-            LOGGER.log(Level.INFO, "Add " + dish.getDishName()+ "in the basket");
+            LOGGER.log(Level.INFO, dish.getDishName()+ "  in the basket");
             return router;
         } catch (ServiceException e) {
             throw new CommandException(e.getMessage(),e.getCause());
