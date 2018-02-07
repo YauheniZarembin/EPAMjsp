@@ -21,7 +21,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.82" level="application_server_libraries" />
     <orderEntry type="library" name="mysql-connector-java-5.1.23-bin" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="log4j-core-2.9.1" level="project" />
+    <orderEntry type="library" name="log4j-api-2.9.1" level="project" />
+    <orderEntry type="library" name="javax.servlet.jsp.jstl-api-1.2.1" level="project" />
+    <orderEntry type="library" name="javax.servlet.jsp.jstl-1.2.1" level="project" />
     <orderEntry type="library" name="logconfig" level="project" />
+    <orderEntry type="library" name="testng" level="project" />
   </component>
 </module>

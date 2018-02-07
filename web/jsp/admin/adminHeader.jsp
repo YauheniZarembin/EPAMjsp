@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Евгений
-  Date: 24.01.2018
-  Time: 13:37
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,7 +19,7 @@
         <tr>
             <td colspan="2" align="center"><ctg:role user="${user}"/></td>
             <form name="localeForm23" method="POST" action="/controller">
-                <input type="hidden" name="command" value="logout"/>
+                <input type="hidden" name="command" value="log_out"/>
                 <td><a href='#' style="color: white" onClick="document.forms['localeForm23'].submit();"><fmt:message key="label.logOut" bundle="${var}"/></a></td>
             </form>
             <form name="localeForm" method="POST" action="/controller">

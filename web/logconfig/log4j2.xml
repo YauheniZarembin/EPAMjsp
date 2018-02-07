@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 	<Appenders>
-		<File name="FileLogger" fileName="logs/log.txt" append="false">
+		<File name="FileLogger" fileName="C:\Users\Евгений\IdeaProjects\EPAMjsp\web\WEB-INF\logs\log.txt" append="false">
 			<PatternLayout pattern="%d [%t] %-5p %c{5} - %m%n" />
 		</File>
 	</Appenders>

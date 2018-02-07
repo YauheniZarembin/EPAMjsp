@@ -12,7 +12,7 @@
 </head>
 <body>
 <c:if test="${!user.isAdmin()}">
-    <c:import url="/jsp/user/common/header.jsp" />
+    <c:import url="/jsp/common/header.jsp" />
 </c:if>
 <c:if test="${user.isAdmin()}">
     <c:import url="../admin/adminHeader.jsp" />
@@ -37,7 +37,7 @@
     <br/>
     <br/>
     <b>${exceptionMessage} 4</b>
-    <c:import url="/jsp/user/common/footer.jsp" />
+    <c:import url="/jsp/common/footer.jsp" />
 </div>
 </body>
 </html>

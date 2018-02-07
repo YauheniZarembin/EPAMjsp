@@ -14,7 +14,7 @@
 <div class="wrapper">
 <body>
 <header>
-    <c:import url="/jsp/user/common/header.jsp" />
+    <c:import url="/jsp/common/header.jsp" />
 </header>
 <form name="loginForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="login"/>
@@ -40,7 +40,7 @@
     </table>
 </form>
 <hr/>
-<c:import url="/jsp/user/common/footer.jsp"/>
+<c:import url="/jsp/common/footer.jsp"/>
 </body>
     </div>
 </html>

@@ -12,11 +12,11 @@
 <body>
 
 <header>
-    <c:import url="/jsp/user/common/header.jsp" />
+    <c:import url="/jsp/common/header.jsp" />
 </header>
 
 <form  name="loginForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup" />
+    <input type="hidden" name="command" value="sign_up" />
     <table align="center" class="whiteback">
         <tr>
             <td colspan="3" align="center"><b><h1><fmt:message key="label.signUpHead" bundle="${var}"/></h1></b></td>
@@ -64,5 +64,5 @@
         <br/>
     </table>
 </form>
-<c:import url="/jsp/user/common/footer.jsp" />
+<c:import url="/jsp/common/footer.jsp" />
 </body></html>

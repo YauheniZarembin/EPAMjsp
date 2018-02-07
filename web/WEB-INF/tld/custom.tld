@@ -12,19 +12,19 @@
 
     <tag>
         <name>infoTimeTag</name>
-        <tag-class>com.zarembin.epampjsp.tagcustom.InfoTimeTag</tag-class>
+        <tag-class>com.zarembin.epamjsp.tagcustom.InfoTimeTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 
     <tag>
         <name>role</name>
-        <tag-class>com.zarembin.epampjsp.tagcustom.HelloUserTag</tag-class>
+        <tag-class>com.zarembin.epamjsp.tagcustom.HelloUserTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>user</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>com.zarembin.epampjsp.entity.User</type>
+            <type>com.zarembin.epamjsp.entity.User</type>
         </attribute>
     </tag>
 

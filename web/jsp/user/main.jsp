@@ -12,9 +12,9 @@
 </head>
 <body>
 <header>
-    <c:import url="/jsp/user/common/header.jsp" />
+    <c:import url="/jsp/common/header.jsp" />
 </header>
-<c:import url="/jsp/user/common/menu.jsp"/>
+<c:import url="/jsp/common/menu.jsp"/>
 <hr/>
 <table width="100%">
     <tr>
@@ -35,7 +35,7 @@
             <c:if test="${not empty user}">
             <form name="localeForm" method="POST" action="/controller">
                 <input type="hidden" name="command" value="add_Dish"/>
-                <input type="hidden" name="choosenDish" value="${dish.dishName}"/>
+                <input type="hidden" name="chosenDish" value="${dish.dishName}"/>
                 <td><input type="submit" value="<fmt:message key="label.dishOrder" bundle="${var}"/>" ></td>
             </form>
             </c:if>
@@ -46,11 +46,11 @@
     </td>
         <c:if test="${not empty user}">
             <td valign="top" width="25%">
-                <c:import url="/jsp/user/common/order.jsp" />
+                <c:import url="/jsp/common/order.jsp" />
             </td>
         </c:if>
     </tr>
 </table>
-<c:import url="/jsp/user/common/footer.jsp" />
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

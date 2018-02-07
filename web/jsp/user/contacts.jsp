@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Евгений
-  Date: 25.01.2018
-  Time: 0:26
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,7 +13,7 @@
 </head>
 <body>
 <header class="whiteback">
-    <c:import url="/jsp/user/common/header.jsp" />
+    <c:import url="/jsp/common/header.jsp" />
 </header>
 <div class="centerTable">
     <h1><fmt:message key="label.headerContacts" bundle="${var}"/></h1>
@@ -33,19 +26,19 @@
     </p>
     <p>
         <h3><fmt:message key="label.contactTelephone" bundle="${var}"/></h3>
-        +375 (29) 210-60-57
+        <fmt:message key="label.telephone" bundle="${var}"/>
     </p>
     <p>
         <h3><fmt:message key="label.contactTime" bundle="${var}"/></h3>
-        <fmt:message key="label.contactMnFr" bundle="${var}"/> 10:00 - 22:00<br>
-        <fmt:message key="label.contactSt" bundle="${var}"/> 10:00 - 00:00<br>
+        <fmt:message key="label.contactMnFr" bundle="${var}"/><br>
+        <fmt:message key="label.contactSt" bundle="${var}"/><br>
         <fmt:message key="label.contactSn" bundle="${var}"/>
     </p>
     <p>
-        </h3>E-mail:</h3><br>
-        epam.cafe@gmail.com
+        </h3><fmt:message key="label.email" bundle="${var}"/>:</h3><br>
+        <fmt:message key="label.emailinfo" bundle="${var}"/>
     </p>
 </div>
-<c:import url="/jsp/user/common/footer.jsp" />
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>

@@ -15,7 +15,7 @@
 <header>
     <c:import url="/jsp/admin/adminHeader.jsp" />
 </header>
-<c:import url="/jsp/user/common/menu.jsp"/>
+<c:import url="/jsp/common/menu.jsp"/>
 <input type="button" value="<fmt:message key="label.newDish" bundle="${var}"/>"  onClick='location.href="/jsp/admin/adminAddDish.jsp"' class="buttonAddDish" />
 <table width="100%" float="left" class="whiteback">
     <tr>
@@ -67,6 +67,6 @@
         </c:if>
     </c:forEach>
 </table>
-<c:import url="/jsp/user/common/footer.jsp" />
+<c:import url="/jsp/common/footer.jsp" />
 </body>
 </html>
