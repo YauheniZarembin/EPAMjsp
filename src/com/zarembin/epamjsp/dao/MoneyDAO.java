@@ -2,8 +2,8 @@ package com.zarembin.epamjsp.dao;
 
 import com.zarembin.epamjsp.entity.User;
 import com.zarembin.epamjsp.exception.DAOException;
-import com.zarembin.epamjsp.proxy.ConnectionPool;
-import com.zarembin.epamjsp.proxy.ProxyConnection;
+import com.zarembin.epamjsp.pool.ConnectionPool;
+import com.zarembin.epamjsp.pool.ProxyConnection;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -12,13 +12,13 @@ import java.sql.SQLException;
 
 public class MoneyDAO {
 
-    private final static String SQL_SELECT_MONEY_FROM_CARD =
+    private static final String SQL_SELECT_MONEY_FROM_CARD =
             "SELECT amount FROM cafedb.bank_info WHERE card_number=? AND `password` = ?;";
 
-    private final static String SQL_UPDATE_USER_MONEY =
+    private static final String SQL_UPDATE_USER_MONEY =
             "UPDATE cafedb.personal_info SET money=? WHERE user_name=?;";
 
-    private final static String SQL_UPDATE_BANK_MONEY =
+    private static final String SQL_UPDATE_BANK_MONEY =
             "UPDATE cafedb.bank_info SET amount=? WHERE card_number=?;";
 
 
@@ -39,30 +39,16 @@ public class MoneyDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatement);
+            UtilDAO.closeConnection(connection);
         }
         return money;
     }
 
     public void topUpUserMoney(BigDecimal moneyBank , BigDecimal moneyUser , User user) throws DAOException {
-        BigDecimal money = null;
         ProxyConnection connection = null;
         PreparedStatement preparedStatementUpdateMoneyBank = null;
         PreparedStatement preparedStatementUpdateMoneyUser = null;
-        ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
@@ -80,32 +66,13 @@ public class MoneyDAO {
             try {
                 connection.rollback();
             } catch (SQLException e1) {
-                throw new DAOException(e.getMessage(), e);
+                throw new DAOException(e1.getMessage(), e1);
             }
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatementUpdateMoneyBank != null){
-                try {
-                    preparedStatementUpdateMoneyBank.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (preparedStatementUpdateMoneyUser != null){
-                try {
-                    preparedStatementUpdateMoneyUser.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.setAutoCommit(true);
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatementUpdateMoneyBank);
+            UtilDAO.closeStatement(preparedStatementUpdateMoneyUser);
+            UtilDAO.setAutoCommitTrueAndCloseConnection(connection);
         }
     }
 }

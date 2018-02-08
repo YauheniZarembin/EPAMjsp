@@ -21,7 +21,7 @@
     <tr>
         <td><b><fmt:message key="label.dishName" bundle="${var}"/></b></td>
         <td><b><fmt:message key="label.dishPrice" bundle="${var}"/></b></td>
-        <td><b><fmt:message key="label.changePrice" bundle="${var}"/></b></td>
+        <td><b><fmt:message key="label.changePriceMax" bundle="${var}"/></b></td>
         <td></td>
         <td><b><fmt:message key="label.dishPicture" bundle="${var}"/></b></td>
         <td><b><fmt:message key="label.changePicture" bundle="${var}"/></b></td>
@@ -38,7 +38,7 @@
                     <input type="hidden" name="command" value="edit_dish_price"/>
                     <input type="hidden" name="chosenDish" value="${dish.dishName}"/>
                     <input type="hidden" name="typeChosenDish" value="${dish.typeOfDish}"/>
-                    <input type="text" name="newPrice" value="" required pattern="\d+(\.\d+)?"/><br/>
+                    <input type="text" name="newPrice" required pattern="\d{1,6}(\.\d+)?" /><br/>
                         ${Message}<br/>
             <input type="submit" value="<fmt:message key="label.changePrice" bundle="${var}"/>" >
             </form>

@@ -3,6 +3,7 @@ package com.zarembin.epamjsp.servlet;
 import com.zarembin.epamjsp.command.ActionCommand;
 import com.zarembin.epamjsp.command.ActionFactory;
 import com.zarembin.epamjsp.exception.CommandException;
+import com.zarembin.epamjsp.pool.ConnectionPool;
 import com.zarembin.epamjsp.resource.ConfigurationManager;
 import com.zarembin.epamjsp.resource.MessageManager;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
 
 
 @WebServlet("/controller")
@@ -56,6 +58,11 @@ public class Controller extends HttpServlet {
             request.getSession().setAttribute("exceptionMessage", e.getMessage());
             request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.error")).forward(request, response);
         }
+    }
+
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().destroyPool();
     }
 }
 

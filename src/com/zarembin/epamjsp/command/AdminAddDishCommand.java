@@ -43,7 +43,7 @@ public class AdminAddDishCommand implements ActionCommand {
         MessageManager messageManager = MessageManager.defineLocale((String) request.getSession().getAttribute(PARAM_LOCALE));
 
         InputTextValidator inputTextValidator = new InputTextValidator();
-        if (inputTextValidator.isMoneyValid(dishPriceString)) {
+        if (inputTextValidator.isMoneyValid(dishPriceString) && inputTextValidator.isTextExist(dishName)) {
             try {
                 if(receiver.findDishByName(dishName) == null){
                         receiver.insertNewDish(dishName,typeOfDish,dishPriceString);

@@ -5,6 +5,10 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
            version="3.0">
     <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/user/error.jsp</location>
+    </error-page>
+    <error-page>
         <exception-type>java.lang.Exception</exception-type>
         <location>/jsp/user/error.jsp</location>
     </error-page>

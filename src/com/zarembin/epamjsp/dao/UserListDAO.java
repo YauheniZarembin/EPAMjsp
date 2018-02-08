@@ -2,8 +2,8 @@ package com.zarembin.epamjsp.dao;
 
 import com.zarembin.epamjsp.entity.User;
 import com.zarembin.epamjsp.exception.DAOException;
-import com.zarembin.epamjsp.proxy.ConnectionPool;
-import com.zarembin.epamjsp.proxy.ProxyConnection;
+import com.zarembin.epamjsp.pool.ConnectionPool;
+import com.zarembin.epamjsp.pool.ProxyConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,46 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserListDAO {
-    private final static String SQL_SELECT_USERS =
+    private static final String SQL_SELECT_USERS =
             "SELECT user_name,password,is_admin,is_ban,name,last_name,loyalty_points,money,`e-mail`,number_of_orders,card_number FROM cafedb.personal_info;";
 
-    private final static String SQL_UPDATE_USER_BAN =
+    private static final String SQL_UPDATE_USER_BAN =
             "UPDATE cafedb.personal_info SET is_ban=? WHERE user_name=?";
 
-    private final static String SQL_SELECT_POINTS =
+    private static final String SQL_SELECT_POINTS =
             "SELECT loyalty_points FROM cafedb.personal_info WHERE user_name=?;";
 
-    private final static String SQL_UPDATE_USER_BAN_AND_POINTS=
+    private static final String SQL_UPDATE_USER_BAN_AND_POINTS=
             "UPDATE cafedb.personal_info SET is_ban=?, loyalty_points=? WHERE user_name=?;";
+
+    private static final String ADMIN = "1";
+    private static final String BAN = "1";
 
 
     public void changeUserBan(String userName, String banString) throws DAOException {
-        ProxyConnection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = ConnectionPool.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(SQL_UPDATE_USER_BAN);
-            preparedStatement.setString(1,banString);
-            preparedStatement.setString(2,userName);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DAOException(e.getMessage(), e);
-        } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-        }
+        UtilDAO.changeParameter(userName,banString,SQL_UPDATE_USER_BAN);
     }
 
     public int findUserPoints(String userName) throws DAOException {
@@ -68,23 +46,10 @@ public class UserListDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatement);
+            UtilDAO.closeConnection(connection);
         }
     }
-
 
     public List<User> findAllUsers() throws DAOException {
 
@@ -98,7 +63,7 @@ public class UserListDAO {
             resultSet = statement.executeQuery(SQL_SELECT_USERS);
             while (resultSet.next()) {
                 usersList.add(new User(resultSet.getString(1), resultSet.getString(2),
-                        "1".equals(resultSet.getString(3)),"1".equals(resultSet.getString(4)),
+                        ADMIN.equals(resultSet.getString(3)),BAN.equals(resultSet.getString(4)),
                         resultSet.getString(5),resultSet.getString(6),resultSet.getInt(7),
                         resultSet.getBigDecimal(8),resultSet.getString(9),resultSet.getInt(10),
                         resultSet.getString(11)));
@@ -106,20 +71,8 @@ public class UserListDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (statement != null){
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(statement);
+            UtilDAO.closeConnection(connection);
         }
         return usersList;
     }
@@ -137,21 +90,8 @@ public class UserListDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatement);
+            UtilDAO.closeConnection(connection);
         }
-
     }
 }

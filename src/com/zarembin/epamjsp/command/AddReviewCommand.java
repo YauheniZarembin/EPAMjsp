@@ -1,5 +1,6 @@
 package com.zarembin.epamjsp.command;
 
+import com.zarembin.epamjsp.dao.UtilDAO;
 import com.zarembin.epamjsp.entity.User;
 import com.zarembin.epamjsp.exception.CommandException;
 import com.zarembin.epamjsp.exception.ServiceException;
@@ -45,7 +46,7 @@ public class AddReviewCommand implements ActionCommand {
         request.getSession().setAttribute(PARAM_ERROR_MESSAGE,null);
 
         try {
-            if(inputTextValidator.isCommentValid(textReview)) {
+            if(inputTextValidator.isTextExist(textReview)) {
                 receiver.insertReview(userName, mark, textReview);
                 LOGGER.log(Level.INFO,"Adding new review");
             }

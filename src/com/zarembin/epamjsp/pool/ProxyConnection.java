@@ -1,4 +1,4 @@
-package com.zarembin.epamjsp.proxy;
+package com.zarembin.epamjsp.pool;
 
 import java.sql.*;
 import java.util.Map;

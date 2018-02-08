@@ -1,9 +1,9 @@
-package com.zarembin.epamjsp.proxy;
+package com.zarembin.epamjsp.pool;
 
-import com.zarembin.epamjsp.util.ConnectionDB;
-
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
@@ -39,7 +39,6 @@ public class ConnectionPool {
         return instance;
     }
 
-    ///////////// иииспраивть
     private ConnectionPool() throws SQLException {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
@@ -73,10 +72,28 @@ public class ConnectionPool {
     }
 
 
-    public void destroyConnection() throws InterruptedException, SQLException {
-        for (int i=0; i<POOL_SIZE; i++){
-            ProxyConnection connection = connectionQueue.take();
-            connection.closeConnection();
+    public void destroyPool() {
+        try {
+            for (int i = 0; i < POOL_SIZE; i++) {
+                ProxyConnection connection;
+                connection = connectionQueue.take();
+                connection.closeConnection();
+            }
+        } catch (InterruptedException | SQLException e) {
+            LOGGER.log(Level.ERROR, e.getMessage());
+        }
+        deregisterDriver();
+    }
+
+    private void deregisterDriver() {
+        Enumeration<Driver> enumDrivers = DriverManager.getDrivers();
+        try {
+            while (enumDrivers.hasMoreElements()) {
+                Driver driver = enumDrivers.nextElement();
+                DriverManager.deregisterDriver(driver);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.ERROR, e.getMessage());
         }
     }
 }

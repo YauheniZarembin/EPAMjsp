@@ -23,22 +23,7 @@ public class Main {
         InputTextValidator inputTextValidator = new InputTextValidator();
         System.out.println(inputTextValidator.isEmailValid(email));
 
-        System.out.println(TypeOfDish.valueOf("SOUP"));
-        System.out.println(TypeOfDish.valueOf("BASIC"));
-
-
-        BigDecimal a = new BigDecimal("2.5"); // цифра слева от 5 чётная, поэтому округление вниз
-
-        BigDecimal b = new BigDecimal("1.5"); // цифра слева от 5 нечётная, поэтому округление вверх
-
-        a.setScale(3, BigDecimal.ROUND_HALF_EVEN).toString(); // => 2
-
-        b.setScale(3, BigDecimal.ROUND_HALF_EVEN).toString(); // => 2
-
-        System.out.println(a);
-        System.out.println(b);
-
-
+        System.out.println(inputTextValidator.isMoneyValid("32233.34"));
 
     }
 }

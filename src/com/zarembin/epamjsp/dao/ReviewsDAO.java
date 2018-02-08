@@ -2,8 +2,8 @@ package com.zarembin.epamjsp.dao;
 
 import com.zarembin.epamjsp.entity.Review;
 import com.zarembin.epamjsp.exception.DAOException;
-import com.zarembin.epamjsp.proxy.ConnectionPool;
-import com.zarembin.epamjsp.proxy.ProxyConnection;
+import com.zarembin.epamjsp.pool.ConnectionPool;
+import com.zarembin.epamjsp.pool.ProxyConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,13 +14,13 @@ import java.util.List;
 
 public class ReviewsDAO {
 
-    private final static String SQL_SELECT_REVIEWS =
+    private static final String SQL_SELECT_REVIEWS =
             "SELECT id_review, user_name, mark, text_review FROM cafedb.reviews;";
 
-    private final static String SQL_INSERT_REVIEW =
+    private static final String SQL_INSERT_REVIEW =
             "INSERT INTO cafedb.reviews (user_name, mark, text_review) VALUES (?, ?, ?);";
 
-    private final static String SQL_DELETE_REVIEW =
+    private static final String SQL_DELETE_REVIEW =
             "DELETE FROM cafedb.reviews WHERE id_review=?;";
 
 
@@ -40,20 +40,8 @@ public class ReviewsDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (statement != null){
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(statement);
+            UtilDAO.closeConnection(connection);
         }
         return reviewsList;
     }
@@ -65,28 +53,15 @@ public class ReviewsDAO {
             connection = ConnectionPool.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(SQL_INSERT_REVIEW);
             preparedStatement.setString(1, userName);
-            preparedStatement.setString(2, String.valueOf(mark));
+            preparedStatement.setString(2, Integer.toString(mark));
             preparedStatement.setString(3, textReview);
-
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatement);
+            UtilDAO.closeConnection(connection);
         }
     }
 
@@ -101,20 +76,8 @@ public class ReviewsDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatement!= null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatement);
+            UtilDAO.closeConnection(connection);
         }
     }
 }

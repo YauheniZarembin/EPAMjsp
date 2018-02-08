@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <td><fmt:message key="label.addingName" bundle="${var}"/></td>
-            <td><input type="text" name="dishName" /></td>
+            <td><input type="text" name="dishName" required pattern=".*\S.*"/></td>
         </tr>
         <tr>
             <td ><fmt:message key="label.addingDishType" bundle="${var}"/></td>
@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td><fmt:message key="label.addingDishPrice" bundle="${var}"/></td>
-            <td><input type="text" name="dishPrice" value="" required pattern="\d+(\.\d+)?"/></td>
+            <td><input type="text" name="dishPrice" value="" required pattern="\d{1,6}(\.\d+)?"/></td>
         </tr>
         <tr>
             <td colspan="3" align="center" ><b>${errorMessage}</b></td>

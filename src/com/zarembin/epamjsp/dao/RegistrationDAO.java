@@ -1,8 +1,8 @@
 package com.zarembin.epamjsp.dao;
 
 import com.zarembin.epamjsp.exception.DAOException;
-import com.zarembin.epamjsp.proxy.ConnectionPool;
-import com.zarembin.epamjsp.proxy.ProxyConnection;
+import com.zarembin.epamjsp.pool.ConnectionPool;
+import com.zarembin.epamjsp.pool.ProxyConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,13 +10,13 @@ import java.sql.SQLException;
 
 public class RegistrationDAO {
 
-    private final static String SQL_CHECK_CARD_NUMBER =
+    private static final String SQL_CHECK_CARD_NUMBER =
             "SELECT card_number FROM cafedb.bank_info where card_number=? AND password=?;";
 
-    private final static String SQL_CHECK_USER_NAME =
+    private static final String SQL_CHECK_USER_NAME =
             "SELECT user_name FROM cafedb.personal_info where user_name=?";
 
-    private final static String SQL_INSERT_USER =
+    private static final String SQL_INSERT_USER =
             "INSERT INTO `cafedb`.`personal_info` (user_name, password, is_admin, is_ban, `name`, last_name, loyalty_points, money, `e-mail`,number_of_orders, card_number) VALUES (?, ?, 0, 0, ?, ?, 0, 0, ?, 0, ?)";
 
 
@@ -26,7 +26,6 @@ public class RegistrationDAO {
         ResultSet resultSet;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-
             preparedStatementCheckUserName = connection.prepareStatement(SQL_CHECK_USER_NAME);
             preparedStatementCheckUserName.setString(1, userName);
             resultSet = preparedStatementCheckUserName.executeQuery();
@@ -35,20 +34,8 @@ public class RegistrationDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatementCheckUserName != null) {
-                try {
-                    preparedStatementCheckUserName.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatementCheckUserName);
+            UtilDAO.closeConnection(connection);
         }
     }
 
@@ -62,26 +49,13 @@ public class RegistrationDAO {
             preparedStatementCheckCard.setString(1, cardNumber);
             preparedStatementCheckCard.setString(2, cardPassword);
             resultSet = preparedStatementCheckCard.executeQuery();
-
             return resultSet.next();
 
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatementCheckCard != null) {
-                try {
-                    preparedStatementCheckCard.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatementCheckCard);
+            UtilDAO.closeConnection(connection);
         }
     }
 
@@ -103,20 +77,8 @@ public class RegistrationDAO {
         } catch (SQLException e) {
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatementInsertUser != null) {
-                try {
-                    preparedStatementInsertUser.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatementInsertUser);
+            UtilDAO.closeConnection(connection);
         }
     }
 }

@@ -3,8 +3,8 @@ package com.zarembin.epamjsp.dao;
 import com.zarembin.epamjsp.entity.Dish;
 import com.zarembin.epamjsp.entity.Order;
 import com.zarembin.epamjsp.exception.DAOException;
-import com.zarembin.epamjsp.proxy.ConnectionPool;
-import com.zarembin.epamjsp.proxy.ProxyConnection;
+import com.zarembin.epamjsp.pool.ConnectionPool;
+import com.zarembin.epamjsp.pool.ProxyConnection;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -13,17 +13,20 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class OrderingDAO {
-    private final static String SQL_UPDATE_USER_AFTER_ORDER =
+    private static final String SQL_UPDATE_USER_AFTER_ORDER =
             "UPDATE cafedb.personal_info SET loyalty_points=?, money=?, number_of_orders=? WHERE user_name=?;";
 
-    private final static String SQL_INSERT_ORDER =
+    private static final String SQL_INSERT_ORDER =
             "INSERT INTO `cafedb`.`orders` (`user_name`, `date_of_receiving`, `is_cash_payment`) VALUES (?, ?, ?);";
 
-    private final static String SQL_SELECT_ORDER_ID =
+    private static final String SQL_SELECT_ORDER_ID =
             "SELECT id_order FROM cafedb.orders WHERE user_name=? AND date_of_receiving=?;";
 
-    private final static String SQL_INSERT_PREPARING_DISHES =
+    private static final String SQL_INSERT_PREPARING_DISHES =
             "INSERT INTO `cafedb`.`preparing_dishes` (`id_order`, `dish_name`, `number_of_servings`) VALUES (?, ?, ?);";
+
+    private static final String CASH_PAYMENT = "1";
+    private static final String NOT_CASH_PAYMENT = "0";
 
     public void makeOrder(BigDecimal money, int loyaltyPoints, int orderAmout, Order order) throws DAOException {
 
@@ -31,7 +34,7 @@ public class OrderingDAO {
         ProxyConnection connection = null;
         PreparedStatement preparedStatementUpdateUser = null;
         PreparedStatement preparedStatementInsertOrder = null;
-        PreparedStatement preparedStatementSelectOrderId = null;
+        PreparedStatement preparedStatementSelectOrderId;
         PreparedStatement preparedStatementInsertPreparingDishes = null;
         try {
 
@@ -47,11 +50,8 @@ public class OrderingDAO {
             preparedStatementInsertOrder = connection.prepareStatement(SQL_INSERT_ORDER);
             preparedStatementInsertOrder.setString(1, order.getUserName());
             preparedStatementInsertOrder.setString(2, order.getDateOfReceiving().toString());
-            if (order.isCashPayment()) {
-                preparedStatementInsertOrder.setString(3, "1");
-            } else {
-                preparedStatementInsertOrder.setString(3, "0");
-            }
+            preparedStatementInsertOrder.setString(3, order.isCashPayment() ? CASH_PAYMENT : NOT_CASH_PAYMENT);
+
             preparedStatementInsertOrder.executeUpdate();
 
             preparedStatementSelectOrderId = connection.prepareStatement(SQL_SELECT_ORDER_ID);
@@ -75,39 +75,14 @@ public class OrderingDAO {
             try {
                 connection.rollback();
             } catch (SQLException e1) {
-                throw new DAOException(e.getMessage(), e);
+                throw new DAOException(e1.getMessage(), e1);
             }
             throw new DAOException(e.getMessage(), e);
         } finally {
-            if (preparedStatementUpdateUser != null) {
-                try {
-                    preparedStatementUpdateUser.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (preparedStatementInsertOrder != null) {
-                try {
-                    preparedStatementInsertOrder.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (preparedStatementInsertPreparingDishes != null) {
-                try {
-                    preparedStatementInsertPreparingDishes.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.setAutoCommit(true);
-                    connection.close();
-                } catch (SQLException e) {
-                    throw new DAOException(e.getMessage(), e);
-                }
-            }
+            UtilDAO.closeStatement(preparedStatementUpdateUser);
+            UtilDAO.closeStatement(preparedStatementInsertOrder);
+            UtilDAO.closeStatement(preparedStatementInsertPreparingDishes);
+            UtilDAO.setAutoCommitTrueAndCloseConnection(connection);
         }
     }
 }
