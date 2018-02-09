@@ -6,11 +6,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionDB {
-    private static String url = "jdbc:mysql://localhost:3306/cafedb?autoReconnect=true&useSSL=false";
-    private static String userName="root";
-    private static String userPassword="2106057ZEa";
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection(String url , String userName, String userPassword ) throws SQLException {
         Properties properties = new Properties();
         properties.put("user", userName);
         properties.put("password", userPassword);

@@ -49,13 +49,12 @@ public class Controller extends HttpServlet {
                 }
             } else {
                 String page = ConfigurationManager.getProperty("path.page.index");
-                request.getSession().setAttribute("nullPage",
+                request.setAttribute("nullPage",
                         messageManager.getMessage("message.nullPage"));
                 response.sendRedirect(request.getContextPath() + page);
             }
         } catch (CommandException e) {
-            //request.getSession().setAttribute("exceptionCause", e.getCause().toString());
-            request.getSession().setAttribute("exceptionMessage", e.getMessage());
+            request.setAttribute("exceptionMessage", e.getMessage());
             request.getRequestDispatcher(ConfigurationManager.getProperty("path.page.error")).forward(request, response);
         }
     }

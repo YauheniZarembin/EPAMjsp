@@ -1,0 +1,15 @@
+2018-02-10 02:09:24,288 [http-bio-8080-exec-10] INFO  com.zarembin.epamjsp.command.LoginCommand - hurinovich log in
+2018-02-10 02:09:38,548 [http-bio-8080-exec-8] INFO  com.zarembin.epamjsp.command.AddDishCommand - Adding in the basket
+2018-02-10 02:09:40,809 [http-bio-8080-exec-8] INFO  com.zarembin.epamjsp.command.DeleteDishCommand - Deleting from basket
+2018-02-10 02:09:44,215 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.AddDishCommand - Adding in the basket
+2018-02-10 02:09:44,894 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.AddDishCommand - Adding in the basket
+2018-02-10 02:09:45,398 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.AddDishCommand - Adding in the basket
+2018-02-10 02:09:45,830 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.AddDishCommand - Adding in the basket
+2018-02-10 02:09:47,940 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.AddDishCommand - Adding in the basket
+2018-02-10 02:09:51,014 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.DeleteDishCommand - Deleting from basket
+2018-02-10 02:09:51,794 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.DeleteDishCommand - Deleting from basket
+2018-02-10 02:09:52,282 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.DeleteDishCommand - Deleting from basket
+2018-02-10 02:09:53,621 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.DeleteDishCommand - Deleting from basket
+2018-02-10 02:09:55,980 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.DeleteDishCommand - Deleting from basket
+2018-02-10 02:09:57,444 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.I18nCommand - Changing language
+2018-02-10 02:09:58,936 [http-bio-8080-exec-9] INFO  com.zarembin.epamjsp.command.LogoutCommand - hurinovich log out

@@ -18,6 +18,8 @@
     <c:import url="../admin/adminHeader.jsp" />
 </c:if>
 <div class="whiteback" style="font-size: 21px">
+    <h1>Error page</h1>
+    <c:if test="${not empty pageContext.errorData.servletName}">
     <b>Request from ${pageContext.errorData.requestURI} is failed</b>
     <br/>
     <br/>
@@ -30,13 +32,10 @@
     <b>Exception:</b> ${pageContext.errorData.throwable}
     <br/>
     <br/>
-    <b>${wrongAction} 1</b>
+    </c:if>
+    <b>${wrongAction} </b>
     <br/>
-    <br/>
-    <b>${exceptionCause} 3</b>
-    <br/>
-    <br/>
-    <b>${exceptionMessage} 4</b>
+    <b>${exceptionMessage} </b>
     <c:import url="/jsp/common/footer.jsp" />
 </div>
 </body>

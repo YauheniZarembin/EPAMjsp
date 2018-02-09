@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 public class ConnectionPool {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private static final String URL = "jdbc:mysql://localhost:3306/cafedb?autoReconnect=true&useSSL=false";
+    private static final String USER_NAME="root";
+    private static final String USER_PASSWORD ="2106057ZEa";
 
     private ArrayBlockingQueue<ProxyConnection> connectionQueue;
     private final int POOL_SIZE = 20;
@@ -43,7 +46,7 @@ public class ConnectionPool {
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         connectionQueue = new ArrayBlockingQueue<>(POOL_SIZE);
         for (int i = 0; i < POOL_SIZE; i++) {
-            ProxyConnection connection = new ProxyConnection(ConnectionDB.getConnection());
+            ProxyConnection connection = new ProxyConnection(ConnectionDB.getConnection(URL,USER_NAME,USER_PASSWORD));
             connectionQueue.offer(connection);
         }
     }
